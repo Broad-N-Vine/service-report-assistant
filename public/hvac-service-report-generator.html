@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>HVAC Service Report Generator | HVAC/R Paperwork Assistant</title>
+  <meta
+    name="description"
+    content="Paste rough HVAC technician notes and generate a clean service report, invoice description, customer follow-up message, and internal job summary."
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html">HVAC AI Helper</a>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="tools.html">Tools</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-title">
+      <p class="eyebrow">Free HVAC/R AI Tool</p>
+
+      <h1>HVAC Service Report Generator</h1>
+
+      <p class="promise">
+        Turn messy HVAC technician notes into clean service paperwork.
+      </p>
+
+      <p class="note">
+        Paste rough notes from a service call and create a customer-ready service report,
+        invoice description, customer follow-up message, and internal job summary.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Enter the job details</h2>
+
+      <p>
+        Use the form below to organize rough technician notes into cleaner wording.
+        This first version is a page-and-form demo. The next technical step is connecting
+        it securely to GPT through a backend function.
+      </p>
+
+      <form id="service-report-form" class="tool-form">
+        <div class="form-group">
+          <label for="company-name">Company name</label>
+          <input
+            type="text"
+            id="company-name"
+            name="companyName"
+            placeholder="Example: Smith Heating & Cooling"
+          />
+          <p class="field-help">Optional. This can be used in the customer follow-up message.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="job-type">Job type</label>
+          <select id="job-type" name="jobType" required>
+            <option value="">Select one</option>
+            <option value="AC repair">AC repair</option>
+            <option value="Furnace repair">Furnace repair</option>
+            <option value="Maintenance tune-up">Maintenance tune-up</option>
+            <option value="Commercial refrigeration">Commercial refrigeration</option>
+            <option value="Diagnostic visit">Diagnostic visit</option>
+            <option value="Other HVAC/R service">Other HVAC/R service</option>
+          </select>
+          <p class="field-help">Required. Choose the type of service call.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="technician-notes">Technician notes</label>
+          <textarea
+            id="technician-notes"
+            name="technicianNotes"
+            rows="8"
+            required
+            placeholder="Example: Customer said AC was running but not cooling. Found weak capacitor. Replaced capacitor. Filter clogged. Checked pressures. System cooling with 18-degree temperature split. Recommended coil cleaning."
+          ></textarea>
+          <p class="field-help">
+            Required. Paste the rough notes from the technician here.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="tone">Tone</label>
+          <select id="tone" name="tone" required>
+            <option value="">Select one</option>
+            <option value="Professional">Professional</option>
+            <option value="Friendly">Friendly</option>
+            <option value="Simple">Simple</option>
+            <option value="Detailed">Detailed</option>
+          </select>
+          <p class="field-help">Required. Choose how the result should sound.</p>
+        </div>
+
+        <button type="submit" class="button">
+          Generate Service Report
+        </button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Generated Result</h2>
+
+      <div id="result-box" class="result-box">
+        <p>
+          Your generated service report will appear here after you submit the form.
+        </p>
+      </div>
+
+      <p class="review-note">
+        Reminder: AI-generated text should always be reviewed before sending it to a customer.
+        Confirm prices, warranties, safety claims, model numbers, and final recommendations yourself.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Example technician notes</h2>
+
+      <p>
+        Not sure what to paste? Here is an example:
+      </p>
+
+      <pre class="example-box">Customer said AC was running but not cooling. Found weak capacitor. Replaced capacitor. Checked pressures. Filter clogged. System cooling with 18-degree temperature split. Recommended filter replacement and coil cleaning. Customer declined coil cleaning today.</pre>
+    </section>
+
+    <section class="card">
+      <h2>What this tool creates</h2>
+
+      <ul>
+        <li>Customer-ready service report</li>
+        <li>Invoice description</li>
+        <li>Customer follow-up message</li>
+        <li>Internal job summary</li>
+        <li>Missing information or review notes</li>
+      </ul>
+
+      <p>
+        This tool is designed to help HVAC/R service companies clean up field notes before
+        adding them to Jobber, Housecall Pro, QuickBooks, ServiceTitan, or another office system.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        &copy; 2026 HVAC AI Helper. AI outputs should be reviewed before sending to customers.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById("service-report-form");
+    const resultBox = document.getElementById("result-box");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const companyName = document.getElementById("company-name").value.trim();
+      const jobType = document.getElementById("job-type").value;
+      const technicianNotes = document.getElementById("technician-notes").value.trim();
+      const tone = document.getElementById("tone").value;
+
+      if (!jobType || !technicianNotes || !tone) {
+        resultBox.innerHTML = `
+          <p><strong>Please complete the required fields:</strong> job type, technician notes, and tone.</p>
+        `;
+        return;
+      }
+
+      const displayCompany = companyName || "Your company";
+
+      resultBox.innerHTML = `
+        <div class="generated-output">
+          <h3>Demo Result</h3>
+
+          <p>
+            <strong>Important:</strong> This is a front-end demo result. The next technical step is connecting this form to GPT through a secure Cloudflare backend function.
+          </p>
+
+          <h4>1. Customer-Ready Service Report</h4>
+          <p>
+            ${displayCompany} completed a ${jobType.toLowerCase()} visit. Based on the technician notes provided, the service included reviewing the reported issue, checking the system, and documenting the work or recommendations listed by the technician.
+          </p>
+
+          <h4>2. Invoice Description</h4>
+          <p>
+            Performed ${jobType.toLowerCase()} service. Reviewed technician notes and documented completed work, findings, and recommended next steps.
+          </p>
+
+          <h4>3. Customer Follow-Up Message</h4>
+          <p>
+            Thank you for having us out today. We completed your ${jobType.toLowerCase()} visit and documented the service notes for your records. Please contact us if you would like to review the recommended next steps.
+          </p>
+
+          <h4>4. Internal Job Summary</h4>
+          <p>
+            Job type: ${jobType}. Preferred tone: ${tone}. Technician notes were entered and are ready to be processed by the final AI version of this tool.
+          </p>
+
+          <h4>5. Missing Information or Review Notes</h4>
+          <p>
+            Review all details before sending to a customer. Confirm parts, pricing, warranty details, safety claims, model numbers, and final recommendations.
+          </p>
+
+          <h4>Original Technician Notes</h4>
+          <p>${technicianNotes}</p>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
