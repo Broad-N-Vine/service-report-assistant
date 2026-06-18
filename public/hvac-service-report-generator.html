@@ -48,8 +48,8 @@
 
       <p>
         Use the form below to organize rough technician notes into cleaner wording.
-        This first version is a page-and-form demo. The next technical step is connecting
-        it securely to GPT through a backend function.
+        This first version gives a preview result. Enter your email after the preview
+        to unlock the full result and get more free HVAC/R paperwork templates.
       </p>
 
       <form id="service-report-form" class="tool-form">
@@ -105,17 +105,17 @@
         </div>
 
         <button type="submit" class="button">
-          Generate Service Report
+          Generate Preview
         </button>
       </form>
     </section>
 
     <section class="card">
-      <h2>Generated Result</h2>
+      <h2>Generated Preview</h2>
 
       <div id="result-box" class="result-box">
         <p>
-          Your generated service report will appear here after you submit the form.
+          Your preview will appear here after you submit the form.
         </p>
       </div>
 
@@ -123,6 +123,87 @@
         Reminder: AI-generated text should always be reviewed before sending it to a customer.
         Confirm prices, warranties, safety claims, model numbers, and final recommendations yourself.
       </p>
+    </section>
+
+    <section id="email-capture-section" class="card email-capture-card hidden">
+      <h2>Unlock the full result</h2>
+
+      <p>
+        Enter your email to unlock the full service report format and get more free HVAC/R paperwork templates.
+      </p>
+
+      <p class="field-help">
+        No spam. You can unsubscribe from future emails when email follow-up is added.
+      </p>
+
+      <form
+        id="email-capture-form"
+        class="tool-form"
+        action="https://formspree.io/f/mqeoookv"
+        method="POST"
+      >
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
+
+        <input type="hidden" name="niche" value="HVAC/R service companies" />
+        <input type="hidden" name="tool" value="HVAC Service Report Generator" />
+        <input type="hidden" name="source_page" value="hvac-service-report-generator.html" />
+
+        <input type="hidden" id="captured-company-name" name="company_name" />
+        <input type="hidden" id="captured-job-type" name="job_type" />
+        <input type="hidden" id="captured-tone" name="tone" />
+
+        <button type="submit" class="button">
+          Unlock Full Result
+        </button>
+      </form>
+
+      <div id="email-success-message" class="success-message hidden">
+        <h3>Thanks — your email was received.</h3>
+        <p>
+          Your full result format is now shown below. Review all wording before sending anything to a customer.
+        </p>
+      </div>
+    </section>
+
+    <section id="full-result-section" class="card hidden">
+      <h2>Full Result Format</h2>
+
+      <div class="result-box">
+        <h3>1. Customer-Ready Service Report</h3>
+        <p>
+          Use this section to explain what was found, what work was completed,
+          and what the customer should know next.
+        </p>
+
+        <h3>2. Invoice Description</h3>
+        <p>
+          Use this section for 1 to 3 short lines that can be pasted into invoice software.
+        </p>
+
+        <h3>3. Customer Follow-Up Message</h3>
+        <p>
+          Use this section as a short text or email message after the service visit.
+        </p>
+
+        <h3>4. Internal Job Summary</h3>
+        <p>
+          Use this section for office records, technician notes, or admin cleanup.
+        </p>
+
+        <h3>5. Missing Information or Review Notes</h3>
+        <p>
+          Use this section to list anything that should be confirmed before sending the result.
+        </p>
+      </div>
     </section>
 
     <section class="card">
@@ -162,10 +243,18 @@
   </footer>
 
   <script>
-    const form = document.getElementById("service-report-form");
+    const toolForm = document.getElementById("service-report-form");
     const resultBox = document.getElementById("result-box");
+    const emailCaptureSection = document.getElementById("email-capture-section");
+    const emailCaptureForm = document.getElementById("email-capture-form");
+    const emailSuccessMessage = document.getElementById("email-success-message");
+    const fullResultSection = document.getElementById("full-result-section");
 
-    form.addEventListener("submit", function (event) {
+    const capturedCompanyName = document.getElementById("captured-company-name");
+    const capturedJobType = document.getElementById("captured-job-type");
+    const capturedTone = document.getElementById("captured-tone");
+
+    toolForm.addEventListener("submit", function (event) {
       event.preventDefault();
 
       const companyName = document.getElementById("company-name").value.trim();
@@ -182,43 +271,70 @@
 
       const displayCompany = companyName || "Your company";
 
+      capturedCompanyName.value = companyName;
+      capturedJobType.value = jobType;
+      capturedTone.value = tone;
+
       resultBox.innerHTML = `
         <div class="generated-output">
-          <h3>Demo Result</h3>
+          <h3>Preview Result</h3>
 
           <p>
-            <strong>Important:</strong> This is a front-end demo result. The next technical step is connecting this form to GPT through a secure Cloudflare backend function.
+            <strong>Company:</strong> ${displayCompany}
           </p>
 
-          <h4>1. Customer-Ready Service Report</h4>
           <p>
-            ${displayCompany} completed a ${jobType.toLowerCase()} visit. Based on the technician notes provided, the service included reviewing the reported issue, checking the system, and documenting the work or recommendations listed by the technician.
+            <strong>Job type:</strong> ${jobType}
           </p>
 
-          <h4>2. Invoice Description</h4>
+          <h4>Customer-Ready Preview</h4>
           <p>
-            Performed ${jobType.toLowerCase()} service. Reviewed technician notes and documented completed work, findings, and recommended next steps.
+            Based on the technician notes provided, this ${jobType.toLowerCase()} visit can be turned into a cleaner service report, invoice description, follow-up message, and internal job summary.
           </p>
 
-          <h4>3. Customer Follow-Up Message</h4>
+          <h4>Preview Invoice Line</h4>
           <p>
-            Thank you for having us out today. We completed your ${jobType.toLowerCase()} visit and documented the service notes for your records. Please contact us if you would like to review the recommended next steps.
-          </p>
-
-          <h4>4. Internal Job Summary</h4>
-          <p>
-            Job type: ${jobType}. Preferred tone: ${tone}. Technician notes were entered and are ready to be processed by the final AI version of this tool.
-          </p>
-
-          <h4>5. Missing Information or Review Notes</h4>
-          <p>
-            Review all details before sending to a customer. Confirm parts, pricing, warranty details, safety claims, model numbers, and final recommendations.
+            Performed ${jobType.toLowerCase()} service and documented technician findings, completed work, and recommended next steps.
           </p>
 
           <h4>Original Technician Notes</h4>
           <p>${technicianNotes}</p>
+
+          <p>
+            <strong>Next step:</strong> Enter your email below to unlock the full result format and get more free HVAC/R paperwork templates.
+          </p>
         </div>
       `;
+
+      emailCaptureSection.classList.remove("hidden");
+      emailCaptureSection.scrollIntoView({ behavior: "smooth" });
+    });
+
+    emailCaptureForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      const formData = new FormData(emailCaptureForm);
+
+      try {
+        const response = await fetch(emailCaptureForm.action, {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        if (response.ok) {
+          emailCaptureForm.classList.add("hidden");
+          emailSuccessMessage.classList.remove("hidden");
+          fullResultSection.classList.remove("hidden");
+          fullResultSection.scrollIntoView({ behavior: "smooth" });
+        } else {
+          alert("There was a problem submitting your email. Please check the email address and try again.");
+        }
+      } catch (error) {
+        alert("There was a problem submitting your email. Please try again.");
+      }
     });
   </script>
 </body>
