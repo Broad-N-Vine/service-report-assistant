@@ -11,6 +11,19 @@
   />
 
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- MailerLite universal script goes below this line.
+       Paste the script MailerLite gives you.
+       Do not paste a private API key here. -->
+  <!-- <!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2375620');
+</script>
+<!-- End MailerLite Universal -->
 </head>
 
 <body>
@@ -49,7 +62,7 @@
       <p>
         Use the form below to organize rough technician notes into cleaner wording.
         This first version gives a preview result. Enter your email after the preview
-        to unlock the full result and get more free HVAC/R paperwork templates.
+        to unlock the full result format and get more free HVAC/R paperwork templates.
       </p>
 
       <form id="service-report-form" class="tool-form">
@@ -133,45 +146,33 @@
       </p>
 
       <p class="field-help">
-        No spam. You can unsubscribe from future emails when email follow-up is added.
+        By signing up, you agree to receive helpful HVAC/R paperwork tips and templates.
+        You can unsubscribe from future emails.
       </p>
 
-      <form
-        id="email-capture-form"
-        class="tool-form"
-        action="https://formspree.io/f/mqeoookv"
-        method="POST"
-      >
-        <div class="form-group">
-          <label for="email">Email address</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="you@example.com"
-            required
-          />
-        </div>
-
-        <input type="hidden" name="niche" value="HVAC/R service companies" />
-        <input type="hidden" name="tool" value="HVAC Service Report Generator" />
-        <input type="hidden" name="source_page" value="hvac-service-report-generator.html" />
-
-        <input type="hidden" id="captured-company-name" name="company_name" />
-        <input type="hidden" id="captured-job-type" name="job_type" />
-        <input type="hidden" id="captured-tone" name="tone" />
-
-        <button type="submit" class="button">
-          Unlock Full Result
-        </button>
-      </form>
-
-      <div id="email-success-message" class="success-message hidden">
-        <h3>Thanks — your email was received.</h3>
-        <p>
-          Your full result format is now shown below. Review all wording before sending anything to a customer.
-        </p>
+      <div class="mailerlite-form-wrapper">
+        <!-- Paste the MailerLite form div below this line.
+             Example format:
+             <div class="ml-embedded" data-form="ABC123"></div>
+        -->
+        <!-- <!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2375620');
+</script>
+<!-- End MailerLite Universal -->
       </div>
+
+      <button id="show-full-result-button" class="button secondary" type="button">
+        I signed up — show the full result format
+      </button>
+
+      <p class="field-help">
+        If the form does not appear, refresh the page or check that the MailerLite embed code was pasted correctly.
+      </p>
     </section>
 
     <section id="full-result-section" class="card hidden">
@@ -246,13 +247,8 @@
     const toolForm = document.getElementById("service-report-form");
     const resultBox = document.getElementById("result-box");
     const emailCaptureSection = document.getElementById("email-capture-section");
-    const emailCaptureForm = document.getElementById("email-capture-form");
-    const emailSuccessMessage = document.getElementById("email-success-message");
     const fullResultSection = document.getElementById("full-result-section");
-
-    const capturedCompanyName = document.getElementById("captured-company-name");
-    const capturedJobType = document.getElementById("captured-job-type");
-    const capturedTone = document.getElementById("captured-tone");
+    const showFullResultButton = document.getElementById("show-full-result-button");
 
     toolForm.addEventListener("submit", function (event) {
       event.preventDefault();
@@ -270,10 +266,6 @@
       }
 
       const displayCompany = companyName || "Your company";
-
-      capturedCompanyName.value = companyName;
-      capturedJobType.value = jobType;
-      capturedTone.value = tone;
 
       resultBox.innerHTML = `
         <div class="generated-output">
@@ -310,31 +302,9 @@
       emailCaptureSection.scrollIntoView({ behavior: "smooth" });
     });
 
-    emailCaptureForm.addEventListener("submit", async function (event) {
-      event.preventDefault();
-
-      const formData = new FormData(emailCaptureForm);
-
-      try {
-        const response = await fetch(emailCaptureForm.action, {
-          method: "POST",
-          body: formData,
-          headers: {
-            "Accept": "application/json"
-          }
-        });
-
-        if (response.ok) {
-          emailCaptureForm.classList.add("hidden");
-          emailSuccessMessage.classList.remove("hidden");
-          fullResultSection.classList.remove("hidden");
-          fullResultSection.scrollIntoView({ behavior: "smooth" });
-        } else {
-          alert("There was a problem submitting your email. Please check the email address and try again.");
-        }
-      } catch (error) {
-        alert("There was a problem submitting your email. Please try again.");
-      }
+    showFullResultButton.addEventListener("click", function () {
+      fullResultSection.classList.remove("hidden");
+      fullResultSection.scrollIntoView({ behavior: "smooth" });
     });
   </script>
 </body>
