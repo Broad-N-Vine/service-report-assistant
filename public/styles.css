@@ -194,3 +194,28 @@ h1 {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
 }
+.email-capture-card {
+  border: 2px solid #c7d2fe;
+}
+
+.hidden {
+  display: none;
+}
+
+.success-message {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 18px;
+}
+
+.success-message h3 {
+  margin-top: 0;
+}
+
+.generated-output h3,
+.generated-output h4 {
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
