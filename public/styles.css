@@ -271,3 +271,34 @@ button[disabled] {
     grid-template-columns: 1fr;
   }
 }
+.resource-decision-guide {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid #dbe3f0;
+}
+
+.resource-decision-guide h3 {
+  margin-top: 0;
+}
+
+.decision-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.decision-item {
+  background: #ffffff;
+  border: 1px solid #dbe3f0;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.decision-item h4 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.decision-item p {
+  margin-bottom: 0;
+}
