@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>HVAC Estimate Description Generator | HVAC/R AI Tool</title>
+  <meta
+    name="description"
+    content="Create clear HVAC/R estimate descriptions from rough technician notes for repairs, replacements, maintenance recommendations, and customer quotes."
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2375620');
+</script>
+<!-- End MailerLite Universal -->
+
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html">HVAC AI Helper</a>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="tools.html">Tools</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-title">
+      <p class="eyebrow">Free HVAC/R AI Tool</p>
+
+      <h1>HVAC Estimate Description Generator</h1>
+
+      <p class="promise">
+        Turn rough HVAC/R repair notes into clear estimate wording.
+      </p>
+
+      <p class="note">
+        Use this tool to create professional estimate descriptions for repairs, replacements,
+        tune-up recommendations, and customer quote notes.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Enter the estimate details</h2>
+
+      <p>
+        Paste the recommended work, technician notes, and customer situation. The tool will create
+        cleaner estimate wording that is easier to review, copy, and paste into your quote system.
+      </p>
+
+      <form id="estimate-description-form" class="tool-form">
+        <div class="form-group">
+          <label for="company-name">Company name</label>
+          <input
+            type="text"
+            id="company-name"
+            name="companyName"
+            placeholder="Example: Smith Heating & Cooling"
+          />
+          <p class="field-help">Optional.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="job-type">Job type</label>
+          <select id="job-type" name="jobType" required>
+            <option value="">Select one</option>
+            <option value="AC repair estimate">AC repair estimate</option>
+            <option value="Furnace repair estimate">Furnace repair estimate</option>
+            <option value="Maintenance recommendation">Maintenance recommendation</option>
+            <option value="Commercial refrigeration estimate">Commercial refrigeration estimate</option>
+            <option value="Replacement recommendation">Replacement recommendation</option>
+            <option value="Other HVAC/R estimate">Other HVAC/R estimate</option>
+          </select>
+          <p class="field-help">Required. Choose the type of estimate.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="recommended-work">Recommended work</label>
+          <textarea
+            id="recommended-work"
+            name="recommendedWork"
+            rows="5"
+            required
+            placeholder="Example: Replace blower motor, clean outdoor coil, replace clogged filter, add surge protection, or repair condensate drain."
+          ></textarea>
+          <p class="field-help">
+            Required. Enter the work being recommended or quoted.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="technician-notes">Technician notes</label>
+          <textarea
+            id="technician-notes"
+            name="technicianNotes"
+            rows="7"
+            required
+            placeholder="Example: Customer reported weak airflow. Found blower motor noisy and drawing high amps. Filter clogged. Outdoor coil dirty. Recommend blower motor replacement and coil cleaning."
+          ></textarea>
+          <p class="field-help">
+            Required. Paste rough notes from the technician.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="tone">Tone</label>
+          <select id="tone" name="tone" required>
+            <option value="">Select one</option>
+            <option value="Professional">Professional</option>
+            <option value="Simple">Simple</option>
+            <option value="Detailed">Detailed</option>
+            <option value="Customer-friendly">Customer-friendly</option>
+          </select>
+          <p class="field-help">Required. Choose how the estimate wording should sound.</p>
+        </div>
+
+        <button type="submit" class="button">
+          Generate Preview
+        </button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Generated Preview</h2>
+
+      <div id="result-box" class="result-box">
+        <p>
+          Your estimate description preview will appear here after you submit the form.
+        </p>
+      </div>
+
+      <p class="review-note">
+        Reminder: Review all AI-generated estimate wording before sending it to a customer.
+        Confirm pricing, parts, labor, availability, warranty language, safety claims, and final recommendations.
+      </p>
+    </section>
+
+    <section id="email-capture-section" class="card email-capture-card hidden">
+      <h2>Unlock more estimate wording examples</h2>
+
+      <p>
+        Enter your email to unlock more HVAC/R estimate description formats and get free paperwork templates.
+      </p>
+
+      <p class="field-help">
+        By signing up, you agree to receive the requested tool result, free HVAC/R paperwork
+        templates, and helpful tips. You can unsubscribe from future emails at any time.
+      </p>
+
+      <p class="field-help">
+        We do not sell your email. Review all AI-generated text before sending it to a customer.
+      </p>
+
+      <div class="mailerlite-form-wrapper">
+        <div class="ml-embedded" data-form="tYlgPM"></div>
+      </div>
+
+      <button id="show-full-result-button" class="button secondary" type="button">
+        Continue to examples
+      </button>
+    </section>
+
+    <section id="full-result-section" class="card hidden">
+      <h2>More Estimate Description Formats</h2>
+
+      <div class="result-box">
+        <h3>Short estimate description</h3>
+        <p>
+          Provide and complete the recommended HVAC/R work based on technician findings and customer-approved scope.
+        </p>
+
+        <h3>Customer-friendly estimate description</h3>
+        <p>
+          This estimate covers the recommended work needed based on the technician’s inspection notes.
+          The work is intended to address the documented issue and should be reviewed before approval.
+        </p>
+
+        <h3>Detailed estimate description</h3>
+        <p>
+          Based on the service visit, the technician documented recommended work for customer review.
+          The estimate should include the approved scope, parts, labor, pricing, exclusions, and any important notes
+          before the customer approves the work.
+        </p>
+
+        <h3>Review note</h3>
+        <p>
+          Confirm all prices, parts, labor, warranty terms, exclusions, scheduling details, safety-related language,
+          and final recommendations before sending the estimate.
+        </p>
+      </div>
+    </section>
+
+    <section id="recommended-resources" class="card offer-card">
+      <p class="eyebrow">Recommended Resources</p>
+
+      <h2>Tools and templates that can help after the estimate wording is written</h2>
+
+      <p>
+        Once your estimate description is cleaned up, the next step is usually adding it to
+        your quoting, scheduling, invoicing, bookkeeping, or customer follow-up workflow.
+      </p>
+
+      <p class="affiliate-disclosure">
+        Disclosure: Some links below may be affiliate links. If you sign up through them,
+        we may earn a commission at no extra cost to you. We only list resources that are
+        relevant to HVAC/R paperwork, scheduling, invoicing, bookkeeping, or customer follow-up.
+      </p>
+
+      <div class="offer-grid">
+        <article class="offer-item">
+          <h3>Jobber</h3>
+
+          <p>
+            A field service business platform for quoting, scheduling, invoicing, payments,
+            and customer communication.
+          </p>
+
+          <p class="best-for">
+            Best for: HVAC/R service businesses that want help managing quotes, jobs, and customer workflow.
+          </p>
+
+          <a
+            class="button"
+            href="https://go.getjobber.com/hvufmvufglw6"
+            target="_blank"
+            rel="sponsored noopener"
+          >
+            View Jobber
+          </a>
+        </article>
+
+        <article class="offer-item">
+          <h3>QuickBooks Online</h3>
+
+          <p>
+            Accounting and invoicing software for small businesses that need to organize income,
+            expenses, invoices, payments, and bookkeeping records.
+          </p>
+
+          <p class="best-for">
+            Best for: HVAC/R owners and office managers who want estimate and invoice records organized financially.
+          </p>
+
+          <a
+            class="button"
+            href="https://quickbooks.intuit.com/partners/affiliates?cid=par_pim_Q_AO4O_wXnkk"
+            target="_blank"
+            rel="sponsored noopener"
+          >
+            View QuickBooks
+          </a>
+        </article>
+
+        <article class="offer-item">
+          <h3>HVAC Paperwork Starter Kit</h3>
+
+          <p>
+            A future template pack with service report examples, invoice wording,
+            estimate wording, follow-up messages, and technician note cleanup checklists.
+          </p>
+
+          <p class="best-for">
+            Best for: owners, office managers, and techs who want copy-and-paste paperwork shortcuts.
+          </p>
+
+          <button class="button secondary" type="button" disabled>
+            Coming Soon
+          </button>
+        </article>
+      </div>
+
+      <div class="resource-decision-guide">
+        <h3>Which resource should I use?</h3>
+
+        <div class="decision-list">
+          <div class="decision-item">
+            <h4>Use Jobber if you need help managing the service job.</h4>
+            <p>
+              Jobber is the better fit if your main problem is organizing jobs, scheduling,
+              quotes, invoices, payments, customer communication, and day-to-day service workflow.
+            </p>
+          </div>
+
+          <div class="decision-item">
+            <h4>Use QuickBooks if you need help managing the invoice and books.</h4>
+            <p>
+              QuickBooks is the better fit if your main problem is tracking income, expenses,
+              invoices, payments, bookkeeping, and small-business financial records.
+            </p>
+          </div>
+
+          <div class="decision-item">
+            <h4>Use the HVAC Paperwork Starter Kit if you want ready-to-use templates.</h4>
+            <p>
+              The starter kit will be the better fit if you want copy-and-paste examples for
+              service reports, invoice descriptions, estimate wording, customer follow-up messages, and note cleanup.
+            </p>
+          </div>
+        </div>
+
+        <p class="field-help">
+          Review each provider’s current features, pricing, and terms before signing up.
+        </p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Example technician notes</h2>
+
+      <p>
+        Not sure what to paste? Here is an example:
+      </p>
+
+      <pre class="example-box">Customer reported weak airflow. Found blower motor noisy and drawing high amps. Filter clogged. Outdoor coil dirty. Recommend blower motor replacement, filter replacement, and coil cleaning.</pre>
+    </section>
+
+    <section class="card">
+      <h2>Related HVAC/R tools</h2>
+
+      <ul>
+        <li><a href="hvac-service-report-generator.html">HVAC Service Report Generator</a></li>
+        <li><a href="hvac-invoice-description-generator.html">HVAC Invoice Description Generator</a></li>
+        <li><a href="hvac-customer-follow-up-text-generator.html">HVAC Customer Follow-Up Text Generator</a></li>
+        <li><a href="hvac-maintenance-plan-pitch-generator.html">HVAC Maintenance Plan Pitch Generator</a></li>
+        <li><a href="hvac-estimate-description-generator.html">HVAC Estimate Description Generator</a></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Frequently asked questions</h2>
+
+      <h3>Who is this estimate description generator for?</h3>
+      <p>
+        It is for HVAC/R owners, office managers, technicians, and admin staff who need cleaner wording for customer estimates and quotes.
+      </p>
+
+      <h3>Does this create pricing?</h3>
+      <p>
+        No. This tool does not create prices, labor rates, part costs, taxes, discounts, or final totals.
+        It only helps clean up the written description.
+      </p>
+
+      <h3>Can I send the result directly to a customer?</h3>
+      <p>
+        Use the result as a starting point, then review it before sending. Confirm all scope, pricing,
+        warranty language, exclusions, scheduling details, and safety-related wording.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        &copy; 2026 HVAC AI Helper. AI outputs should be reviewed before sending to customers.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById("estimate-description-form");
+    const resultBox = document.getElementById("result-box");
+    const emailCaptureSection = document.getElementById("email-capture-section");
+    const fullResultSection = document.getElementById("full-result-section");
+    const showFullResultButton = document.getElementById("show-full-result-button");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const companyName = document.getElementById("company-name").value.trim();
+      const jobType = document.getElementById("job-type").value;
+      const recommendedWork = document.getElementById("recommended-work").value.trim();
+      const technicianNotes = document.getElementById("technician-notes").value.trim();
+      const tone = document.getElementById("tone").value;
+
+      if (!jobType || !recommendedWork || !technicianNotes || !tone) {
+        resultBox.innerHTML = `
+          <p><strong>Please complete the required fields:</strong> job type, recommended work, technician notes, and tone.</p>
+        `;
+        return;
+      }
+
+      const displayCompany = companyName || "Your company";
+
+      resultBox.innerHTML = `
+        <div class="generated-output">
+          <h3>Preview Estimate Description</h3>
+
+          <p><strong>Company:</strong> ${displayCompany}</p>
+          <p><strong>Job type:</strong> ${jobType}</p>
+          <p><strong>Tone:</strong> ${tone}</p>
+
+          <h4>Estimate Description Preview</h4>
+          <p>
+            This estimate includes the recommended work for the ${jobType.toLowerCase()} based on the technician notes provided. The recommended work should be reviewed for scope, pricing, parts, labor, warranty language, and scheduling details before being sent to the customer.
+          </p>
+
+          <h4>Recommended Work</h4>
+          <p>${recommendedWork}</p>
+
+          <h4>Original Technician Notes</h4>
+          <p>${technicianNotes}</p>
+
+          <p>
+            <strong>Next step:</strong> Enter your email below to unlock more estimate wording examples.
+          </p>
+        </div>
+      `;
+
+      emailCaptureSection.classList.remove("hidden");
+      emailCaptureSection.scrollIntoView({ behavior: "smooth" });
+    });
+
+    showFullResultButton.addEventListener("click", function () {
+      fullResultSection.classList.remove("hidden");
+      fullResultSection.scrollIntoView({ behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>
