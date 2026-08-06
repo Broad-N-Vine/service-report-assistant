@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>HVAC Invoice Description Generator | HVAC/R AI Tool</title>
+  <meta
+    name="description"
+    content="Paste rough HVAC technician notes and create clean invoice descriptions for HVAC/R service calls, repairs, tune-ups, and diagnostics."
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2375620');
+</script>
+<!-- End MailerLite Universal -->
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html">HVAC AI Helper</a>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="tools.html">Tools</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-title">
+      <p class="eyebrow">Free HVAC/R AI Tool</p>
+
+      <h1>HVAC Invoice Description Generator</h1>
+
+      <p class="promise">
+        Turn rough HVAC technician notes into clean invoice wording.
+      </p>
+
+      <p class="note">
+        Paste notes from a service call and generate simple invoice descriptions that are easier
+        for customers to understand and easier for office staff to paste into billing software.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Enter the job details</h2>
+
+      <p>
+        Use this tool to turn messy field notes into cleaner invoice wording for HVAC/R repairs,
+        maintenance visits, diagnostics, and commercial refrigeration service calls.
+      </p>
+
+      <form id="invoice-description-form" class="tool-form">
+        <div class="form-group">
+          <label for="company-name">Company name</label>
+          <input
+            type="text"
+            id="company-name"
+            name="companyName"
+            placeholder="Example: Smith Heating & Cooling"
+          />
+          <p class="field-help">Optional.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="job-type">Job type</label>
+          <select id="job-type" name="jobType" required>
+            <option value="">Select one</option>
+            <option value="AC repair">AC repair</option>
+            <option value="Furnace repair">Furnace repair</option>
+            <option value="Maintenance tune-up">Maintenance tune-up</option>
+            <option value="Commercial refrigeration">Commercial refrigeration</option>
+            <option value="Diagnostic visit">Diagnostic visit</option>
+            <option value="Other HVAC/R service">Other HVAC/R service</option>
+          </select>
+          <p class="field-help">Required. Choose the type of service call.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="technician-notes">Technician notes</label>
+          <textarea
+            id="technician-notes"
+            name="technicianNotes"
+            rows="8"
+            required
+            placeholder="Example: Replaced weak capacitor. Checked pressures. Filter clogged. System cooling with 18-degree temperature split. Recommended coil cleaning. Customer declined coil cleaning today."
+          ></textarea>
+          <p class="field-help">
+            Required. Paste rough notes from the technician.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="tone">Tone</label>
+          <select id="tone" name="tone" required>
+            <option value="">Select one</option>
+            <option value="Professional">Professional</option>
+            <option value="Simple">Simple</option>
+            <option value="Detailed">Detailed</option>
+          </select>
+          <p class="field-help">Required. Choose how the invoice wording should sound.</p>
+        </div>
+
+        <button type="submit" class="button">
+          Generate Preview
+        </button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Generated Preview</h2>
+
+      <div id="result-box" class="result-box">
+        <p>
+          Your invoice description preview will appear here after you submit the form.
+        </p>
+      </div>
+
+      <p class="review-note">
+        Reminder: Review all AI-generated invoice wording before sending it to a customer or adding it to billing software.
+      </p>
+    </section>
+
+    <section id="email-capture-section" class="card email-capture-card hidden">
+      <h2>Unlock more invoice wording examples</h2>
+
+      <p>
+        Enter your email to unlock more HVAC/R invoice description formats and get free paperwork templates.
+      </p>
+
+      <p class="field-help">
+        By signing up, you agree to receive the requested tool result, free HVAC/R paperwork
+        templates, and helpful tips. You can unsubscribe from future emails at any time.
+      </p>
+
+      <p class="field-help">
+        We do not sell your email. Review all AI-generated text before sending it to a customer.
+      </p>
+
+      <div class="mailerlite-form-wrapper">
+        <div class="ml-embedded" data-form="tYlgPM"></div>
+      </div>
+
+      <button id="show-full-result-button" class="button secondary" type="button">
+        I signed up — show more examples
+      </button>
+    </section>
+
+    <section id="full-result-section" class="card hidden">
+      <h2>More Invoice Description Formats</h2>
+
+      <div class="result-box">
+        <h3>Short invoice line</h3>
+        <p>
+          Performed HVAC/R service based on technician findings and documented completed work and recommendations.
+        </p>
+
+        <h3>Customer-friendly invoice description</h3>
+        <p>
+          Completed service visit to inspect the reported issue, document technician findings,
+          perform approved work, and note any recommended next steps.
+        </p>
+
+        <h3>Internal invoice note</h3>
+        <p>
+          Use this version for office records when you need a short summary of the job type,
+          work completed, and follow-up items.
+        </p>
+
+        <h3>Review note</h3>
+        <p>
+          Confirm parts, pricing, warranty language, model numbers, safety claims, and final recommendations before use.
+        </p>
+      </div>
+    </section>
+
+    <section id="recommended-resources" class="card offer-card">
+      <p class="eyebrow">Recommended Resources</p>
+
+      <h2>Tools and templates that can help after the invoice wording is written</h2>
+
+      <p>
+        Once your invoice wording is cleaned up, the next step is usually adding it to
+        your job-management, invoicing, bookkeeping, or office workflow system.
+      </p>
+
+      <p class="affiliate-disclosure">
+        Disclosure: Some links below may be affiliate links. If you sign up through them,
+        we may earn a commission at no extra cost to you. We only list resources that are
+        relevant to HVAC/R paperwork, scheduling, invoicing, bookkeeping, or customer follow-up.
+      </p>
+
+      <div class="offer-grid">
+        <article class="offer-item">
+          <h3>Jobber</h3>
+
+          <p>
+            A field service business platform for quoting, scheduling, invoicing, payments,
+            and customer communication.
+          </p>
+
+          <p class="best-for">
+            Best for: HVAC/R service businesses that want help managing jobs and office workflow.
+          </p>
+
+          <a
+            class="button"
+            href="https://go.getjobber.com/hvufmvufglw6"
+            target="_blank"
+            rel="sponsored noopener"
+          >
+            View Jobber
+          </a>
+        </article>
+
+        <article class="offer-item">
+          <h3>QuickBooks Online</h3>
+
+          <p>
+            Accounting and invoicing software for small businesses that need to organize income,
+            expenses, invoices, payments, and bookkeeping records.
+          </p>
+
+          <p class="best-for">
+            Best for: HVAC/R owners and office managers who want invoice wording organized into financial records.
+          </p>
+
+          <a
+            class="button"
+            href="https://quickbooks.intuit.com/partners/affiliates?cid=par_pim_Q_AO4O_wXnkk"
+            target="_blank"
+            rel="sponsored noopener"
+          >
+            View QuickBooks
+          </a>
+        </article>
+
+        <article class="offer-item">
+          <h3>HVAC Paperwork Starter Kit</h3>
+
+          <p>
+            A future template pack with service report examples, invoice wording,
+            follow-up messages, and technician note cleanup checklists.
+          </p>
+
+          <p class="best-for">
+            Best for: owners, office managers, and techs who want copy-and-paste paperwork shortcuts.
+          </p>
+
+          <button class="button secondary" type="button" disabled>
+            Coming Soon
+          </button>
+        </article>
+      </div>
+
+      <div class="resource-decision-guide">
+        <h3>Which resource should I use?</h3>
+
+        <div class="decision-list">
+          <div class="decision-item">
+            <h4>Use Jobber if you need help managing the service job.</h4>
+            <p>
+              Jobber is the better fit if your main problem is organizing jobs, scheduling,
+              quotes, invoices, payments, customer communication, and day-to-day service workflow.
+            </p>
+          </div>
+
+          <div class="decision-item">
+            <h4>Use QuickBooks if you need help managing the invoice and books.</h4>
+            <p>
+              QuickBooks is the better fit if your main problem is tracking income, expenses,
+              invoices, payments, bookkeeping, and small-business financial records.
+            </p>
+          </div>
+
+          <div class="decision-item">
+            <h4>Use the HVAC Paperwork Starter Kit if you want ready-to-use templates.</h4>
+            <p>
+              The starter kit will be the better fit if you want copy-and-paste examples for
+              service reports, invoice descriptions, customer follow-up messages, and note cleanup.
+            </p>
+          </div>
+        </div>
+
+        <p class="field-help">
+          Review each provider’s current features, pricing, and terms before signing up.
+        </p>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Example technician notes</h2>
+
+      <p>
+        Not sure what to paste? Here is an example:
+      </p>
+
+      <pre class="example-box">Replaced weak capacitor. Checked pressures. Filter clogged. System cooling with 18-degree temperature split. Recommended filter replacement and coil cleaning. Customer declined coil cleaning today.</pre>
+    </section>
+
+    <section class="card">
+      <h2>Related HVAC/R tools</h2>
+
+      <ul>
+        <li><a href="hvac-service-report-generator.html">HVAC Service Report Generator</a></li>
+        <li><a href="hvac-invoice-description-generator.html">HVAC Invoice Description Generator</a></li>
+        <li><a href="#">HVAC Customer Follow-Up Text Generator — coming soon</a></li>
+        <li><a href="#">HVAC Estimate Description Generator — coming soon</a></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Frequently asked questions</h2>
+
+      <h3>Who is this invoice description generator for?</h3>
+      <p>
+        It is for HVAC/R owners, office managers, technicians, and admin staff who need to turn
+        rough service notes into cleaner invoice wording.
+      </p>
+
+      <h3>Can I paste the result directly into QuickBooks or Jobber?</h3>
+      <p>
+        You can use the result as a starting point, but you should review it first. Confirm parts,
+        pricing, warranty language, safety claims, and service details before adding it to any system.
+      </p>
+
+      <h3>Does this replace accounting or invoicing software?</h3>
+      <p>
+        No. This tool helps clean up wording. It does not replace bookkeeping, invoicing, payment,
+        tax, or job-management software.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        &copy; 2026 HVAC AI Helper. AI outputs should be reviewed before sending to customers.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById("invoice-description-form");
+    const resultBox = document.getElementById("result-box");
+    const emailCaptureSection = document.getElementById("email-capture-section");
+    const fullResultSection = document.getElementById("full-result-section");
+    const showFullResultButton = document.getElementById("show-full-result-button");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const companyName = document.getElementById("company-name").value.trim();
+      const jobType = document.getElementById("job-type").value;
+      const technicianNotes = document.getElementById("technician-notes").value.trim();
+      const tone = document.getElementById("tone").value;
+
+      if (!jobType || !technicianNotes || !tone) {
+        resultBox.innerHTML = `
+          <p><strong>Please complete the required fields:</strong> job type, technician notes, and tone.</p>
+        `;
+        return;
+      }
+
+      const displayCompany = companyName || "Your company";
+
+      resultBox.innerHTML = `
+        <div class="generated-output">
+          <h3>Preview Invoice Description</h3>
+
+          <p><strong>Company:</strong> ${displayCompany}</p>
+          <p><strong>Job type:</strong> ${jobType}</p>
+          <p><strong>Tone:</strong> ${tone}</p>
+
+          <h4>Short invoice line</h4>
+          <p>
+            Performed ${jobType.toLowerCase()} service and documented technician findings, completed work, and recommended next steps.
+          </p>
+
+          <h4>Customer-friendly description</h4>
+          <p>
+            Completed ${jobType.toLowerCase()} visit based on the technician notes provided. Service details were documented for customer records and office review.
+          </p>
+
+          <h4>Original technician notes</h4>
+          <p>${technicianNotes}</p>
+
+          <p>
+            <strong>Next step:</strong> Enter your email below to unlock more invoice wording formats.
+          </p>
+        </div>
+      `;
+
+      emailCaptureSection.classList.remove("hidden");
+      emailCaptureSection.scrollIntoView({ behavior: "smooth" });
+    });
+
+    showFullResultButton.addEventListener("click", function () {
+      fullResultSection.classList.remove("hidden");
+      fullResultSection.scrollIntoView({ behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>
