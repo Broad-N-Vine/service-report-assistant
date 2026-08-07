@@ -1188,3 +1188,89 @@ pre.example-box {
     grid-template-columns: 1fr;
   }
 }
+/* ================================
+   Trust Page Polish
+================================ */
+
+.trust-hero {
+  max-width: 940px;
+}
+
+.trust-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.trust-summary {
+  background: var(--primary-soft);
+  border: 1px solid #c7d2fe;
+  border-radius: var(--radius);
+  padding: 28px;
+  position: sticky;
+  top: 110px;
+}
+
+.trust-summary h2 {
+  margin-top: 0;
+}
+
+.trust-summary ul {
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+
+.trust-summary li {
+  margin: 10px 0;
+}
+
+.trust-note {
+  background: var(--warning-soft);
+  border: 1px solid var(--warning-border);
+  color: var(--warning-text);
+  border-radius: var(--radius-small);
+  padding: 18px;
+  margin-top: 20px;
+}
+
+.trust-section-list {
+  display: grid;
+  gap: 18px;
+}
+
+.trust-section-list .card {
+  margin: 0;
+}
+
+.trust-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.trust-mini-card {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-small);
+  padding: 18px;
+}
+
+.trust-mini-card h3 {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .trust-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .trust-summary {
+    position: static;
+  }
+
+  .trust-mini-grid {
+    grid-template-columns: 1fr;
+  }
+}
