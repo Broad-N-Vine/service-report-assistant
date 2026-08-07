@@ -865,3 +865,129 @@ pre.example-box {
     flex-direction: column;
   }
 }
+/* ================================
+   Tools Page Polish
+================================ */
+
+.tools-hero {
+  max-width: 940px;
+}
+
+.tools-library {
+  display: grid;
+  gap: 28px;
+}
+
+.tool-category {
+  margin-top: 28px;
+}
+
+.tool-category-header {
+  margin-bottom: 18px;
+}
+
+.tool-category-header h2 {
+  margin-bottom: 8px;
+}
+
+.tool-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.tool-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.tool-card.featured {
+  border: 2px solid #b7c6ff;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+
+.tool-card h3 {
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  margin: 0 0 10px;
+}
+
+.tool-card p {
+  margin-bottom: 0;
+}
+
+.tool-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.tool-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.tool-pill.template {
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.tool-pill.guide {
+  background: #fefce8;
+  color: #854d0e;
+}
+
+.tool-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.tool-card-meta span {
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.tool-card-actions {
+  margin-top: 8px;
+}
+
+.tools-note-box {
+  background: var(--primary-soft);
+  border: 1px solid #c7d2fe;
+  border-radius: var(--radius);
+  padding: 26px;
+}
+
+@media (max-width: 850px) {
+  .tool-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tool-card-top {
+    flex-direction: column;
+  }
+}
