@@ -39,3 +39,4 @@ Date: 2026-08-06
 - [ ] Robots.txt exists
 - [ ] Asset Tracker is updated
 - [ ] Mobile layout is usable
+- [x] Contact page polished
