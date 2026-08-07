@@ -128,6 +128,15 @@ h1 {
   color: #6b7280;
   font-size: 14px;
 }
+.footer-links {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.footer-links a {
+  display: inline-block;
+  margin-right: 14px;
+}
 .tool-form {
   margin-top: 24px;
 }
