@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://service-report-assistant.pages.dev/sitemap.xml
