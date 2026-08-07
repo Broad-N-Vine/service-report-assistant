@@ -1118,3 +1118,73 @@ pre.example-box {
     grid-template-columns: 1fr;
   }
 }
+/* ================================
+   Contact Page Polish
+================================ */
+
+.contact-hero {
+  max-width: 900px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.contact-method-card {
+  background: var(--primary-soft);
+  border: 1px solid #c7d2fe;
+  border-radius: var(--radius);
+  padding: 28px;
+}
+
+.contact-method-card h2 {
+  margin-top: 0;
+}
+
+.contact-action-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.contact-action {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-small);
+  padding: 18px;
+}
+
+.contact-action h3 {
+  margin-top: 0;
+}
+
+.contact-warning {
+  background: var(--warning-soft);
+  border: 1px solid var(--warning-border);
+  color: var(--warning-text);
+  border-radius: var(--radius-small);
+  padding: 18px;
+  margin-top: 20px;
+}
+
+.contact-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.contact-list-item {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-small);
+  padding: 16px 18px;
+}
+
+@media (max-width: 850px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
