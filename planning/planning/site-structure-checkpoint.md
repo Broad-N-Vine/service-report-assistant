@@ -40,3 +40,5 @@ Date: 2026-08-06
 - [ ] Asset Tracker is updated
 - [ ] Mobile layout is usable
 - [x] Contact page polished
+- [x] Privacy page polished
+- [x] Affiliate disclosure page polished
