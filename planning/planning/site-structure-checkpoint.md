@@ -42,3 +42,5 @@ Date: 2026-08-06
 - [x] Contact page polished
 - [x] Privacy page polished
 - [x] Affiliate disclosure page polished
+- [x] Navigation label updated from Blog to Guides
+- [x] Footer links verified site-wide
