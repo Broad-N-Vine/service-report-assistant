@@ -24,7 +24,7 @@ export async function onRequestGet(context) {
       );
     }
 
-    const result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+    const result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct-fast", {
       messages: [
         {
           role: "user",
