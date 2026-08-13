@@ -1,45 +1,8 @@
-const DEFAULT_MODEL = "gpt-5.1-mini";
+const DEFAULT_MODEL = "@cf/meta/llama-3.1-8b-instruct";
 
 const JSON_HEADERS = {
   "Content-Type": "application/json; charset=UTF-8",
   "X-Content-Type-Options": "nosniff"
-};
-
-const RESPONSE_SCHEMA = {
-  type: "object",
-  additionalProperties: false,
-  required: [
-    "serviceReport",
-    "invoiceDescription",
-    "customerFollowUp",
-    "internalSummary",
-    "reviewNotes"
-  ],
-  properties: {
-    serviceReport: {
-      type: "string",
-      description: "Plain-English customer-ready HVAC/R service report."
-    },
-    invoiceDescription: {
-      type: "string",
-      description: "Short invoice wording based only on confirmed work."
-    },
-    customerFollowUp: {
-      type: "string",
-      description: "Short customer follow-up message."
-    },
-    internalSummary: {
-      type: "string",
-      description: "Short internal office summary."
-    },
-    reviewNotes: {
-      type: "array",
-      description: "Missing information, unclear items, or human review reminders.",
-      items: {
-        type: "string"
-      }
-    }
-  }
 };
 
 const SYSTEM_PROMPT = `
@@ -51,13 +14,11 @@ Use only the information provided by the user. Do not invent facts, parts, price
 
 Write in plain English. Keep the tone professional and useful for HVAC/R business owners, office managers, technicians, and customers.
 
-The output must be practical, clear, and easy to review before sending to a customer.
-
 Always flag missing or unclear information instead of guessing.
 
 Do not mention that you are an AI.
 
-Return only the requested structured output.
+Return only valid JSON. Do not include markdown. Do not include backticks. Do not include commentary outside the JSON object.
 `;
 
 function jsonResponse(data, status = 200) {
@@ -160,25 +121,36 @@ ${data.tone}
 Technician notes:
 ${data.technicianNotes}
 
-Task:
 Create a clean HVAC/R service paperwork package based only on the information provided.
 
-Return these sections:
+Return only a JSON object with exactly this shape:
 
-1. Customer-Ready Service Report
+{
+  "serviceReport": "Plain-English customer-ready service report.",
+  "invoiceDescription": "Short invoice wording based only on confirmed work.",
+  "customerFollowUp": "Short customer follow-up message.",
+  "internalSummary": "Short internal office summary.",
+  "reviewNotes": [
+    "Missing information, unclear item, or human review reminder."
+  ]
+}
+
+Section requirements:
+
+1. serviceReport
 Write a clear, plain-English service report for the customer. Explain what was reported, what was found, what work was completed, and any recommendation that is directly supported by the technician notes.
 
-2. Invoice Description
+2. invoiceDescription
 Write 1 to 3 short invoice lines that describe the confirmed work performed. Make the wording professional and easy to paste into invoice software.
 
-3. Customer Follow-Up Message
+3. customerFollowUp
 Write a short text-message or email-style follow-up. Thank the customer, summarize the visit, and mention any next step only if the technician notes support it.
 
-4. Internal Job Summary
+4. internalSummary
 Write a short internal summary for office records. This can be more direct than the customer-facing report.
 
-5. Missing Information or Review Notes
-List any important missing details, unclear items, or things a human should review before sending this to the customer.
+5. reviewNotes
+List important missing details, unclear items, or things a human should review before sending this to the customer.
 
 Rules:
 - Do not invent facts.
@@ -197,32 +169,59 @@ Rules:
 - If the notes are too vague, explain what information is missing.
 - Use the preferred tone, but keep the writing professional.
 - Keep the full result concise and useful.
-- Always include a review reminder in the review notes.
+- Always include a review reminder in reviewNotes.
 `;
 }
 
-function extractOutputText(openAiResponse) {
-  if (typeof openAiResponse.output_text === "string") {
-    return openAiResponse.output_text;
-  }
-
-  if (!Array.isArray(openAiResponse.output)) {
+function extractAiText(aiResponse) {
+  if (!aiResponse) {
     return "";
   }
 
-  for (const outputItem of openAiResponse.output) {
-    if (!Array.isArray(outputItem.content)) {
-      continue;
-    }
+  if (typeof aiResponse.response === "string") {
+    return aiResponse.response;
+  }
 
-    for (const contentItem of outputItem.content) {
-      if (typeof contentItem.text === "string") {
-        return contentItem.text;
-      }
-    }
+  if (typeof aiResponse.text === "string") {
+    return aiResponse.text;
+  }
+
+  if (typeof aiResponse.result === "string") {
+    return aiResponse.result;
+  }
+
+  if (aiResponse.result && typeof aiResponse.result.response === "string") {
+    return aiResponse.result.response;
+  }
+
+  if (aiResponse.result && typeof aiResponse.result.text === "string") {
+    return aiResponse.result.text;
   }
 
   return "";
+}
+
+function extractJsonObject(text) {
+  if (!text) {
+    return "";
+  }
+
+  let cleaned = text.trim();
+
+  cleaned = cleaned
+    .replace(/^```json/i, "")
+    .replace(/^```/i, "")
+    .replace(/```$/i, "")
+    .trim();
+
+  const firstBrace = cleaned.indexOf("{");
+  const lastBrace = cleaned.lastIndexOf("}");
+
+  if (firstBrace === -1 || lastBrace === -1 || lastBrace <= firstBrace) {
+    return cleaned;
+  }
+
+  return cleaned.slice(firstBrace, lastBrace + 1);
 }
 
 function validateAiResult(result) {
@@ -253,10 +252,14 @@ function validateAiResult(result) {
   return true;
 }
 
-export async function onRequestGet() {
+export async function onRequestGet(context) {
+  const hasAiBinding = Boolean(context.env && context.env.AI);
+
   return jsonResponse({
     success: true,
     status: "ok",
+    aiBindingAvailable: hasAiBinding,
+    model: DEFAULT_MODEL,
     message: "HVAC Service Report Generator API is available. Use POST to generate a report."
   });
 }
@@ -265,11 +268,11 @@ export async function onRequestPost(context) {
   try {
     const { request, env } = context;
 
-    if (!env.OPENAI_API_KEY) {
+    if (!env.AI) {
       return jsonResponse(
         {
           success: false,
-          error: "The generator is not fully configured yet. Missing API key."
+          error: "The generator is not fully configured yet. Missing Cloudflare Workers AI binding."
         },
         500
       );
@@ -301,51 +304,24 @@ export async function onRequestPost(context) {
       );
     }
 
-    const model = env.OPENAI_MODEL || DEFAULT_MODEL;
-
-    const openAiResponse = await fetch("https://api.openai.com/v1/responses", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${env.OPENAI_API_KEY}`,
-        "Content-Type": "application/json"
+    const messages = [
+      {
+        role: "system",
+        content: SYSTEM_PROMPT
       },
-      body: JSON.stringify({
-        model,
-        input: [
-          {
-            role: "system",
-            content: SYSTEM_PROMPT
-          },
-          {
-            role: "user",
-            content: buildUserPrompt(validation.data)
-          }
-        ],
-        text: {
-          format: {
-            type: "json_schema",
-            name: "hvac_service_report_output",
-            strict: true,
-            schema: RESPONSE_SCHEMA
-          }
-        },
-        max_output_tokens: 1400
-      })
+      {
+        role: "user",
+        content: buildUserPrompt(validation.data)
+      }
+    ];
+
+    const aiResponse = await env.AI.run(DEFAULT_MODEL, {
+      messages,
+      max_tokens: 1400,
+      temperature: 0.2
     });
 
-    const openAiData = await openAiResponse.json();
-
-    if (!openAiResponse.ok) {
-      return jsonResponse(
-        {
-          success: false,
-          error: "Something went wrong while generating the report. Please try again in a moment."
-        },
-        502
-      );
-    }
-
-    const outputText = extractOutputText(openAiData);
+    const outputText = extractAiText(aiResponse);
 
     if (!outputText) {
       return jsonResponse(
@@ -360,7 +336,8 @@ export async function onRequestPost(context) {
     let parsedResult;
 
     try {
-      parsedResult = JSON.parse(outputText);
+      const jsonText = extractJsonObject(outputText);
+      parsedResult = JSON.parse(jsonText);
     } catch (error) {
       return jsonResponse(
         {
