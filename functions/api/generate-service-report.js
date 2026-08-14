@@ -1,4 +1,4 @@
-const BUILD_VERSION = "workers-ai-normalized-output-2026-08-14";
+const BUILD_VERSION = "workers-ai-honeypot-cleanup-2026-08-14";
 const DEFAULT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast";
 
 const JSON_HEADERS = {
@@ -87,6 +87,14 @@ function validateRequestBody(body) {
   const technicianNotes = cleanText(body.technicianNotes);
   const email = cleanText(body.email);
   const tone = normalizeTone(body.tone);
+  const website = cleanText(body.website);
+
+  if (website) {
+    return {
+      valid: false,
+      error: "Unable to process this request. Please refresh the page and try again."
+    };
+  }
 
   if (!jobType) {
     return {
@@ -269,7 +277,7 @@ function extractJsonObject(text) {
   return cleaned.slice(firstBrace, lastBrace + 1);
 }
 
-function normalizeAiResult(result, inputData) {
+function normalizeAiResult(result) {
   if (!result || typeof result !== "object") {
     return null;
   }
@@ -471,7 +479,7 @@ export async function onRequestPost(context) {
       );
     }
 
-    const normalizedResult = normalizeAiResult(parsedResult, validation.data);
+    const normalizedResult = normalizeAiResult(parsedResult);
 
     if (!normalizedResult) {
       return jsonResponse(
