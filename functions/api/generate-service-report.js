@@ -1,3 +1,4 @@
+const BUILD_VERSION = "workers-ai-fast-model-2026-08-14";
 const DEFAULT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast";
 
 const JSON_HEADERS = {
@@ -264,19 +265,18 @@ export async function onRequestGet(context) {
   });
 }
 
-export async function onRequestPost(context) {
-  try {
-    const { request, env } = context;
+export async function onRequestGet(context) {
+  const hasAiBinding = Boolean(context.env && context.env.AI);
 
-    if (!env.AI) {
-      return jsonResponse(
-        {
-          success: false,
-          error: "The generator is not fully configured yet. Missing Cloudflare Workers AI binding."
-        },
-        500
-      );
-    }
+  return jsonResponse({
+    success: true,
+    status: "ok",
+    buildVersion: BUILD_VERSION,
+    aiBindingAvailable: hasAiBinding,
+    model: DEFAULT_MODEL,
+    message: "HVAC Service Report Generator API is available. Use POST to generate a report."
+  });
+}
 
     let body;
 
