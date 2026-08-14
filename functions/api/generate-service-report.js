@@ -1,4 +1,4 @@
-const BUILD_VERSION = "workers-ai-fast-model-2026-08-14";
+const BUILD_VERSION = "workers-ai-fast-model-parser-fix-2026-08-14";
 const DEFAULT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast";
 
 const JSON_HEADERS = {
@@ -9,13 +9,13 @@ const JSON_HEADERS = {
 const SYSTEM_PROMPT = [
   "You are an AI writing assistant for HVAC/R service companies.",
   "",
-  "Your job is to turn rough technician notes into clean, professional service paperwork.",
+  "Turn rough technician notes into clean, professional service paperwork.",
   "",
   "Use only the information provided by the user.",
   "Do not invent facts, parts, prices, model numbers, serial numbers, warranties, guarantees, test results, safety claims, code-compliance claims, or final operating conditions.",
   "",
   "Write in plain English.",
-  "Keep the tone professional and useful for HVAC/R business owners, office managers, technicians, and customers.",
+  "Keep the tone professional and useful.",
   "",
   "Always flag missing or unclear information instead of guessing.",
   "",
@@ -136,34 +136,35 @@ function buildUserPrompt(data) {
     "",
     "Create a clean HVAC/R service paperwork package based only on the information provided.",
     "",
-    "Return only a JSON object with exactly this shape:",
+    "Return only one valid JSON object with exactly these keys:",
     "",
     "{",
-    '  "serviceReport": "Plain-English customer-ready service report.",',
-    '  "invoiceDescription": "Short invoice wording based only on confirmed work.",',
-    '  "customerFollowUp": "Short customer follow-up message.",',
-    '  "internalSummary": "Short internal office summary.",',
+    '  "serviceReport": "Customer-ready service report text.",',
+    '  "invoiceDescription": "Invoice wording text.",',
+    '  "customerFollowUp": "Customer follow-up message text.",',
+    '  "internalSummary": "Internal office summary text.",',
     '  "reviewNotes": [',
-    '    "Missing information, unclear item, or human review reminder."',
+    '    "Review note 1.",',
+    '    "Review note 2."',
     "  ]",
     "}",
     "",
-    "Section requirements:",
+    "Write the output sections as follows:",
     "",
-    "1. serviceReport",
-    "Write a clear, plain-English service report for the customer. Explain what was reported, what was found, what work was completed, and any recommendation that is directly supported by the technician notes.",
+    "serviceReport:",
+    "Write a clear customer-ready service report. Include what was reported, what was found, what work was completed, and any supported recommendation.",
     "",
-    "2. invoiceDescription",
-    "Write 1 to 3 short invoice lines that describe the confirmed work performed. Make the wording professional and easy to paste into invoice software.",
+    "invoiceDescription:",
+    "Write 1 to 3 short invoice lines based only on confirmed work.",
     "",
-    "3. customerFollowUp",
-    "Write a short text-message or email-style follow-up. Thank the customer, summarize the visit, and mention any next step only if the technician notes support it.",
+    "customerFollowUp:",
+    "Write a short text-message or email-style follow-up.",
     "",
-    "4. internalSummary",
-    "Write a short internal summary for office records. This can be more direct than the customer-facing report.",
+    "internalSummary:",
+    "Write a short internal office summary.",
     "",
-    "5. reviewNotes",
-    "List important missing details, unclear items, or things a human should review before sending this to the customer.",
+    "reviewNotes:",
+    "List missing details, unclear items, and human review reminders.",
     "",
     "Rules:",
     "- Do not invent facts.",
@@ -175,14 +176,9 @@ function buildUserPrompt(data) {
     "- Do not invent warranty language.",
     "- Do not claim the system is fully fixed unless the notes clearly say that.",
     "- Do not claim the system is safe unless the notes clearly support that.",
-    "- Do not guarantee fewer repairs.",
-    "- Do not guarantee lower bills.",
-    "- Do not guarantee better comfort.",
-    "- Do not provide legal, code-compliance, or safety certification language.",
+    "- Do not guarantee fewer repairs, lower bills, or better comfort.",
     "- If the notes are too vague, explain what information is missing.",
-    "- Use the preferred tone, but keep the writing professional.",
-    "- Keep the full result concise and useful.",
-    "- Always include a review reminder in reviewNotes."
+    "- Always include a reminder to review before sending to customer."
   ].join("\n");
 }
 
@@ -209,6 +205,25 @@ function extractAiText(aiResponse) {
 
   if (aiResponse.result && typeof aiResponse.result.text === "string") {
     return aiResponse.result.text;
+  }
+
+  if (
+    Array.isArray(aiResponse.choices) &&
+    aiResponse.choices[0] &&
+    aiResponse.choices[0].message &&
+    typeof aiResponse.choices[0].message.content === "string"
+  ) {
+    return aiResponse.choices[0].message.content;
+  }
+
+  if (
+    aiResponse.result &&
+    Array.isArray(aiResponse.result.choices) &&
+    aiResponse.result.choices[0] &&
+    aiResponse.result.choices[0].message &&
+    typeof aiResponse.result.choices[0].message.content === "string"
+  ) {
+    return aiResponse.result.choices[0].message.content;
   }
 
   return "";
@@ -332,8 +347,8 @@ export async function onRequestPost(context) {
 
     const aiResponse = await env.AI.run(DEFAULT_MODEL, {
       messages: messages,
-      max_tokens: 1400,
-      temperature: 0.2
+      max_tokens: 1800,
+      temperature: 0.1
     });
 
     const outputText = extractAiText(aiResponse);
