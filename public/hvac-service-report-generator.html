@@ -168,6 +168,10 @@
           <p class="field-help">
             Required. Paste the rough notes from the technician here. Use at least 25 characters.
           </p>
+
+          <p id="technician-notes-counter" class="field-help">
+            0 / 4000 characters
+          </p>
         </div>
 
         <div class="form-group">
@@ -180,6 +184,17 @@
             <option value="Detailed">Detailed</option>
           </select>
           <p class="field-help">Required. Choose how the result should sound.</p>
+        </div>
+
+        <div class="form-group" style="display: none;" aria-hidden="true">
+          <label for="website">Website</label>
+          <input
+            type="text"
+            id="website"
+            name="website"
+            tabindex="-1"
+            autocomplete="off"
+          />
         </div>
 
         <div class="form-group">
@@ -516,6 +531,7 @@
     const toolForm = document.getElementById("service-report-form");
     const generateButton = document.getElementById("generate-button");
     const formStatusMessage = document.getElementById("form-status-message");
+    const technicianNotesCounter = document.getElementById("technician-notes-counter");
     const generatedResultSection = document.getElementById("generated-result-section");
     const emailCaptureSection = document.getElementById("email-capture-section");
 
@@ -567,6 +583,17 @@
           return "<li>" + escapeHtml(note) + "</li>";
         })
         .join("") + "</ul>";
+    }
+
+    function updateTechnicianNotesCounter() {
+      const technicianNotesField = document.getElementById("technician-notes");
+
+      if (!technicianNotesField || !technicianNotesCounter) {
+        return;
+      }
+
+      const currentLength = technicianNotesField.value.length;
+      technicianNotesCounter.textContent = currentLength + " / 4000 characters";
     }
 
     function setLoadingState(isLoading) {
@@ -624,6 +651,9 @@
       });
     }
 
+    document.getElementById("technician-notes").addEventListener("input", updateTechnicianNotesCounter);
+    updateTechnicianNotesCounter();
+
     toolForm.addEventListener("submit", async function (event) {
       event.preventDefault();
 
@@ -632,6 +662,7 @@
       const technicianNotes = document.getElementById("technician-notes").value.trim();
       const tone = document.getElementById("tone").value;
       const email = document.getElementById("email").value.trim();
+      const website = document.getElementById("website").value.trim();
 
       if (!jobType || !technicianNotes || !tone || !email) {
         showError("Please complete the required fields: job type, technician notes, tone, and email address.");
@@ -640,6 +671,11 @@
 
       if (technicianNotes.length < 25) {
         showError("Please add more detail to the technician notes before generating your report.");
+        return;
+      }
+
+      if (technicianNotes.length > 4000) {
+        showError("Please shorten the technician notes before generating your report.");
         return;
       }
 
@@ -656,7 +692,8 @@
             jobType: jobType,
             technicianNotes: technicianNotes,
             tone: tone,
-            email: email
+            email: email,
+            website: website
           })
         });
 
