@@ -12,18 +12,15 @@
 
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- MailerLite universal script goes below this line.
-       Paste the script MailerLite gives you.
-       Do not paste a private API key here. -->
-<!-- MailerLite Universal -->
-<script>
+  <!-- MailerLite Universal -->
+  <script>
     (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
     .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
     n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
     (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
     ml('account', '2375620');
-</script>
-<!-- End MailerLite Universal -->
+  </script>
+  <!-- End MailerLite Universal -->
 </head>
 
 <body>
@@ -42,88 +39,90 @@
 
   <main class="container">
     <section class="tool-hero-card">
-  <div class="tool-hero-main">
-    <p class="eyebrow">Free HVAC/R AI Tool</p>
+      <div class="tool-hero-main">
+        <p class="eyebrow">Free HVAC/R AI Tool</p>
 
-    <h1>HVAC Service Report Generator</h1>
+        <h1>HVAC Service Report Generator</h1>
 
-    <p class="promise">
-      Turn rough technician notes into cleaner HVAC/R service paperwork.
-    </p>
+        <p class="promise">
+          Turn rough technician notes into cleaner HVAC/R service paperwork.
+        </p>
 
-    <p class="note">
-      Paste messy field notes and create a customer-ready service report, invoice description,
-      customer follow-up message, and internal job summary.
-    </p>
+        <p class="note">
+          Paste messy field notes and generate a customer-ready service report, invoice description,
+          customer follow-up message, internal job summary, and review notes.
+        </p>
 
-    <div class="tool-hero-actions">
-      <a class="button" href="#tool-form-section">
-        Start the Generator
-      </a>
+        <div class="tool-hero-actions">
+          <a class="button" href="#tool-form-section">
+            Start the Generator
+          </a>
 
-      <a class="button secondary" href="hvac-technician-notes-examples.html">
-        See Note Examples
-      </a>
-    </div>
-  </div>
+          <a class="button secondary" href="hvac-technician-notes-examples.html">
+            See Note Examples
+          </a>
+        </div>
+      </div>
 
-  <aside class="tool-hero-aside">
-    <div>
-      <h2>Best for</h2>
+      <aside class="tool-hero-aside">
+        <div>
+          <h2>Best for</h2>
 
-      <ul>
-        <li>HVAC service reports</li>
-        <li>Invoice descriptions</li>
-        <li>Customer follow-up messages</li>
-        <li>Internal job summaries</li>
-        <li>Cleaning up rough technician notes</li>
-      </ul>
-    </div>
+          <ul>
+            <li>HVAC service reports</li>
+            <li>Invoice descriptions</li>
+            <li>Customer follow-up messages</li>
+            <li>Internal job summaries</li>
+            <li>Cleaning up rough technician notes</li>
+          </ul>
+        </div>
 
-    <a class="button" href="#tool-form-section">
-      Use the Free Tool
-    </a>
-  </aside>
-</section>
-<section class="card">
-  <span class="tool-section-label">How it works</span>
+        <a class="button" href="#tool-form-section">
+          Use the Free Tool
+        </a>
+      </aside>
+    </section>
 
-  <h2>Use the tool in three steps</h2>
+    <section class="card">
+      <span class="tool-section-label">How it works</span>
 
-  <div class="tool-quick-grid">
-    <div class="tool-quick-item">
-      <h3>1. Paste rough notes</h3>
-      <p>
-        Add the job type, technician findings, completed work, recommendations,
-        and anything the customer should know.
-      </p>
-    </div>
+      <h2>Use the tool in three steps</h2>
 
-    <div class="tool-quick-item">
-      <h3>2. Generate a preview</h3>
-      <p>
-        The page creates a cleaner draft for service report wording, invoice wording,
-        follow-up messaging, and internal notes.
-      </p>
-    </div>
+      <div class="tool-quick-grid">
+        <div class="tool-quick-item">
+          <h3>1. Paste rough notes</h3>
+          <p>
+            Add the job type, technician findings, completed work, recommendations,
+            and anything the customer should know.
+          </p>
+        </div>
 
-    <div class="tool-quick-item">
-      <h3>3. Review before using</h3>
-      <p>
-        Confirm parts, prices, measurements, warranty language, safety wording,
-        and final recommendations before sending.
-      </p>
-    </div>
-  </div>
-</section>
+        <div class="tool-quick-item">
+          <h3>2. Generate service paperwork</h3>
+          <p>
+            The tool sends your notes to the backend and returns cleaner wording for
+            the report, invoice, follow-up message, and internal summary.
+          </p>
+        </div>
+
+        <div class="tool-quick-item">
+          <h3>3. Review before using</h3>
+          <p>
+            Confirm parts, prices, measurements, warranty language, safety wording,
+            and final recommendations before sending.
+          </p>
+        </div>
+      </div>
+    </section>
+
     <section id="tool-form-section" class="card tool-primary-card">
       <span class="tool-section-label">Generator</span>
+
       <h2>Enter the job details</h2>
 
       <p>
-        Use the form below to organize rough technician notes into cleaner wording.
-        This first version gives a preview result. Enter your email after the preview
-        to unlock the full result format and get more free HVAC/R paperwork templates.
+        Use the form below to turn rough technician notes into cleaner HVAC/R service paperwork.
+        The generated result will appear on this page after the form is submitted.
       </p>
 
       <form id="service-report-form" class="tool-form">
@@ -142,11 +141,16 @@
           <label for="job-type">Job type</label>
           <select id="job-type" name="jobType" required>
             <option value="">Select one</option>
-            <option value="AC repair">AC repair</option>
-            <option value="Furnace repair">Furnace repair</option>
-            <option value="Maintenance tune-up">Maintenance tune-up</option>
-            <option value="Commercial refrigeration">Commercial refrigeration</option>
-            <option value="Diagnostic visit">Diagnostic visit</option>
+            <option value="No-cooling service call">No-cooling service call</option>
+            <option value="No-heat service call">No-heat service call</option>
+            <option value="Maintenance visit">Maintenance visit</option>
+            <option value="Repair visit">Repair visit</option>
+            <option value="Tune-up">Tune-up</option>
+            <option value="Filter replacement">Filter replacement</option>
+            <option value="Condensate drain issue">Condensate drain issue</option>
+            <option value="Coil cleaning">Coil cleaning</option>
+            <option value="Commercial refrigeration service">Commercial refrigeration service</option>
+            <option value="Estimate or recommendation">Estimate or recommendation</option>
             <option value="Other HVAC/R service">Other HVAC/R service</option>
           </select>
           <p class="field-help">Required. Choose the type of service call.</p>
@@ -162,7 +166,7 @@
             placeholder="Example: Customer said AC was running but not cooling. Found weak capacitor. Replaced capacitor. Filter clogged. Checked pressures. System cooling with 18-degree temperature split. Recommended coil cleaning."
           ></textarea>
           <p class="field-help">
-            Required. Paste the rough notes from the technician here.
+            Required. Paste the rough notes from the technician here. Use at least 25 characters.
           </p>
         </div>
 
@@ -172,258 +176,271 @@
             <option value="">Select one</option>
             <option value="Professional">Professional</option>
             <option value="Friendly">Friendly</option>
-            <option value="Simple">Simple</option>
+            <option value="Brief">Brief</option>
             <option value="Detailed">Detailed</option>
           </select>
           <p class="field-help">Required. Choose how the result should sound.</p>
         </div>
 
-        <button type="submit" class="button">
-          Generate Preview
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="you@example.com"
+          />
+          <p class="field-help">
+            Required for this free generator. This version uses your email to complete the generator request.
+            To receive the email template sequence, use the MailerLite signup form below after generating your result.
+          </p>
+        </div>
+
+        <button id="generate-button" type="submit" class="button">
+          Generate Service Paperwork
         </button>
+
+        <p id="form-status-message" class="field-help" aria-live="polite"></p>
       </form>
     </section>
 
-    <section class="card">
-      <h2>Generated Preview</h2>
+    <section id="generated-result-section" class="card hidden">
+      <span class="tool-section-label">Generated Result</span>
 
-      <div id="result-box" class="result-box">
-        <p>
-          Your preview will appear here after you submit the form.
-        </p>
-      </div>
+      <h2>Your generated HVAC/R paperwork</h2>
+
+      <p>
+        Use this generated result as a starting point. Review every section before sending it to a customer,
+        adding it to an invoice, or storing it in a service record.
+      </p>
 
       <div class="tool-review-strip">
-  <strong>Review before sending:</strong>
-  Confirm service details, parts, prices, measurements, warranty language, safety-related wording,
-  customer-specific notes, and final recommendations before using this text with a customer.
-</div>
+        <strong>Review before sending:</strong>
+        Confirm service details, parts, prices, readings, measurements, warranty language, safety-related wording,
+        customer-specific notes, and final recommendations before using this text with a customer.
+      </div>
+
+      <div class="result-box">
+        <div class="generated-output">
+          <h3>1. Customer-Ready Service Report</h3>
+          <div id="service-report-output"></div>
+          <button class="button secondary copy-button" type="button" data-copy-target="service-report-output">
+            Copy Service Report
+          </button>
+
+          <h3>2. Invoice Description</h3>
+          <div id="invoice-description-output"></div>
+          <button class="button secondary copy-button" type="button" data-copy-target="invoice-description-output">
+            Copy Invoice Description
+          </button>
+
+          <h3>3. Customer Follow-Up Message</h3>
+          <div id="customer-follow-up-output"></div>
+          <button class="button secondary copy-button" type="button" data-copy-target="customer-follow-up-output">
+            Copy Follow-Up Message
+          </button>
+
+          <h3>4. Internal Job Summary</h3>
+          <div id="internal-summary-output"></div>
+          <button class="button secondary copy-button" type="button" data-copy-target="internal-summary-output">
+            Copy Internal Summary
+          </button>
+
+          <h3>5. Missing Information or Review Notes</h3>
+          <div id="review-notes-output"></div>
+          <button class="button secondary copy-button" type="button" data-copy-target="review-notes-output">
+            Copy Review Notes
+          </button>
+        </div>
+      </div>
     </section>
 
     <section id="email-capture-section" class="card email-capture-card hidden">
-      <h2>Unlock the full result</h2>
+      <h2>Get more HVAC/R paperwork examples</h2>
 
       <p>
-        Enter your email to unlock the full service report format and get more free HVAC/R paperwork templates.
+        Enter your email below to receive more free HVAC/R technician note examples, service report templates,
+        invoice wording examples, customer follow-up templates, and helpful paperwork tips.
       </p>
-
-<p class="field-help">
-  By submitting this form, you agree to receive the requested tool result, free HVAC/R paperwork
-  templates, and occasional helpful emails about service reports, invoice wording, and customer
-  communication. You can unsubscribe from future emails at any time.
-</p>
-
-<p class="field-help">
-  We do not sell your email address. AI-generated text should be reviewed for accuracy before
-  being sent to customers, added to invoices, or stored in service records.
-</p>
-
-      <div class="mailerlite-form-wrapper">
-        <!-- Paste the MailerLite form div below this line.
-             Example format:
-             <div class="ml-embedded" data-form="ABC123"></div>
-        -->
-<div class="ml-embedded" data-form="tYlgPM"></div>
-      </div>
-
-      <button id="show-full-result-button" class="button secondary" type="button">
-  Continue to examples
-</button>
 
       <p class="field-help">
-        If the form does not appear, refresh the page or check that the MailerLite embed code was pasted correctly.
+        By submitting this form, you agree to receive free HVAC/R paperwork templates and occasional helpful emails
+        about service reports, invoice wording, and customer communication. You can unsubscribe from future emails at any time.
       </p>
+
+      <p class="field-help">
+        We do not sell your email address. AI-generated text should be reviewed for accuracy before being sent to customers,
+        added to invoices, or stored in service records.
+      </p>
+
+      <div class="mailerlite-form-wrapper">
+        <div class="ml-embedded" data-form="tYlgPM"></div>
+      </div>
     </section>
 
-    <section id="full-result-section" class="card hidden">
-      <h2>Full Result Format</h2>
+    <section id="recommended-resources" class="card offer-card">
+      <p class="eyebrow">Recommended Resources</p>
 
-      <div class="result-box">
-        <h3>1. Customer-Ready Service Report</h3>
+      <h2>Tools and templates that can help after the report is written</h2>
+
+      <p>
+        Once your service report is cleaned up, the next step is usually adding the job details
+        to your scheduling, invoicing, customer follow-up, or office paperwork system.
+      </p>
+
+      <p class="affiliate-disclosure">
+        Disclosure: Some links below may be affiliate links. If you sign up through them,
+        we may earn a commission at no extra cost to you. We only list resources that are
+        relevant to HVAC/R paperwork, scheduling, invoicing, bookkeeping, or customer follow-up.
+      </p>
+
+      <div class="offer-grid">
+        <article class="offer-item">
+          <h3>Jobber</h3>
+
+          <p>
+            A field service business platform for quoting, scheduling, invoicing, payments,
+            and customer communication.
+          </p>
+
+          <p class="best-for">
+            Best for: small HVAC/R service businesses that want help organizing jobs and office workflow.
+          </p>
+
+          <a
+            class="button"
+            href="https://go.getjobber.com/hvufmvufglw6"
+            target="_blank"
+            rel="sponsored noopener"
+          >
+            View Jobber
+          </a>
+        </article>
+
+        <article class="offer-item">
+          <h3>QuickBooks Online</h3>
+
+          <p>
+            Accounting and invoicing software for small businesses that need to organize income,
+            expenses, invoices, payments, and bookkeeping records.
+          </p>
+
+          <p class="best-for">
+            Best for: HVAC/R owners and office managers who want to turn cleaned-up service notes
+            and invoice wording into organized financial records.
+          </p>
+
+          <a
+            class="button"
+            href="https://quickbooks.intuit.com/partners/affiliates?cid=par_pim_Q_AO4O_wXnkk"
+            target="_blank"
+            rel="sponsored noopener"
+          >
+            View QuickBooks
+          </a>
+        </article>
+
+        <article class="offer-item">
+          <h3>HVAC Paperwork Starter Kit</h3>
+
+          <p>
+            A future template pack with service report examples, invoice wording, follow-up
+            message templates, and technician note cleanup checklists.
+          </p>
+
+          <p class="best-for">
+            Best for: owners, office managers, and techs who want copy-and-paste paperwork shortcuts.
+          </p>
+
+          <button class="button secondary" type="button" disabled>
+            Link Coming Soon
+          </button>
+        </article>
+      </div>
+
+      <div class="resource-decision-guide">
+        <h3>Which resource should I use?</h3>
+
         <p>
-          Use this section to explain what was found, what work was completed,
-          and what the customer should know next.
+          These resources solve different parts of the same paperwork and workflow problem.
+          Use the guide below to choose the best next step.
         </p>
 
-        <h3>2. Invoice Description</h3>
-        <p>
-          Use this section for 1 to 3 short lines that can be pasted into invoice software.
-        </p>
+        <div class="decision-list">
+          <div class="decision-item">
+            <h4>Use Jobber if you need help managing the service job.</h4>
+            <p>
+              Jobber is the better fit if your main problem is organizing jobs, scheduling,
+              quotes, invoices, payments, customer communication, and day-to-day service workflow.
+            </p>
+          </div>
 
-        <h3>3. Customer Follow-Up Message</h3>
-        <p>
-          Use this section as a short text or email message after the service visit.
-        </p>
+          <div class="decision-item">
+            <h4>Use QuickBooks if you need help managing the invoice and books.</h4>
+            <p>
+              QuickBooks is the better fit if your main problem is tracking income, expenses,
+              invoices, payments, bookkeeping, and small-business financial records.
+            </p>
+          </div>
 
-        <h3>4. Internal Job Summary</h3>
-        <p>
-          Use this section for office records, technician notes, or admin cleanup.
-        </p>
+          <div class="decision-item">
+            <h4>Use the HVAC Paperwork Starter Kit if you want ready-to-use templates.</h4>
+            <p>
+              The starter kit will be the better fit if you want copy-and-paste examples for
+              service reports, invoice descriptions, customer follow-up messages, and technician
+              note cleanup checklists.
+            </p>
+          </div>
+        </div>
 
-        <h3>5. Missing Information or Review Notes</h3>
-        <p>
-          Use this section to list anything that should be confirmed before sending the result.
+        <p class="field-help">
+          This guide is meant to help you choose the resource that best matches your current need.
+          Review each provider’s current features, pricing, and terms before signing up.
         </p>
       </div>
     </section>
-<section id="recommended-resources" class="card offer-card">
-  <p class="eyebrow">Recommended Resources</p>
 
-  <h2>Tools and templates that can help after the report is written</h2>
-
-  <p>
-    Once your service report is cleaned up, the next step is usually adding the job details
-    to your scheduling, invoicing, customer follow-up, or office paperwork system.
-  </p>
-
-  <p class="affiliate-disclosure">
-  Disclosure: Some links below may be affiliate links. If you sign up through them,
-  we may earn a commission at no extra cost to you. We only list resources that are
-  relevant to HVAC/R paperwork, scheduling, invoicing, bookkeeping, or customer follow-up.
-</p>
-
-  <div class="offer-grid">
-    <article class="offer-item">
-      <h3>Jobber</h3>
-
-      <p>
-        A field service business platform for quoting, scheduling, invoicing, payments,
-        and customer communication.
-      </p>
-
-      <p class="best-for">
-        Best for: small HVAC/R service businesses that want help organizing jobs and office workflow.
-      </p>
-
-    <a
-  class="button"
-  href="https://go.getjobber.com/hvufmvufglw6"
-  target="_blank"
-  rel="sponsored noopener"
->
-  View Jobber
-</a>
-    </article>
-
-   <article class="offer-item">
-  <h3>QuickBooks Online</h3>
-
-  <p>
-    Accounting and invoicing software for small businesses that need to organize income,
-    expenses, invoices, payments, and bookkeeping records.
-  </p>
-
-  <p class="best-for">
-    Best for: HVAC/R owners and office managers who want to turn cleaned-up service notes
-    and invoice wording into organized financial records.
-  </p>
-
-  <a
-  class="button"
-  href="https://quickbooks.intuit.com/partners/affiliates?cid=par_pim_Q_AO4O_wXnkk"
-  target="_blank"
-  rel="sponsored noopener"
->
-  View QuickBooks
-</a>
-</article>
-
-    <article class="offer-item">
-      <h3>HVAC Paperwork Starter Kit</h3>
-
-      <p>
-        A future template pack with service report examples, invoice wording, follow-up
-        message templates, and technician note cleanup checklists.
-      </p>
-
-      <p class="best-for">
-        Best for: owners, office managers, and techs who want copy-and-paste paperwork shortcuts.
-      </p>
-
-      <button class="button secondary" type="button" disabled>
-        Link Coming Soon
-      </button>
-    </article>
-  </div>
-  <div class="resource-decision-guide">
-  <h3>Which resource should I use?</h3>
-
-  <p>
-    These resources solve different parts of the same paperwork and workflow problem.
-    Use the guide below to choose the best next step.
-  </p>
-
-  <div class="decision-list">
-    <div class="decision-item">
-      <h4>Use Jobber if you need help managing the service job.</h4>
-      <p>
-        Jobber is the better fit if your main problem is organizing jobs, scheduling,
-        quotes, invoices, payments, customer communication, and day-to-day service workflow.
-      </p>
-    </div>
-
-    <div class="decision-item">
-      <h4>Use QuickBooks if you need help managing the invoice and books.</h4>
-      <p>
-        QuickBooks is the better fit if your main problem is tracking income, expenses,
-        invoices, payments, bookkeeping, and small-business financial records.
-      </p>
-    </div>
-
-    <div class="decision-item">
-      <h4>Use the HVAC Paperwork Starter Kit if you want ready-to-use templates.</h4>
-      <p>
-        The starter kit will be the better fit if you want copy-and-paste examples for
-        service reports, invoice descriptions, customer follow-up messages, and technician
-        note cleanup checklists.
-      </p>
-    </div>
-  </div>
-
-  <p class="field-help">
-    This guide is meant to help you choose the resource that best matches your current need.
-    Review each provider’s current features, pricing, and terms before signing up.
-  </p>
-</div>
-</section>
     <section class="card">
-  <span class="tool-section-label">Example Input</span>
+      <span class="tool-section-label">Example Input</span>
 
-  <h2>Example technician notes</h2>
+      <h2>Example technician notes</h2>
 
-  <div class="tool-example-layout">
-    <div class="tool-example-note">
-      <h3>What to include</h3>
+      <div class="tool-example-layout">
+        <div class="tool-example-note">
+          <h3>What to include</h3>
 
-      <p>
-        Good technician notes usually include the customer issue, what the technician found,
-        what work was completed, and what was recommended.
-      </p>
+          <p>
+            Good technician notes usually include the customer issue, what the technician found,
+            what work was completed, and what was recommended.
+          </p>
 
-      <p>
-        The tool works best when the notes are specific enough that it does not need to guess.
-      </p>
-    </div>
+          <p>
+            The tool works best when the notes are specific enough that it does not need to guess.
+          </p>
+        </div>
 
-    <pre class="example-box">Customer reported AC running but not cooling well. Found weak capacitor. Replaced capacitor. Filter clogged. Outdoor coil dirty. System cooling with 18-degree split after repair. Recommended filter replacement and coil cleaning. Customer declined coil cleaning today.</pre>
-  </div>
-</section>
-<section class="card">
-  <h2>Related HVAC/R tools and templates</h2>
+        <pre class="example-box">Customer reported AC running but not cooling well. Found weak capacitor. Replaced capacitor. Filter clogged. Outdoor coil dirty. System cooling with 18-degree split after repair. Recommended filter replacement and coil cleaning. Customer declined coil cleaning today.</pre>
+      </div>
+    </section>
 
-  <ul>
-    <li><a href="hvac-service-report-generator.html">HVAC Service Report Generator</a></li>
-    <li><a href="hvac-invoice-description-generator.html">HVAC Invoice Description Generator</a></li>
-    <li><a href="hvac-customer-follow-up-text-generator.html">HVAC Customer Follow-Up Text Generator</a></li>
-    <li><a href="hvac-maintenance-plan-pitch-generator.html">HVAC Maintenance Plan Pitch Generator</a></li>
-    <li><a href="hvac-estimate-description-generator.html">HVAC Estimate Description Generator</a></li>
-    <li><a href="hvac-tune-up-report-template.html">HVAC Tune-Up Report Template</a></li>
-    <li><a href="ac-repair-service-report-template.html">AC Repair Service Report Template</a></li>
-    <li><a href="furnace-repair-service-report-template.html">Furnace Repair Service Report Template</a></li>
-    <li><a href="commercial-refrigeration-service-report-generator.html">Commercial Refrigeration Service Report Generator</a></li>
-    <li><a href="hvac-technician-notes-examples.html">HVAC Technician Notes Examples</a></li>
-  </ul>
-</section>
+    <section class="card">
+      <h2>Related HVAC/R tools and templates</h2>
+
+      <ul>
+        <li><a href="hvac-service-report-generator.html">HVAC Service Report Generator</a></li>
+        <li><a href="hvac-invoice-description-generator.html">HVAC Invoice Description Generator</a></li>
+        <li><a href="hvac-customer-follow-up-text-generator.html">HVAC Customer Follow-Up Text Generator</a></li>
+        <li><a href="hvac-maintenance-plan-pitch-generator.html">HVAC Maintenance Plan Pitch Generator</a></li>
+        <li><a href="hvac-estimate-description-generator.html">HVAC Estimate Description Generator</a></li>
+        <li><a href="hvac-tune-up-report-template.html">HVAC Tune-Up Report Template</a></li>
+        <li><a href="ac-repair-service-report-template.html">AC Repair Service Report Template</a></li>
+        <li><a href="furnace-repair-service-report-template.html">Furnace Repair Service Report Template</a></li>
+        <li><a href="commercial-refrigeration-service-report-generator.html">Commercial Refrigeration Service Report Generator</a></li>
+        <li><a href="hvac-technician-notes-examples.html">HVAC Technician Notes Examples</a></li>
+      </ul>
+    </section>
+
     <section class="card">
       <h2>What this tool creates</h2>
 
@@ -437,125 +454,231 @@
 
       <p>
         This tool is designed to help HVAC/R service companies clean up field notes before
-        adding them to Jobber, Housecall Pro, QuickBooks, ServiceTitan, or another office system.
+        adding them to Jobber, QuickBooks, ServiceTitan, or another office system.
       </p>
     </section>
+
     <section class="card">
-  <h2>Frequently asked questions</h2>
+      <h2>Frequently asked questions</h2>
 
-  <h3>Who is this HVAC Service Report Generator for?</h3>
-  <p>
-    It is for HVAC/R owners, office managers, technicians, and admin staff who need to turn rough technician notes into cleaner service reports, invoice descriptions, customer follow-up messages, and internal job summaries.
-  </p>
+      <h3>Who is this HVAC Service Report Generator for?</h3>
+      <p>
+        It is for HVAC/R owners, office managers, technicians, and admin staff who need to turn rough technician notes into cleaner service reports, invoice descriptions, customer follow-up messages, and internal job summaries.
+      </p>
 
-  <h3>What kind of notes should I paste into the tool?</h3>
-  <p>
-    Paste rough notes from the service visit, such as the job type, technician findings, completed work, parts used, system observations, customer concerns, declined work, and recommended next steps.
-  </p>
+      <h3>What kind of notes should I paste into the tool?</h3>
+      <p>
+        Paste rough notes from the service visit, such as the job type, technician findings, completed work, parts used, system observations, customer concerns, declined work, and recommended next steps.
+      </p>
 
-  <h3>Can I send the generated report directly to a customer?</h3>
-  <p>
-    Use the generated text as a starting point. Review it before sending. Confirm all service details, parts, pricing, warranty language, safety claims, measurements, and final recommendations.
-  </p>
+      <h3>Can I send the generated report directly to a customer?</h3>
+      <p>
+        Use the generated text as a starting point. Review it before sending. Confirm all service details, parts, pricing, warranty language, safety claims, measurements, and final recommendations.
+      </p>
 
-  <h3>Does this tool create prices or warranty terms?</h3>
-  <p>
-    No. This tool does not create prices, labor rates, part costs, warranty terms, discounts, taxes, or final totals. Any financial or warranty details should be verified by your company before use.
-  </p>
+      <h3>Does this tool create prices or warranty terms?</h3>
+      <p>
+        No. This tool does not create prices, labor rates, part costs, warranty terms, discounts, taxes, or final totals. Any financial or warranty details should be verified by your company before use.
+      </p>
 
-  <h3>Can this tool say that a system is safe or fully fixed?</h3>
-  <p>
-    Only use safety, performance, or final repair claims if the technician notes and your company policy clearly support that wording. Safer wording is to describe what was found, what was completed, and what should be reviewed next.
-  </p>
+      <h3>Can this tool say that a system is safe or fully fixed?</h3>
+      <p>
+        Only use safety, performance, or final repair claims if the technician notes and your company policy clearly support that wording. Safer wording is to describe what was found, what was completed, and what should be reviewed next.
+      </p>
 
-  <h3>Can I use the result in Jobber, QuickBooks, or other service software?</h3>
-  <p>
-    Yes, you can use the result as a starting point for service reports, invoice descriptions, customer notes, or internal job summaries. Review and adjust the wording before adding it to any business system.
-  </p>
+      <h3>Can I use the result in Jobber, QuickBooks, or other service software?</h3>
+      <p>
+        Yes, you can use the result as a starting point for service reports, invoice descriptions, customer notes, or internal job summaries. Review and adjust the wording before adding it to any business system.
+      </p>
 
-  <h3>Does this replace field service, invoicing, or accounting software?</h3>
-  <p>
-    No. This tool helps clean up wording from technician notes. It does not replace job management, scheduling, invoicing, payment, bookkeeping, tax, or accounting software.
-  </p>
-</section>
+      <h3>Does this replace field service, invoicing, or accounting software?</h3>
+      <p>
+        No. This tool helps clean up wording from technician notes. It does not replace job management, scheduling, invoicing, payment, bookkeeping, tax, or accounting software.
+      </p>
+    </section>
   </main>
 
   <footer class="site-footer">
-  <div class="container">
-    <p>
-      &copy; 2026 HVAC AI Helper. AI outputs should be reviewed before sending to customers.
-    </p>
+    <div class="container">
+      <p>
+        &copy; 2026 HVAC AI Helper. AI outputs should be reviewed before sending to customers.
+      </p>
 
-    <p class="footer-links">
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="affiliate-disclosure.html">Affiliate Disclosure</a>
-      <a href="contact.html">Contact</a>
-    </p>
-  </div>
-</footer>
+      <p class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="affiliate-disclosure.html">Affiliate Disclosure</a>
+        <a href="contact.html">Contact</a>
+      </p>
+    </div>
+  </footer>
 
   <script>
     const toolForm = document.getElementById("service-report-form");
-    const resultBox = document.getElementById("result-box");
+    const generateButton = document.getElementById("generate-button");
+    const formStatusMessage = document.getElementById("form-status-message");
+    const generatedResultSection = document.getElementById("generated-result-section");
     const emailCaptureSection = document.getElementById("email-capture-section");
-    const fullResultSection = document.getElementById("full-result-section");
-    const showFullResultButton = document.getElementById("show-full-result-button");
 
-    toolForm.addEventListener("submit", function (event) {
+    const serviceReportOutput = document.getElementById("service-report-output");
+    const invoiceDescriptionOutput = document.getElementById("invoice-description-output");
+    const customerFollowUpOutput = document.getElementById("customer-follow-up-output");
+    const internalSummaryOutput = document.getElementById("internal-summary-output");
+    const reviewNotesOutput = document.getElementById("review-notes-output");
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function textToParagraphs(value) {
+      const cleanedValue = String(value || "").trim();
+
+      if (!cleanedValue) {
+        return "<p>No output was returned for this section.</p>";
+      }
+
+      return cleanedValue
+        .split(/\n+/)
+        .map(function (paragraph) {
+          return paragraph.trim();
+        })
+        .filter(Boolean)
+        .map(function (paragraph) {
+          return "<p>" + escapeHtml(paragraph) + "</p>";
+        })
+        .join("");
+    }
+
+    function notesToList(notes) {
+      if (!Array.isArray(notes) || notes.length === 0) {
+        return "<ul><li>Review final wording before sending to the customer.</li></ul>";
+      }
+
+      return "<ul>" + notes
+        .map(function (note) {
+          return String(note || "").trim();
+        })
+        .filter(Boolean)
+        .map(function (note) {
+          return "<li>" + escapeHtml(note) + "</li>";
+        })
+        .join("") + "</ul>";
+    }
+
+    function setLoadingState(isLoading) {
+      generateButton.disabled = isLoading;
+
+      if (isLoading) {
+        generateButton.textContent = "Generating...";
+        formStatusMessage.textContent = "Generating your service paperwork. This may take a few seconds. Do not refresh the page.";
+      } else {
+        generateButton.textContent = "Generate Service Paperwork";
+      }
+    }
+
+    function showError(message) {
+      formStatusMessage.innerHTML = "<strong>" + escapeHtml(message) + "</strong>";
+    }
+
+    function showGeneratedResult(result) {
+      serviceReportOutput.innerHTML = textToParagraphs(result.serviceReport);
+      invoiceDescriptionOutput.innerHTML = textToParagraphs(result.invoiceDescription);
+      customerFollowUpOutput.innerHTML = textToParagraphs(result.customerFollowUp);
+      internalSummaryOutput.innerHTML = textToParagraphs(result.internalSummary);
+      reviewNotesOutput.innerHTML = notesToList(result.reviewNotes);
+
+      generatedResultSection.classList.remove("hidden");
+      emailCaptureSection.classList.remove("hidden");
+
+      formStatusMessage.textContent = "Your service paperwork was generated successfully. Review the result below before using it.";
+
+      generatedResultSection.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function copyTextFromElement(elementId, button) {
+      const element = document.getElementById(elementId);
+
+      if (!element) {
+        return;
+      }
+
+      const text = element.innerText.trim();
+
+      if (!text) {
+        return;
+      }
+
+      navigator.clipboard.writeText(text).then(function () {
+        const originalText = button.textContent;
+        button.textContent = "Copied!";
+
+        setTimeout(function () {
+          button.textContent = originalText;
+        }, 1800);
+      }).catch(function () {
+        alert("Copy failed. Please highlight the text and copy it manually.");
+      });
+    }
+
+    toolForm.addEventListener("submit", async function (event) {
       event.preventDefault();
 
       const companyName = document.getElementById("company-name").value.trim();
       const jobType = document.getElementById("job-type").value;
       const technicianNotes = document.getElementById("technician-notes").value.trim();
       const tone = document.getElementById("tone").value;
+      const email = document.getElementById("email").value.trim();
 
-      if (!jobType || !technicianNotes || !tone) {
-        resultBox.innerHTML = `
-          <p><strong>Please complete the required fields:</strong> job type, technician notes, and tone.</p>
-        `;
+      if (!jobType || !technicianNotes || !tone || !email) {
+        showError("Please complete the required fields: job type, technician notes, tone, and email address.");
         return;
       }
 
-      const displayCompany = companyName || "Your company";
+      if (technicianNotes.length < 25) {
+        showError("Please add more detail to the technician notes before generating your report.");
+        return;
+      }
 
-      resultBox.innerHTML = `
-        <div class="generated-output">
-          <h3>Preview Result</h3>
+      setLoadingState(true);
 
-          <p>
-            <strong>Company:</strong> ${displayCompany}
-          </p>
+      try {
+        const response = await fetch("/api/generate-service-report", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            companyName: companyName,
+            jobType: jobType,
+            technicianNotes: technicianNotes,
+            tone: tone,
+            email: email
+          })
+        });
 
-          <p>
-            <strong>Job type:</strong> ${jobType}
-          </p>
+        const data = await response.json();
 
-          <h4>Customer-Ready Preview</h4>
-          <p>
-            Based on the technician notes provided, this ${jobType.toLowerCase()} visit can be turned into a cleaner service report, invoice description, follow-up message, and internal job summary.
-          </p>
+        if (!response.ok || !data.success) {
+          showError(data.error || "Something went wrong while generating the report. Please try again.");
+          return;
+        }
 
-          <h4>Preview Invoice Line</h4>
-          <p>
-            Performed ${jobType.toLowerCase()} service and documented technician findings, completed work, and recommended next steps.
-          </p>
-
-          <h4>Original Technician Notes</h4>
-          <p>${technicianNotes}</p>
-
-          <p>
-            <strong>Next step:</strong> Enter your email below to unlock the full result format and get more free HVAC/R paperwork templates.
-          </p>
-        </div>
-      `;
-
-      emailCaptureSection.classList.remove("hidden");
-      emailCaptureSection.scrollIntoView({ behavior: "smooth" });
+        showGeneratedResult(data.result);
+      } catch (error) {
+        showError("The generator is temporarily unavailable. Please try again later.");
+      } finally {
+        setLoadingState(false);
+      }
     });
 
-    showFullResultButton.addEventListener("click", function () {
-      fullResultSection.classList.remove("hidden");
-      fullResultSection.scrollIntoView({ behavior: "smooth" });
+    document.querySelectorAll(".copy-button").forEach(function (button) {
+      button.addEventListener("click", function () {
+        copyTextFromElement(button.dataset.copyTarget, button);
+      });
     });
   </script>
 </body>
