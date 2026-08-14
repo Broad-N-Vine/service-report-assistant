@@ -1,4 +1,4 @@
-const BUILD_VERSION = "workers-ai-fast-model-parser-fix-2026-08-14";
+const BUILD_VERSION = "workers-ai-normalized-output-2026-08-14";
 const DEFAULT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast";
 
 const JSON_HEADERS = {
@@ -40,6 +40,23 @@ function cleanText(value) {
   }
 
   return value.trim();
+}
+
+function textFromValue(value) {
+  if (typeof value === "string") {
+    return value.trim();
+  }
+
+  if (Array.isArray(value)) {
+    return value
+      .map(function (item) {
+        return typeof item === "string" ? item.trim() : "";
+      })
+      .filter(Boolean)
+      .join("\n");
+  }
+
+  return "";
 }
 
 function isValidEmail(email) {
@@ -149,7 +166,7 @@ function buildUserPrompt(data) {
     "  ]",
     "}",
     "",
-    "Write the output sections as follows:",
+    "Important: every key must be present. Do not skip any key.",
     "",
     "serviceReport:",
     "Write a clear customer-ready service report. Include what was reported, what was found, what work was completed, and any supported recommendation.",
@@ -252,32 +269,108 @@ function extractJsonObject(text) {
   return cleaned.slice(firstBrace, lastBrace + 1);
 }
 
-function validateAiResult(result) {
+function normalizeAiResult(result, inputData) {
   if (!result || typeof result !== "object") {
-    return false;
+    return null;
   }
 
-  if (typeof result.serviceReport !== "string") {
-    return false;
+  const serviceReport = textFromValue(
+    result.serviceReport ||
+    result.customerReadyServiceReport ||
+    result.customer_ready_service_report ||
+    result.report ||
+    result.service_report
+  );
+
+  const invoiceDescription = textFromValue(
+    result.invoiceDescription ||
+    result.invoice_description ||
+    result.invoice ||
+    result.invoiceLines ||
+    result.invoice_lines
+  );
+
+  const customerFollowUp = textFromValue(
+    result.customerFollowUp ||
+    result.customer_follow_up ||
+    result.followUp ||
+    result.follow_up ||
+    result.customerMessage ||
+    result.customer_message
+  );
+
+  const internalSummary = textFromValue(
+    result.internalSummary ||
+    result.internal_summary ||
+    result.summary ||
+    result.officeSummary ||
+    result.office_summary
+  );
+
+  let reviewNotes = [];
+
+  if (Array.isArray(result.reviewNotes)) {
+    reviewNotes = result.reviewNotes
+      .map(function (note) {
+        return typeof note === "string" ? note.trim() : "";
+      })
+      .filter(Boolean);
+  } else if (typeof result.reviewNotes === "string") {
+    reviewNotes = result.reviewNotes
+      .split("\n")
+      .map(function (note) {
+        return note.replace(/^[-*]\s*/, "").trim();
+      })
+      .filter(Boolean);
+  } else if (Array.isArray(result.missingInformation)) {
+    reviewNotes = result.missingInformation
+      .map(function (note) {
+        return typeof note === "string" ? note.trim() : "";
+      })
+      .filter(Boolean);
+  } else if (typeof result.missingInformation === "string") {
+    reviewNotes = [result.missingInformation.trim()];
   }
 
-  if (typeof result.invoiceDescription !== "string") {
-    return false;
+  const anyMainOutput =
+    serviceReport ||
+    invoiceDescription ||
+    customerFollowUp ||
+    internalSummary;
+
+  if (!anyMainOutput) {
+    return null;
   }
 
-  if (typeof result.customerFollowUp !== "string") {
-    return false;
+  const safeServiceReport =
+    serviceReport ||
+    "The submitted technician notes were received, but the generated service report needs review because the output was incomplete.";
+
+  const safeInvoiceDescription =
+    invoiceDescription ||
+    "Completed HVAC/R service visit. Confirm specific work performed before finalizing invoice wording.";
+
+  const safeCustomerFollowUp =
+    customerFollowUp ||
+    "Thank you for having us out today. Please contact our office if you have any additional questions about the service visit.";
+
+  const safeInternalSummary =
+    internalSummary ||
+    "HVAC/R service visit notes were submitted. Office review is needed before sending customer-facing paperwork.";
+
+  if (reviewNotes.length === 0) {
+    reviewNotes.push("Review final wording before sending to the customer.");
   }
 
-  if (typeof result.internalSummary !== "string") {
-    return false;
-  }
+  reviewNotes.push("Confirm pricing, parts, readings, warranty language, customer approval, and company-specific details before sending.");
 
-  if (!Array.isArray(result.reviewNotes)) {
-    return false;
-  }
-
-  return true;
+  return {
+    serviceReport: safeServiceReport,
+    invoiceDescription: safeInvoiceDescription,
+    customerFollowUp: safeCustomerFollowUp,
+    internalSummary: safeInternalSummary,
+    reviewNotes: reviewNotes
+  };
 }
 
 export async function onRequestGet(context) {
@@ -378,7 +471,9 @@ export async function onRequestPost(context) {
       );
     }
 
-    if (!validateAiResult(parsedResult)) {
+    const normalizedResult = normalizeAiResult(parsedResult, validation.data);
+
+    if (!normalizedResult) {
       return jsonResponse(
         {
           success: false,
@@ -390,7 +485,7 @@ export async function onRequestPost(context) {
 
     return jsonResponse({
       success: true,
-      result: parsedResult
+      result: normalizedResult
     });
   } catch (error) {
     return jsonResponse(
