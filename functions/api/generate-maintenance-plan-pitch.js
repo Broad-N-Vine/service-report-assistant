@@ -1,4 +1,4 @@
-const BUILD_VERSION = "workers-ai-maintenance-plan-pitch-generator-2026-08-16";
+const BUILD_VERSION = "workers-ai-maintenance-plan-pitch-parser-fix-2026-08-16";
 const DEFAULT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast";
 
 const JSON_HEADERS = {
@@ -22,6 +22,7 @@ const SYSTEM_PROMPT = [
   "Do not mention that you are an AI.",
   "",
   "Return only valid JSON.",
+  "The response must start with { and end with }.",
   "Do not include markdown.",
   "Do not include backticks.",
   "Do not include commentary outside the JSON object."
@@ -161,7 +162,9 @@ function buildUserPrompt(data) {
     "",
     "Create HVAC/R maintenance plan pitch wording based only on the information provided.",
     "",
-    "Return only one valid JSON object with exactly these keys:",
+    "Return one valid JSON object only.",
+    "",
+    "The JSON object must use exactly these keys:",
     "",
     "{",
     '  "maintenancePlanPitch": "Customer-ready maintenance plan pitch text.",',
@@ -173,7 +176,12 @@ function buildUserPrompt(data) {
     "  ]",
     "}",
     "",
-    "Important: every key must be present. Do not skip any key.",
+    "Important:",
+    "- Every key must be present.",
+    "- The response must start with { and end with }.",
+    "- Do not include markdown.",
+    "- Do not include a title.",
+    "- Do not include commentary outside the JSON.",
     "",
     "maintenancePlanPitch:",
     "Write a clear, helpful, low-pressure maintenance plan pitch that connects the customer's situation to the value of routine maintenance without overpromising.",
@@ -272,10 +280,45 @@ function extractJsonObject(text) {
   const lastBrace = cleaned.lastIndexOf("}");
 
   if (firstBrace === -1 || lastBrace === -1 || lastBrace <= firstBrace) {
-    return cleaned;
+    return "";
   }
 
   return cleaned.slice(firstBrace, lastBrace + 1);
+}
+
+function tryParseJson(text) {
+  const jsonText = extractJsonObject(text);
+
+  if (!jsonText) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(jsonText);
+  } catch (error) {
+    return null;
+  }
+}
+
+function splitReviewNotes(value) {
+  if (Array.isArray(value)) {
+    return value
+      .map(function (note) {
+        return typeof note === "string" ? note.trim() : "";
+      })
+      .filter(Boolean);
+  }
+
+  if (typeof value === "string") {
+    return value
+      .split("\n")
+      .map(function (note) {
+        return note.replace(/^[-*]\s*/, "").trim();
+      })
+      .filter(Boolean);
+  }
+
+  return [];
 }
 
 function normalizeAiResult(result) {
@@ -292,7 +335,10 @@ function normalizeAiResult(result) {
     result.customerPitch ||
     result.customer_pitch ||
     result.maintenancePitch ||
-    result.maintenance_pitch
+    result.maintenance_pitch ||
+    result.message ||
+    result.customerMessage ||
+    result.customer_message
   );
 
   const shortTextMessage = textFromValue(
@@ -302,7 +348,9 @@ function normalizeAiResult(result) {
     result.text_message ||
     result.sms ||
     result.smsMessage ||
-    result.sms_message
+    result.sms_message ||
+    result.shortMessage ||
+    result.short_message
   );
 
   const emailVersion = textFromValue(
@@ -317,28 +365,10 @@ function normalizeAiResult(result) {
 
   let reviewNotes = [];
 
-  if (Array.isArray(result.reviewNotes)) {
-    reviewNotes = result.reviewNotes
-      .map(function (note) {
-        return typeof note === "string" ? note.trim() : "";
-      })
-      .filter(Boolean);
-  } else if (typeof result.reviewNotes === "string") {
-    reviewNotes = result.reviewNotes
-      .split("\n")
-      .map(function (note) {
-        return note.replace(/^[-*]\s*/, "").trim();
-      })
-      .filter(Boolean);
-  } else if (Array.isArray(result.missingInformation)) {
-    reviewNotes = result.missingInformation
-      .map(function (note) {
-        return typeof note === "string" ? note.trim() : "";
-      })
-      .filter(Boolean);
-  } else if (typeof result.missingInformation === "string") {
-    reviewNotes = [result.missingInformation.trim()];
-  }
+  reviewNotes = reviewNotes.concat(splitReviewNotes(result.reviewNotes));
+  reviewNotes = reviewNotes.concat(splitReviewNotes(result.missingInformation));
+  reviewNotes = reviewNotes.concat(splitReviewNotes(result.missing_information));
+  reviewNotes = reviewNotes.concat(splitReviewNotes(result.notes));
 
   const anyMainOutput =
     maintenancePlanPitch ||
@@ -372,6 +402,24 @@ function normalizeAiResult(result) {
     shortTextMessage: safeShortTextMessage,
     emailVersion: safeEmailVersion,
     reviewNotes: reviewNotes
+  };
+}
+
+function buildFallbackResultFromRawText(outputText) {
+  const cleanedOutput = cleanText(outputText);
+
+  if (!cleanedOutput) {
+    return null;
+  }
+
+  return {
+    maintenancePlanPitch: cleanedOutput,
+    shortTextMessage: "Thanks for having us out today. Ask our office about routine maintenance options if you would like help keeping the system on a regular service schedule.",
+    emailVersion: "Hello,\n\nThank you for having us out today. Routine maintenance may be a helpful option if you would like to keep the system on a regular service schedule. Please contact our office if you would like to review available maintenance options.\n\nThank you.",
+    reviewNotes: [
+      "The generator returned usable wording but not the expected structured format, so review this result carefully.",
+      "Confirm plan details, pricing, terms, benefits, warranty language, customer approval, and company-specific maintenance agreement rules before sending."
+    ]
   };
 }
 
@@ -458,37 +506,35 @@ export async function onRequestPost(context) {
       );
     }
 
-    let parsedResult;
+    const parsedResult = tryParseJson(outputText);
 
-    try {
-      const jsonText = extractJsonObject(outputText);
-      parsedResult = JSON.parse(jsonText);
-    } catch (error) {
-      return jsonResponse(
-        {
-          success: false,
-          error: "The maintenance plan pitch generator returned an unexpected format. Please try again."
-        },
-        502
-      );
+    if (parsedResult) {
+      const normalizedResult = normalizeAiResult(parsedResult);
+
+      if (normalizedResult) {
+        return jsonResponse({
+          success: true,
+          result: normalizedResult
+        });
+      }
     }
 
-    const normalizedResult = normalizeAiResult(parsedResult);
+    const fallbackResult = buildFallbackResultFromRawText(outputText);
 
-    if (!normalizedResult) {
-      return jsonResponse(
-        {
-          success: false,
-          error: "The maintenance plan pitch generator returned incomplete output. Please try again."
-        },
-        502
-      );
+    if (fallbackResult) {
+      return jsonResponse({
+        success: true,
+        result: fallbackResult
+      });
     }
 
-    return jsonResponse({
-      success: true,
-      result: normalizedResult
-    });
+    return jsonResponse(
+      {
+        success: false,
+        error: "The maintenance plan pitch generator returned incomplete output. Please try again."
+      },
+      502
+    );
   } catch (error) {
     return jsonResponse(
       {
