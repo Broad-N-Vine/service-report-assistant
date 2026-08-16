@@ -1,4 +1,4 @@
-const BUILD_VERSION = "workers-ai-commercial-refrigeration-report-generator-2026-08-16";
+const BUILD_VERSION = "workers-ai-commercial-refrigeration-placeholder-cleanup-2026-08-16";
 const DEFAULT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast";
 
 const JSON_HEADERS = {
@@ -13,6 +13,7 @@ const SYSTEM_PROMPT = [
   "",
   "Use only the information provided by the user.",
   "Do not invent facts, prices, labor rates, taxes, discounts, parts, refrigerant amounts, temperatures, pressures, model numbers, serial numbers, warranty terms, guarantees, diagnostic readings, food safety claims, code-compliance claims, safety claims, or final operating conditions.",
+  "Do not use placeholders such as [date], [customer name], [company name], [technician name], [equipment], TBD, or N/A in customer-facing output.",
   "",
   "Write in plain English.",
   "Keep the wording professional, clear, and useful for refrigeration owners, office managers, technicians, and customers.",
@@ -43,15 +44,39 @@ function cleanText(value) {
   return value.trim();
 }
 
+function removePlaceholderArtifacts(value) {
+  if (typeof value !== "string") {
+    return "";
+  }
+
+  return value
+    .trim()
+    .replace(/^On\s+\[date\],\s*/i, "")
+    .replace(/^On\s+the\s+date,\s*/i, "")
+    .replace(/^On\s+N\/A,\s*/i, "")
+    .replace(/^On\s+TBD,\s*/i, "")
+    .replace(/\[date\]/gi, "the service visit")
+    .replace(/\[service date\]/gi, "the service visit")
+    .replace(/\[customer name\]/gi, "the customer")
+    .replace(/\[company name\]/gi, "the company")
+    .replace(/\[technician name\]/gi, "the technician")
+    .replace(/\[equipment\]/gi, "the equipment")
+    .replace(/\bTBD\b/g, "to be confirmed")
+    .replace(/\bN\/A\b/g, "to be confirmed")
+    .replace(/\s+([,.])/g, "$1")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
 function textFromValue(value) {
   if (typeof value === "string") {
-    return value.trim();
+    return removePlaceholderArtifacts(value);
   }
 
   if (Array.isArray(value)) {
     return value
       .map(function (item) {
-        return typeof item === "string" ? item.trim() : "";
+        return typeof item === "string" ? removePlaceholderArtifacts(item) : "";
       })
       .filter(Boolean)
       .join("\n");
@@ -189,6 +214,8 @@ function buildUserPrompt(data) {
     "- Do not include markdown.",
     "- Do not include a title.",
     "- Do not include commentary outside the JSON.",
+    "- Do not use placeholders like [date]. If a date was not provided, omit the date or say 'During the service visit.'",
+    "- Do not use placeholders like [customer name], [company name], [technician name], [equipment], TBD, or N/A.",
     "",
     "serviceReport:",
     "Write a clear customer-ready commercial refrigeration service report. Include what was reported, what was found, what work was completed, and any supported recommendation.",
@@ -320,13 +347,13 @@ function splitReviewNotes(value) {
   if (Array.isArray(value)) {
     return value
       .map(function (note) {
-        return typeof note === "string" ? note.trim() : "";
+        return typeof note === "string" ? removePlaceholderArtifacts(note) : "";
       })
       .filter(Boolean);
   }
 
   if (typeof value === "string") {
-    return value
+    return removePlaceholderArtifacts(value)
       .split("\n")
       .map(function (note) {
         return note.replace(/^[-*]\s*/, "").trim();
@@ -433,7 +460,7 @@ function normalizeAiResult(result) {
 }
 
 function buildFallbackResultFromRawText(outputText) {
-  const cleanedOutput = cleanText(outputText);
+  const cleanedOutput = removePlaceholderArtifacts(outputText);
 
   if (!cleanedOutput) {
     return null;
