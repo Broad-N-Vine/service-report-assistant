@@ -1430,3 +1430,47 @@ pre.example-box {
     flex-direction: column;
   }
 }
+.tool-picker-section {
+  overflow: hidden;
+}
+
+.tool-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.tool-picker-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  min-height: 260px;
+  padding: 1.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  background: var(--card-muted-background, #f8fafc);
+}
+
+.tool-picker-card h3 {
+  margin-top: 0;
+}
+
+.tool-picker-card p {
+  margin-bottom: 0;
+}
+
+.tool-picker-card .button {
+  align-self: flex-start;
+}
+
+@media (max-width: 800px) {
+  .tool-picker-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tool-picker-card {
+    min-height: auto;
+  }
+}
