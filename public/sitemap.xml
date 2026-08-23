@@ -1,157 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
     <loc>https://service-report-assistant.pages.dev/</loc>
-    <lastmod>2026-08-16</lastmod>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/tools.html</loc>
-    <lastmod>2026-08-16</lastmod>
+    <loc>https://service-report-assistant.pages.dev/tools</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/blog.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/blog</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/contact.html</loc>
-    <lastmod>2026-08-07</lastmod>
+    <loc>https://service-report-assistant.pages.dev/contact</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/privacy.html</loc>
-    <lastmod>2026-08-07</lastmod>
+    <loc>https://service-report-assistant.pages.dev/privacy</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/affiliate-disclosure.html</loc>
-    <lastmod>2026-08-07</lastmod>
+    <loc>https://service-report-assistant.pages.dev/affiliate-disclosure</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-service-report-generator.html</loc>
-    <lastmod>2026-08-14</lastmod>
+    <loc>https://service-report-assistant.pages.dev/hvac-service-report-generator</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-invoice-description-generator.html</loc>
-    <lastmod>2026-08-15</lastmod>
+    <loc>https://service-report-assistant.pages.dev/hvac-invoice-description-generator</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-customer-follow-up-text-generator.html</loc>
-    <lastmod>2026-08-16</lastmod>
+    <loc>https://service-report-assistant.pages.dev/hvac-customer-follow-up-text-generator</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-maintenance-plan-pitch-generator.html</loc>
-    <lastmod>2026-08-16</lastmod>
+    <loc>https://service-report-assistant.pages.dev/hvac-maintenance-plan-pitch-generator</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-estimate-description-generator.html</loc>
-    <lastmod>2026-08-16</lastmod>
+    <loc>https://service-report-assistant.pages.dev/hvac-estimate-description-generator</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/commercial-refrigeration-service-report-generator.html</loc>
-    <lastmod>2026-08-16</lastmod>
+    <loc>https://service-report-assistant.pages.dev/commercial-refrigeration-service-report-generator</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-tune-up-report-template.html</loc>
-    <lastmod>2026-08-07</lastmod>
+    <loc>https://service-report-assistant.pages.dev/hvac-technician-notes-examples</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/ac-repair-service-report-template.html</loc>
-    <lastmod>2026-08-07</lastmod>
+    <loc>https://service-report-assistant.pages.dev/what-should-an-hvac-service-report-include</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/furnace-repair-service-report-template.html</loc>
-    <lastmod>2026-08-07</lastmod>
+    <loc>https://service-report-assistant.pages.dev/hvac-service-report-checklist</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-technician-notes-examples.html</loc>
-    <lastmod>2026-08-07</lastmod>
+    <loc>https://service-report-assistant.pages.dev/hvac-service-report-before-and-after-examples</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/what-should-an-hvac-service-report-include.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/hvac-office-admin-paperwork-checklist</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-invoice-wording-examples.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/hvac-invoice-wording-examples</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/ac-capacitor-replacement-invoice-description-examples.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/ac-capacitor-replacement-invoice-description-examples</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/clogged-condensate-drain-service-report-example.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/hvac-filter-replacement-customer-message-examples</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/dirty-coil-cleaning-service-report-example.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/hvac-repair-follow-up-text-message-examples</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-filter-replacement-customer-message-examples.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/hvac-maintenance-visit-follow-up-email-template</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/no-cooling-call-service-report-example.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/hvac-maintenance-agreement-follow-up-template</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/no-heat-furnace-service-report-example.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/hvac-tune-up-report-template</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-maintenance-visit-follow-up-email-template.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/ac-repair-service-report-template</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-repair-follow-up-text-message-examples.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/furnace-repair-service-report-template</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-service-report-checklist.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/no-cooling-call-service-report-example</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-office-admin-paperwork-checklist.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/no-heat-furnace-service-report-example</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/walk-in-cooler-service-report-example.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/clogged-condensate-drain-service-report-example</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-maintenance-agreement-follow-up-template.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/dirty-coil-cleaning-service-report-example</loc>
   </url>
 
   <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-service-report-before-and-after-examples.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <loc>https://service-report-assistant.pages.dev/walk-in-cooler-service-report-example</loc>
   </url>
+
 </urlset>
