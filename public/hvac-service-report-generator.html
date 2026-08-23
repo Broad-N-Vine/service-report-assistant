@@ -26,13 +26,13 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <a class="logo" href="index.html">HVAC AI Helper</a>
+      <a class="logo" href="/">HVAC AI Helper</a>
 
       <nav>
-        <a href="index.html">Home</a>
-        <a href="tools.html">Tools</a>
-        <a href="blog.html">Guides</a>
-        <a href="contact.html">Contact</a>
+        <a href="/">Home</a>
+        <a href="tools">Tools</a>
+        <a href="blog">Guides</a>
+        <a href="contact">Contact</a>
       </nav>
     </div>
   </header>
@@ -49,7 +49,7 @@
         </p>
 
         <p class="note">
-          Paste messy field notes and generate a customer-ready service report, invoice description,
+          Paste messy field notes and create a customer-ready service report, invoice description,
           customer follow-up message, internal job summary, and review notes.
         </p>
 
@@ -58,7 +58,7 @@
             Start the Generator
           </a>
 
-          <a class="button secondary" href="hvac-technician-notes-examples.html">
+          <a class="button secondary" href="hvac-technician-notes-examples">
             See Note Examples
           </a>
         </div>
@@ -98,10 +98,10 @@
         </div>
 
         <div class="tool-quick-item">
-          <h3>2. Generate service paperwork</h3>
+          <h3>2. Generate cleaner paperwork</h3>
           <p>
-            The tool sends your notes to the backend and returns cleaner wording for
-            the report, invoice, follow-up message, and internal summary.
+            The page sends your notes to the backend and returns a service report,
+            invoice wording, customer follow-up, internal summary, and review notes.
           </p>
         </div>
 
@@ -109,7 +109,7 @@
           <h3>3. Review before using</h3>
           <p>
             Confirm parts, prices, measurements, warranty language, safety wording,
-            and final recommendations before sending.
+            customer-specific details, and final recommendations before sending.
           </p>
         </div>
       </div>
@@ -121,8 +121,9 @@
       <h2>Enter the job details</h2>
 
       <p>
-        Use the form below to turn rough technician notes into cleaner HVAC/R service paperwork.
-        The generated result will appear on this page after the form is submitted.
+        Use the form below to organize rough technician notes into cleaner service report wording.
+        The result is a draft. Review the details before sending anything to a customer,
+        adding it to an invoice, or storing it in a service record.
       </p>
 
       <form id="service-report-form" class="tool-form">
@@ -141,16 +142,11 @@
           <label for="job-type">Job type</label>
           <select id="job-type" name="jobType" required>
             <option value="">Select one</option>
-            <option value="No-cooling service call">No-cooling service call</option>
-            <option value="No-heat service call">No-heat service call</option>
-            <option value="Maintenance visit">Maintenance visit</option>
-            <option value="Repair visit">Repair visit</option>
-            <option value="Tune-up">Tune-up</option>
-            <option value="Filter replacement">Filter replacement</option>
-            <option value="Condensate drain issue">Condensate drain issue</option>
-            <option value="Coil cleaning">Coil cleaning</option>
-            <option value="Commercial refrigeration service">Commercial refrigeration service</option>
-            <option value="Estimate or recommendation">Estimate or recommendation</option>
+            <option value="AC repair">AC repair</option>
+            <option value="Furnace repair">Furnace repair</option>
+            <option value="Maintenance tune-up">Maintenance tune-up</option>
+            <option value="Commercial refrigeration">Commercial refrigeration</option>
+            <option value="Diagnostic visit">Diagnostic visit</option>
             <option value="Other HVAC/R service">Other HVAC/R service</option>
           </select>
           <p class="field-help">Required. Choose the type of service call.</p>
@@ -166,11 +162,7 @@
             placeholder="Example: Customer said AC was running but not cooling. Found weak capacitor. Replaced capacitor. Filter clogged. Checked pressures. System cooling with 18-degree temperature split. Recommended coil cleaning."
           ></textarea>
           <p class="field-help">
-            Required. Paste the rough notes from the technician here. Use at least 25 characters.
-          </p>
-
-          <p id="technician-notes-counter" class="field-help">
-            0 / 4000 characters
+            Required. Paste the rough notes from the technician here.
           </p>
         </div>
 
@@ -180,117 +172,94 @@
             <option value="">Select one</option>
             <option value="Professional">Professional</option>
             <option value="Friendly">Friendly</option>
-            <option value="Brief">Brief</option>
+            <option value="Simple">Simple</option>
             <option value="Detailed">Detailed</option>
           </select>
           <p class="field-help">Required. Choose how the result should sound.</p>
         </div>
 
-        <div class="form-group" style="display: none;" aria-hidden="true">
-          <label for="website">Website</label>
-          <input
-            type="text"
-            id="website"
-            name="website"
-            tabindex="-1"
-            autocomplete="off"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="email">Email address</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            placeholder="you@example.com"
-          />
-          <p class="field-help">
-            Required for this free generator. This version uses your email to complete the generator request.
-            To receive the email template sequence, use the MailerLite signup form below after generating your result.
-          </p>
-        </div>
-
-        <button id="generate-button" type="submit" class="button">
-          Generate Service Paperwork
+        <button type="submit" class="button" id="generate-button">
+          Generate Service Report
         </button>
-
-        <p id="form-status-message" class="field-help" aria-live="polite"></p>
       </form>
     </section>
 
-    <section id="generated-result-section" class="card hidden">
-      <span class="tool-section-label">Generated Result</span>
+    <section class="card">
+      <h2>Generated Result</h2>
 
-      <h2>Your generated HVAC/R paperwork</h2>
-
-      <p>
-        Use this generated result as a starting point. Review every section before sending it to a customer,
-        adding it to an invoice, or storing it in a service record.
-      </p>
+      <div id="result-box" class="result-box">
+        <p>
+          Your generated service report will appear here after you submit the form.
+        </p>
+      </div>
 
       <div class="tool-review-strip">
         <strong>Review before sending:</strong>
-        Confirm service details, parts, prices, readings, measurements, warranty language, safety-related wording,
+        Confirm service details, parts, prices, measurements, warranty language, safety-related wording,
         customer-specific notes, and final recommendations before using this text with a customer.
-      </div>
-
-      <div class="result-box">
-        <div class="generated-output">
-          <h3>1. Customer-Ready Service Report</h3>
-          <div id="service-report-output"></div>
-          <button class="button secondary copy-button" type="button" data-copy-target="service-report-output">
-            Copy Service Report
-          </button>
-
-          <h3>2. Invoice Description</h3>
-          <div id="invoice-description-output"></div>
-          <button class="button secondary copy-button" type="button" data-copy-target="invoice-description-output">
-            Copy Invoice Description
-          </button>
-
-          <h3>3. Customer Follow-Up Message</h3>
-          <div id="customer-follow-up-output"></div>
-          <button class="button secondary copy-button" type="button" data-copy-target="customer-follow-up-output">
-            Copy Follow-Up Message
-          </button>
-
-          <h3>4. Internal Job Summary</h3>
-          <div id="internal-summary-output"></div>
-          <button class="button secondary copy-button" type="button" data-copy-target="internal-summary-output">
-            Copy Internal Summary
-          </button>
-
-          <h3>5. Missing Information or Review Notes</h3>
-          <div id="review-notes-output"></div>
-          <button class="button secondary copy-button" type="button" data-copy-target="review-notes-output">
-            Copy Review Notes
-          </button>
-        </div>
       </div>
     </section>
 
     <section id="email-capture-section" class="card email-capture-card hidden">
-      <h2>Get more HVAC/R paperwork examples</h2>
+      <h2>Get more HVAC/R paperwork templates</h2>
 
       <p>
-        Enter your email below to receive more free HVAC/R technician note examples, service report templates,
-        invoice wording examples, customer follow-up templates, and helpful paperwork tips.
+        Sign up to receive more free HVAC/R paperwork templates, examples, and tool updates.
       </p>
 
       <p class="field-help">
-        By submitting this form, you agree to receive free HVAC/R paperwork templates and occasional helpful emails
-        about service reports, invoice wording, and customer communication. You can unsubscribe from future emails at any time.
+        By submitting this form, you agree to receive free HVAC/R paperwork templates and occasional
+        helpful emails about service reports, invoice wording, and customer communication.
+        You can unsubscribe from future emails at any time.
       </p>
 
       <p class="field-help">
-        We do not sell your email address. AI-generated text should be reviewed for accuracy before being sent to customers,
-        added to invoices, or stored in service records.
+        We do not sell your email address. AI-generated text should be reviewed for accuracy before
+        being sent to customers, added to invoices, or stored in service records.
       </p>
 
       <div class="mailerlite-form-wrapper">
         <div class="ml-embedded" data-form="tYlgPM"></div>
+      </div>
+
+      <button id="show-full-result-button" class="button secondary" type="button">
+        Continue to examples
+      </button>
+
+      <p class="field-help">
+        If the form does not appear, refresh the page or check that the MailerLite embed code was pasted correctly.
+      </p>
+    </section>
+
+    <section id="full-result-section" class="card hidden">
+      <h2>Full Result Format</h2>
+
+      <div class="result-box">
+        <h3>1. Customer-Ready Service Report</h3>
+        <p>
+          Use this section to explain what was found, what work was completed,
+          and what the customer should know next.
+        </p>
+
+        <h3>2. Invoice Description</h3>
+        <p>
+          Use this section for 1 to 3 short lines that can be pasted into invoice software.
+        </p>
+
+        <h3>3. Customer Follow-Up Message</h3>
+        <p>
+          Use this section as a short text or email message after the service visit.
+        </p>
+
+        <h3>4. Internal Job Summary</h3>
+        <p>
+          Use this section for office records, technician notes, or admin cleanup.
+        </p>
+
+        <h3>5. Missing Information or Review Notes</h3>
+        <p>
+          Use this section to list anything that should be confirmed before sending the result.
+        </p>
       </div>
     </section>
 
@@ -443,16 +412,16 @@
       <h2>Related HVAC/R tools and templates</h2>
 
       <ul>
-        <li><a href="hvac-service-report-generator.html">HVAC Service Report Generator</a></li>
-        <li><a href="hvac-invoice-description-generator.html">HVAC Invoice Description Generator</a></li>
-        <li><a href="hvac-customer-follow-up-text-generator.html">HVAC Customer Follow-Up Text Generator</a></li>
-        <li><a href="hvac-maintenance-plan-pitch-generator.html">HVAC Maintenance Plan Pitch Generator</a></li>
-        <li><a href="hvac-estimate-description-generator.html">HVAC Estimate Description Generator</a></li>
-        <li><a href="hvac-tune-up-report-template.html">HVAC Tune-Up Report Template</a></li>
-        <li><a href="ac-repair-service-report-template.html">AC Repair Service Report Template</a></li>
-        <li><a href="furnace-repair-service-report-template.html">Furnace Repair Service Report Template</a></li>
-        <li><a href="commercial-refrigeration-service-report-generator.html">Commercial Refrigeration Service Report Generator</a></li>
-        <li><a href="hvac-technician-notes-examples.html">HVAC Technician Notes Examples</a></li>
+        <li><a href="hvac-service-report-generator">HVAC Service Report Generator</a></li>
+        <li><a href="hvac-invoice-description-generator">HVAC Invoice Description Generator</a></li>
+        <li><a href="hvac-customer-follow-up-text-generator">HVAC Customer Follow-Up Text Generator</a></li>
+        <li><a href="hvac-maintenance-plan-pitch-generator">HVAC Maintenance Plan Pitch Generator</a></li>
+        <li><a href="hvac-estimate-description-generator">HVAC Estimate Description Generator</a></li>
+        <li><a href="hvac-tune-up-report-template">HVAC Tune-Up Report Template</a></li>
+        <li><a href="ac-repair-service-report-template">AC Repair Service Report Template</a></li>
+        <li><a href="furnace-repair-service-report-template">Furnace Repair Service Report Template</a></li>
+        <li><a href="commercial-refrigeration-service-report-generator">Commercial Refrigeration Service Report Generator</a></li>
+        <li><a href="hvac-technician-notes-examples">HVAC Technician Notes Examples</a></li>
       </ul>
     </section>
 
@@ -469,7 +438,7 @@
 
       <p>
         This tool is designed to help HVAC/R service companies clean up field notes before
-        adding them to Jobber, QuickBooks, ServiceTitan, or another office system.
+        adding them to Jobber, QuickBooks, another field service platform, or an internal office system.
       </p>
     </section>
 
@@ -520,139 +489,88 @@
       </p>
 
       <p class="footer-links">
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="affiliate-disclosure.html">Affiliate Disclosure</a>
-        <a href="contact.html">Contact</a>
+        <a href="privacy">Privacy Policy</a>
+        <a href="affiliate-disclosure">Affiliate Disclosure</a>
+        <a href="contact">Contact</a>
       </p>
     </div>
   </footer>
 
   <script>
     const toolForm = document.getElementById("service-report-form");
-    const generateButton = document.getElementById("generate-button");
-    const formStatusMessage = document.getElementById("form-status-message");
-    const technicianNotesCounter = document.getElementById("technician-notes-counter");
-    const generatedResultSection = document.getElementById("generated-result-section");
+    const resultBox = document.getElementById("result-box");
     const emailCaptureSection = document.getElementById("email-capture-section");
-
-    const serviceReportOutput = document.getElementById("service-report-output");
-    const invoiceDescriptionOutput = document.getElementById("invoice-description-output");
-    const customerFollowUpOutput = document.getElementById("customer-follow-up-output");
-    const internalSummaryOutput = document.getElementById("internal-summary-output");
-    const reviewNotesOutput = document.getElementById("review-notes-output");
+    const fullResultSection = document.getElementById("full-result-section");
+    const showFullResultButton = document.getElementById("show-full-result-button");
+    const generateButton = document.getElementById("generate-button");
 
     function escapeHtml(value) {
       return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
     }
 
-    function textToParagraphs(value) {
-      const cleanedValue = String(value || "").trim();
-
-      if (!cleanedValue) {
-        return "<p>No output was returned for this section.</p>";
-      }
-
-      return cleanedValue
-        .split(/\n+/)
-        .map(function (paragraph) {
-          return paragraph.trim();
-        })
-        .filter(Boolean)
-        .map(function (paragraph) {
-          return "<p>" + escapeHtml(paragraph) + "</p>";
-        })
-        .join("");
+    function formatText(value) {
+      const safeValue = escapeHtml(value || "");
+      return safeValue.replace(/\n/g, "<br>");
     }
 
-    function notesToList(notes) {
-      if (!Array.isArray(notes) || notes.length === 0) {
-        return "<ul><li>Review final wording before sending to the customer.</li></ul>";
-      }
-
-      return "<ul>" + notes
-        .map(function (note) {
-          return String(note || "").trim();
-        })
-        .filter(Boolean)
-        .map(function (note) {
-          return "<li>" + escapeHtml(note) + "</li>";
-        })
-        .join("") + "</ul>";
-    }
-
-    function updateTechnicianNotesCounter() {
-      const technicianNotesField = document.getElementById("technician-notes");
-
-      if (!technicianNotesField || !technicianNotesCounter) {
-        return;
-      }
-
-      const currentLength = technicianNotesField.value.length;
-      technicianNotesCounter.textContent = currentLength + " / 4000 characters";
-    }
-
-    function setLoadingState(isLoading) {
-      generateButton.disabled = isLoading;
-
-      if (isLoading) {
-        generateButton.textContent = "Generating...";
-        formStatusMessage.textContent = "Generating your service paperwork. This may take a few seconds. Do not refresh the page.";
-      } else {
-        generateButton.textContent = "Generate Service Paperwork";
-      }
-    }
-
-    function showError(message) {
-      formStatusMessage.innerHTML = "<strong>" + escapeHtml(message) + "</strong>";
-    }
-
-    function showGeneratedResult(result) {
-      serviceReportOutput.innerHTML = textToParagraphs(result.serviceReport);
-      invoiceDescriptionOutput.innerHTML = textToParagraphs(result.invoiceDescription);
-      customerFollowUpOutput.innerHTML = textToParagraphs(result.customerFollowUp);
-      internalSummaryOutput.innerHTML = textToParagraphs(result.internalSummary);
-      reviewNotesOutput.innerHTML = notesToList(result.reviewNotes);
-
-      generatedResultSection.classList.remove("hidden");
-      emailCaptureSection.classList.remove("hidden");
-
-      formStatusMessage.textContent = "Your service paperwork was generated successfully. Review the result below before using it.";
-
-      generatedResultSection.scrollIntoView({ behavior: "smooth" });
-    }
-
-    function copyTextFromElement(elementId, button) {
-      const element = document.getElementById(elementId);
-
-      if (!element) {
-        return;
-      }
-
-      const text = element.innerText.trim();
-
-      if (!text) {
-        return;
-      }
-
-      navigator.clipboard.writeText(text).then(function () {
-        const originalText = button.textContent;
-        button.textContent = "Copied!";
-
-        setTimeout(function () {
-          button.textContent = originalText;
-        }, 1800);
-      }).catch(function () {
+    function copyText(text) {
+      navigator.clipboard.writeText(text || "").catch(function () {
         alert("Copy failed. Please highlight the text and copy it manually.");
       });
     }
 
-    document.getElementById("technician-notes").addEventListener("input", updateTechnicianNotesCounter);
-    updateTechnicianNotesCounter();
+    function renderGeneratedResult(result) {
+      const serviceReport = result.serviceReport || "";
+      const invoiceDescription = result.invoiceDescription || "";
+      const customerFollowUp = result.customerFollowUp || "";
+      const internalSummary = result.internalSummary || "";
+      const reviewNotes = result.reviewNotes || "";
+
+      resultBox.innerHTML = `
+        <div class="generated-output">
+          <h3>1. Service Report</h3>
+          <p>${formatText(serviceReport)}</p>
+          <button class="button secondary copy-button" type="button" data-copy="${escapeHtml(serviceReport)}">
+            Copy Service Report
+          </button>
+
+          <h3>2. Invoice Description</h3>
+          <p>${formatText(invoiceDescription)}</p>
+          <button class="button secondary copy-button" type="button" data-copy="${escapeHtml(invoiceDescription)}">
+            Copy Invoice Description
+          </button>
+
+          <h3>3. Customer Follow-Up</h3>
+          <p>${formatText(customerFollowUp)}</p>
+          <button class="button secondary copy-button" type="button" data-copy="${escapeHtml(customerFollowUp)}">
+            Copy Customer Follow-Up
+          </button>
+
+          <h3>4. Internal Summary</h3>
+          <p>${formatText(internalSummary)}</p>
+          <button class="button secondary copy-button" type="button" data-copy="${escapeHtml(internalSummary)}">
+            Copy Internal Summary
+          </button>
+
+          <h3>5. Review Notes</h3>
+          <p>${formatText(reviewNotes)}</p>
+          <button class="button secondary copy-button" type="button" data-copy="${escapeHtml(reviewNotes)}">
+            Copy Review Notes
+          </button>
+        </div>
+      `;
+
+      document.querySelectorAll(".copy-button").forEach(function (button) {
+        button.addEventListener("click", function () {
+          copyText(button.getAttribute("data-copy"));
+        });
+      });
+    }
 
     toolForm.addEventListener("submit", async function (event) {
       event.preventDefault();
@@ -661,25 +579,21 @@
       const jobType = document.getElementById("job-type").value;
       const technicianNotes = document.getElementById("technician-notes").value.trim();
       const tone = document.getElementById("tone").value;
-      const email = document.getElementById("email").value.trim();
-      const website = document.getElementById("website").value.trim();
 
-      if (!jobType || !technicianNotes || !tone || !email) {
-        showError("Please complete the required fields: job type, technician notes, tone, and email address.");
+      if (!jobType || !technicianNotes || !tone) {
+        resultBox.innerHTML = `
+          <p><strong>Please complete the required fields:</strong> job type, technician notes, and tone.</p>
+        `;
         return;
       }
 
-      if (technicianNotes.length < 25) {
-        showError("Please add more detail to the technician notes before generating your report.");
-        return;
-      }
+      generateButton.disabled = true;
+      generateButton.textContent = "Generating...";
 
-      if (technicianNotes.length > 4000) {
-        showError("Please shorten the technician notes before generating your report.");
-        return;
-      }
-
-      setLoadingState(true);
+      resultBox.innerHTML = `
+        <p><strong>Generating your service report...</strong></p>
+        <p>Please wait while the tool turns your notes into cleaner HVAC/R paperwork.</p>
+      `;
 
       try {
         const response = await fetch("/api/generate-service-report", {
@@ -688,34 +602,37 @@
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            companyName: companyName,
-            jobType: jobType,
-            technicianNotes: technicianNotes,
-            tone: tone,
-            email: email,
-            website: website
+            companyName,
+            jobType,
+            technicianNotes,
+            tone
           })
         });
 
         const data = await response.json();
 
-        if (!response.ok || !data.success) {
-          showError(data.error || "Something went wrong while generating the report. Please try again.");
-          return;
+        if (!response.ok || !data.success || !data.result) {
+          throw new Error(data.error || "The generator did not return a usable result.");
         }
 
-        showGeneratedResult(data.result);
+        renderGeneratedResult(data.result);
+
+        emailCaptureSection.classList.remove("hidden");
+        emailCaptureSection.scrollIntoView({ behavior: "smooth" });
       } catch (error) {
-        showError("The generator is temporarily unavailable. Please try again later.");
+        resultBox.innerHTML = `
+          <p><strong>The generator is temporarily unavailable.</strong></p>
+          <p>Please try again in a moment. If the issue continues, use the example notes and templates below as a manual starting point.</p>
+        `;
       } finally {
-        setLoadingState(false);
+        generateButton.disabled = false;
+        generateButton.textContent = "Generate Service Report";
       }
     });
 
-    document.querySelectorAll(".copy-button").forEach(function (button) {
-      button.addEventListener("click", function () {
-        copyTextFromElement(button.dataset.copyTarget, button);
-      });
+    showFullResultButton.addEventListener("click", function () {
+      fullResultSection.classList.remove("hidden");
+      fullResultSection.scrollIntoView({ behavior: "smooth" });
     });
   </script>
 </body>
