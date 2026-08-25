@@ -7,7 +7,7 @@
   <title>HVAC Estimate Description Generator | HVAC/R AI Tool</title>
   <meta
     name="description"
-    content="Create clear HVAC/R estimate descriptions from rough technician notes for repairs, recommended work, maintenance, and service follow-ups."
+    content="Create clear HVAC/R estimate descriptions from rough technician notes for repairs, recommended work, maintenance, customer approvals, quotes, and service follow-ups."
   />
 
   <link rel="stylesheet" href="styles.css" />
@@ -45,12 +45,13 @@
         <h1>HVAC Estimate Description Generator</h1>
 
         <p class="promise">
-          Turn rough recommended work notes into cleaner estimate wording.
+          Turn rough recommended work notes into clearer estimate wording customers can understand.
         </p>
 
         <p class="note">
           Paste HVAC/R technician notes and create a customer-ready estimate description,
-          short estimate line, customer explanation, and review notes before sending a quote or estimate.
+          short estimate line, customer explanation, and review notes before sending a quote,
+          proposal, or recommended repair estimate.
         </p>
 
         <div class="tool-hero-actions">
@@ -58,7 +59,7 @@
             Start the Generator
           </a>
 
-          <a class="button secondary" href="hvac-invoice-wording-examples">
+          <a class="button secondary" href="hvac-service-report-before-and-after-examples">
             See Wording Examples
           </a>
         </div>
@@ -72,8 +73,8 @@
             <li>Estimate descriptions</li>
             <li>Recommended repair wording</li>
             <li>Customer explanations</li>
-            <li>Office admin cleanup</li>
-            <li>Cleaner quote descriptions</li>
+            <li>Quote and approval follow-up</li>
+            <li>CRM and office review notes</li>
           </ul>
         </div>
 
@@ -93,15 +94,15 @@
           <h3>1. Paste service notes</h3>
           <p>
             Add the job type, technician findings, recommended work, customer concerns,
-            and any approved or declined work details.
+            declined work, approved work, and any verified estimate details.
           </p>
         </div>
 
         <div class="tool-quick-item">
           <h3>2. Generate estimate wording</h3>
           <p>
-            The tool sends your notes to the backend and returns an estimate description,
-            short estimate line, customer explanation, and review notes.
+            The tool returns an estimate description, short estimate line,
+            customer explanation, and office review notes.
           </p>
         </div>
 
@@ -109,8 +110,59 @@
           <h3>3. Review before sending</h3>
           <p>
             Confirm scope, pricing, parts, labor, taxes, discounts, warranty language,
-            and customer approval before using the wording.
+            customer approval steps, and company estimate rules before using the wording.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="tool-section-label">Estimate Workflow</span>
+
+      <h2>Use this tool as part of the full customer approval flow</h2>
+
+      <p>
+        A strong estimate description should help the customer understand the recommended work,
+        why it is being recommended, what is included, and what happens next. It should also help
+        the office track approval status, declined work, future follow-up, and CRM notes without
+        inventing price, scope, warranty, or urgency.
+      </p>
+
+      <div class="tool-quick-grid">
+        <div class="tool-quick-item">
+          <h3>Before the estimate</h3>
+          <p>
+            Start with a clear service report and technician notes so the estimate is based on documented findings.
+          </p>
+          <ul>
+            <li><a href="hvac-service-report-generator">Create or review the service report</a></li>
+            <li><a href="hvac-technician-notes-examples">Review better technician note examples</a></li>
+            <li><a href="hvac-service-report-checklist">Check the service report before quoting</a></li>
+          </ul>
+        </div>
+
+        <div class="tool-quick-item">
+          <h3>During estimate review</h3>
+          <p>
+            Keep the estimate wording clear, factual, and tied to verified scope. Do not create prices or warranty terms here.
+          </p>
+          <ul>
+            <li><a href="hvac-invoice-wording-examples">Review billing and wording examples</a></li>
+            <li><a href="ac-capacitor-replacement-invoice-description-examples">Review AC capacitor wording examples</a></li>
+            <li><a href="hvac-office-admin-paperwork-checklist">Use the office admin checklist</a></li>
+          </ul>
+        </div>
+
+        <div class="tool-quick-item">
+          <h3>After the estimate</h3>
+          <p>
+            Decide whether the customer needs a follow-up message, maintenance option, invoice wording, or CRM reminder.
+          </p>
+          <ul>
+            <li><a href="hvac-customer-follow-up-text-generator">Create a customer follow-up</a></li>
+            <li><a href="hvac-maintenance-plan-pitch-generator">Create maintenance plan follow-up wording</a></li>
+            <li><a href="hvac-invoice-description-generator">Create invoice wording after approval</a></li>
+          </ul>
         </div>
       </div>
     </section>
@@ -122,8 +174,15 @@
 
       <p>
         Use this tool when you need to turn rough technician recommendations into cleaner wording
-        for an HVAC/R estimate, quote, proposal, or recommended repair description.
+        for an HVAC/R estimate, quote, proposal, repair recommendation, or customer approval request.
       </p>
+
+      <div class="tool-review-strip">
+        <strong>Customer-first estimate rule:</strong>
+        The estimate description should help the customer understand the recommended work and next step.
+        Do not invent pricing, scope, warranty terms, parts, labor, discounts, approval status, urgency,
+        safety claims, or final outcomes.
+      </div>
 
       <form id="estimate-description-form" class="tool-form">
         <div class="form-group">
@@ -149,6 +208,7 @@
             <option value="Condensate drain repair estimate">Condensate drain repair estimate</option>
             <option value="Commercial refrigeration estimate">Commercial refrigeration estimate</option>
             <option value="Diagnostic follow-up estimate">Diagnostic follow-up estimate</option>
+            <option value="Maintenance plan estimate">Maintenance plan estimate</option>
             <option value="Other HVAC/R estimate">Other HVAC/R estimate</option>
           </select>
           <p class="field-help">Required. Choose the type of estimate or recommended work.</p>
@@ -189,10 +249,10 @@
             id="estimate-details"
             name="estimateDetails"
             rows="4"
-            placeholder="Optional: Add verified scope, parts, or office-approved details. Do not include pricing unless verified."
+            placeholder="Optional: Add verified scope, parts, customer approval requirements, or office-approved details. Do not include pricing unless verified."
           ></textarea>
           <p class="field-help">
-            Optional. Add only verified details. Leave blank if final scope or pricing should be reviewed by the office.
+            Optional. Add only verified details. Leave blank if final scope, pricing, parts, or terms should be reviewed by the office.
           </p>
         </div>
 
@@ -250,13 +310,13 @@
 
       <p>
         Use this generated result as a starting point. Review every section before sending it to a customer,
-        adding it to an estimate, or storing it in a business system.
+        adding it to an estimate, saving it in a CRM, or storing it in a business system.
       </p>
 
       <div class="tool-review-strip">
         <strong>Review before sending:</strong>
         Confirm final scope, pricing, parts, labor, taxes, discounts, warranty language,
-        customer approval, and company-specific estimate rules before using this text.
+        customer approval, expiration dates, financing language, scheduling details, and company-specific estimate rules.
       </div>
 
       <div class="result-box">
@@ -288,6 +348,51 @@
       </div>
     </section>
 
+    <section class="card">
+      <span class="tool-section-label">After the Estimate</span>
+
+      <h2>What should happen after the estimate wording is written?</h2>
+
+      <p>
+        Estimate wording should create a clear customer approval path. After the wording is reviewed,
+        decide whether the office should send a follow-up message, save a CRM task, create invoice wording
+        after approval, or offer maintenance as a separate conversation.
+      </p>
+
+      <div class="tool-quick-grid">
+        <div class="tool-quick-item">
+          <h3>Send a clear follow-up</h3>
+          <p>
+            If the customer needs time to review the estimate, send a simple follow-up that explains the next step.
+          </p>
+          <a class="button" href="hvac-customer-follow-up-text-generator">
+            Open Follow-Up Generator
+          </a>
+        </div>
+
+        <div class="tool-quick-item">
+          <h3>Create invoice wording after approval</h3>
+          <p>
+            Once the customer approves and the work is completed, turn the confirmed work into invoice wording.
+          </p>
+          <a class="button" href="hvac-invoice-description-generator">
+            Open Invoice Generator
+          </a>
+        </div>
+
+        <div class="tool-quick-item">
+          <h3>Save a CRM reminder</h3>
+          <p>
+            Add a reminder for estimate follow-up, declined work, future replacement discussions,
+            customer questions, or seasonal maintenance timing.
+          </p>
+          <a class="button" href="hvac-office-admin-paperwork-checklist">
+            Review Office Checklist
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section id="email-capture-section" class="card email-capture-card hidden">
       <h2>Get more HVAC/R estimate and invoice wording examples</h2>
 
@@ -303,7 +408,7 @@
 
       <p class="field-help">
         We do not sell your email address. AI-generated text should be reviewed for accuracy before being sent to customers,
-        added to invoices, estimates, or stored in service records.
+        added to invoices, estimates, saved in CRM records, or stored in service records.
       </p>
 
       <div class="mailerlite-form-wrapper">
@@ -338,7 +443,7 @@
 
           <p class="best-for">
             Best for: HVAC/R service businesses that want help managing estimates, quotes,
-            jobs, invoices, payments, and customer communication.
+            jobs, invoices, payments, customer communication, and follow-up tasks.
           </p>
 
           <a
@@ -378,7 +483,7 @@
 
           <p>
             A future template pack with service report examples, invoice wording,
-            estimate wording, follow-up messages, and technician note cleanup checklists.
+            estimate wording, follow-up messages, CRM note prompts, and technician note cleanup checklists.
           </p>
 
           <p class="best-for">
@@ -404,7 +509,7 @@
           </div>
 
           <div class="decision-item">
-            <h4>Use QuickBooks if you need help managing invoices and books.</h4>
+            <h4>Use QuickBooks if the estimate connects to billing and books.</h4>
             <p>
               QuickBooks is the better fit if your main problem is tracking income, expenses,
               invoices, payments, bookkeeping, and small-business financial records.
@@ -415,7 +520,7 @@
             <h4>Use the HVAC Paperwork Starter Kit if you want ready-to-use templates.</h4>
             <p>
               The starter kit will be the better fit if you want copy-and-paste examples for
-              service reports, invoice descriptions, estimate descriptions, customer follow-up messages, and note cleanup.
+              service reports, invoice descriptions, estimate descriptions, customer follow-up messages, CRM notes, and note cleanup.
             </p>
           </div>
         </div>
@@ -437,12 +542,12 @@
 
           <p>
             Good estimate descriptions work best when the notes explain the issue, the recommended work,
-            and what the customer should understand before approving the estimate.
+            why the work is being recommended, and what the customer should understand before approving the estimate.
           </p>
 
           <p>
-            Do not let the tool create prices, warranty terms, final scope, or guaranteed outcomes.
-            Those details should be verified by the office before sending.
+            Do not let the tool create prices, warranty terms, final scope, discounts, financing language,
+            or guaranteed outcomes. Those details should be verified by the office before sending.
           </p>
         </div>
 
@@ -451,6 +556,29 @@
     </section>
 
     <section class="card">
+      <span class="tool-section-label">CRM and Approval Review</span>
+
+      <h2>What should the office check before sending an estimate?</h2>
+
+      <p>
+        Use this estimate review before sending a quote, saving a CRM note, creating a follow-up task,
+        or handing the estimate to a service manager for approval.
+      </p>
+
+      <ul>
+        <li><strong>Customer clarity:</strong> does the wording explain the recommended work in plain English?</li>
+        <li><strong>Confirmed scope:</strong> does the estimate only describe work that is actually being proposed?</li>
+        <li><strong>Pricing review:</strong> are parts, labor, taxes, discounts, fees, and totals confirmed outside this tool?</li>
+        <li><strong>Approval path:</strong> does the customer know how to approve, ask questions, or schedule the work?</li>
+        <li><strong>Declined work:</strong> should declined work be saved as a CRM note or future reminder?</li>
+        <li><strong>Recommended work:</strong> should the estimate also trigger a customer follow-up or maintenance conversation?</li>
+        <li><strong>Risk language:</strong> does the wording avoid unsupported safety, warranty, code, financing, or performance claims?</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <span class="tool-section-label">Related Tools and Guides</span>
+
       <h2>Related HVAC/R tools and templates</h2>
 
       <ul>
@@ -458,45 +586,47 @@
         <li><a href="hvac-invoice-description-generator">HVAC Invoice Description Generator</a></li>
         <li><a href="hvac-customer-follow-up-text-generator">HVAC Customer Follow-Up Text Generator</a></li>
         <li><a href="hvac-maintenance-plan-pitch-generator">HVAC Maintenance Plan Pitch Generator</a></li>
-        <li><a href="hvac-estimate-description-generator">HVAC Estimate Description Generator</a></li>
-        <li><a href="hvac-tune-up-report-template">HVAC Tune-Up Report Template</a></li>
-        <li><a href="ac-repair-service-report-template">AC Repair Service Report Template</a></li>
-        <li><a href="furnace-repair-service-report-template">Furnace Repair Service Report Template</a></li>
-        <li><a href="commercial-refrigeration-service-report-generator">Commercial Refrigeration Service Report Generator</a></li>
+        <li><a href="hvac-office-admin-paperwork-checklist">HVAC Office Admin Paperwork Checklist</a></li>
         <li><a href="hvac-technician-notes-examples">HVAC Technician Notes Examples</a></li>
+        <li><a href="hvac-service-report-checklist">HVAC Service Report Checklist</a></li>
+        <li><a href="hvac-invoice-wording-examples">HVAC Invoice Wording Examples</a></li>
+        <li><a href="ac-repair-service-report-template">AC Repair Service Report Template</a></li>
+        <li><a href="commercial-refrigeration-service-report-generator">Commercial Refrigeration Service Report Generator</a></li>
       </ul>
     </section>
 
     <section class="card">
+      <span class="tool-section-label">FAQ</span>
+
       <h2>Frequently asked questions</h2>
 
       <h3>Who is this HVAC Estimate Description Generator for?</h3>
       <p>
-        It is for HVAC/R owners, office managers, technicians, and admin staff who need to turn rough
-        recommended work notes into clearer estimate, quote, or proposal wording.
+        It is for HVAC/R owners, office managers, technicians, dispatchers, and admin staff who need to turn rough
+        recommended work notes into clearer estimate, quote, proposal, or customer approval wording.
       </p>
 
       <h3>What kind of notes should I paste into the tool?</h3>
       <p>
         Paste the job type, technician findings, recommended work, customer concerns, declined work,
-        and any verified office-approved estimate details.
+        customer questions, and any verified office-approved estimate details.
       </p>
 
       <h3>Can I send the generated estimate description directly to a customer?</h3>
       <p>
         Use the generated wording as a starting point. Review it before sending and confirm final scope,
-        pricing, parts, labor, taxes, discounts, warranty language, and customer approval.
+        pricing, parts, labor, taxes, discounts, warranty language, expiration dates, scheduling steps, and customer approval requirements.
       </p>
 
       <h3>Does this tool create estimate pricing?</h3>
       <p>
         No. This tool does not create prices, labor rates, part costs, taxes, discounts, balances,
-        or final totals. Any financial details should be verified by your company before use.
+        financing terms, deposits, or final totals. Any financial details should be verified by your company before use.
       </p>
 
-      <h3>Can this tool create warranty or safety language?</h3>
+      <h3>Can this tool create warranty, safety, code, or financing language?</h3>
       <p>
-        No. Do not add warranty, safety, code-compliance, or performance claims unless they are verified
+        No. Do not add warranty, safety, code-compliance, financing, or performance claims unless they are verified
         and supported by the technician notes and your company policy.
       </p>
 
@@ -508,8 +638,14 @@
 
       <h3>Can I use the result in Jobber, QuickBooks, or another system?</h3>
       <p>
-        Yes, you can use the result as a starting point for estimates, quotes, job notes, or customer records.
-        Review the wording before adding it to any business system.
+        Yes, you can use the result as a starting point for estimates, quotes, job notes, CRM notes, customer records,
+        or follow-up tasks. Review the wording before adding it to any business system.
+      </p>
+
+      <h3>What should happen after the estimate is sent?</h3>
+      <p>
+        Save the estimate status in the customer record, schedule a follow-up task if needed,
+        note declined work, and create invoice wording only after the customer approves the work and the work is completed.
       </p>
     </section>
   </main>
@@ -682,7 +818,7 @@
 
       const enrichedTechnicianNotes = [
         customerName ? "Customer first name: " + customerName : "",
-        estimateDetails ? "Verified estimate details: " + estimateDetails : "Verified estimate details were not provided. Do not invent pricing, scope, warranty terms, parts, labor, or final totals.",
+        estimateDetails ? "Verified estimate details: " + estimateDetails : "Verified estimate details were not provided. Do not invent pricing, scope, warranty terms, parts, labor, discounts, financing language, approval status, or final totals.",
         "",
         "Technician notes:",
         technicianNotes
