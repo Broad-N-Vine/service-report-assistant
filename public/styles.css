@@ -1550,3 +1550,193 @@ textarea {
     margin-top: 0.35em;
   }
 }
+/* -------------------------------------------------------
+   Static guide reading-experience polish
+   Improves long-form guide pages, examples, templates,
+   FAQ sections, checklists, and customer-facing content.
+------------------------------------------------------- */
+
+/* Make long guide pages easier to read without affecting the overall layout */
+.page-title + .card {
+  margin-top: 36px;
+}
+
+.card > h2 + p,
+.card > .tool-section-label + h2 + p,
+.card > p:first-of-type {
+  max-width: 900px;
+}
+
+/* Better rhythm for long article-style content */
+.card > h3 {
+  margin-top: 30px;
+}
+
+.card > h3:first-child,
+.card > .tool-section-label + h2 + h3 {
+  margin-top: 0;
+}
+
+.card > h3 + p {
+  max-width: 880px;
+}
+
+/* Improve FAQ readability on static pages */
+.card h2 + h3,
+.card .tool-section-label + h2 + h3 {
+  margin-top: 22px;
+}
+
+.card h3 + p {
+  color: var(--color-ink-soft);
+}
+
+/* Do not add extra top margin inside compact cards */
+.guide-card h3,
+.tool-card h3,
+.quick-card h3,
+.tool-quick-item h3,
+.offer-item h3,
+.generated-output h3,
+.tool-example-note h3,
+.step-item h3,
+.decision-item h4 {
+  margin-top: 0;
+}
+
+/* Make example/report sections feel more polished */
+.example-box,
+pre.example-box {
+  margin-top: 14px;
+  margin-bottom: 0;
+  border-color: rgba(197, 211, 226, 0.95);
+}
+
+/* Improve before/after and example layout sections */
+.tool-example-layout {
+  margin-top: 18px;
+}
+
+.tool-example-note {
+  background:
+    linear-gradient(180deg, #ffffff, var(--color-bg-soft));
+}
+
+/* Improve static page lists without disrupting card grids */
+.card > ul,
+.card > ol {
+  display: grid;
+  gap: 8px;
+  max-width: 920px;
+  padding-left: 1.25rem;
+}
+
+.card > ul li,
+.card > ol li {
+  margin-bottom: 0;
+  color: var(--color-ink-soft);
+}
+
+/* Make checklist-style items easier to scan */
+.card > ul li strong,
+.card > ol li strong {
+  color: var(--color-ink);
+}
+
+/* Improve related links sections on guide pages */
+.card > ul a,
+.card > ol a {
+  font-weight: 750;
+}
+
+/* Keep workflow-card lists normal */
+.tool-quick-item ul,
+.offer-item ul,
+.tool-hero-aside ul,
+.generated-output ul,
+.home-hero-card ul,
+.resource-decision-guide ul {
+  display: block;
+  max-width: none;
+}
+
+/* Create better visual separation for long template/report examples */
+.card pre,
+.card .example-box {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 10px 24px rgba(16, 32, 51, 0.05);
+}
+
+/* Make static guide calls-to-action feel more intentional */
+.card > .button,
+.card > .button.secondary {
+  margin-top: 10px;
+}
+
+/* Improve groups of buttons inside guide and template pages */
+.card > .tool-hero-actions {
+  margin-top: 22px;
+}
+
+/* Make "Quick Answer" and "Review" style cards feel a little more important */
+.card:has(.tool-section-label) {
+  overflow: hidden;
+}
+
+.card:has(.tool-section-label)::after {
+  content: "";
+  position: absolute;
+  top: -110px;
+  right: -110px;
+  width: 210px;
+  height: 210px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(23, 105, 224, 0.06), transparent 72%);
+  pointer-events: none;
+}
+
+.card:has(.tool-section-label) > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Make guide-card sections breathe a little more */
+.guide-grid + p,
+.tool-card-grid + p,
+.quick-grid + p,
+.tool-quick-grid + p {
+  margin-top: 22px;
+}
+
+/* Improve readability of dense guide cards */
+.guide-card p,
+.tool-card p,
+.quick-card p {
+  line-height: 1.55;
+}
+
+/* Improve footer spacing after long guide pages */
+main.container + .site-footer {
+  margin-top: 24px;
+}
+
+/* Better mobile reading rhythm */
+@media (max-width: 720px) {
+  .card > h3 {
+    margin-top: 24px;
+  }
+
+  .card > ul,
+  .card > ol {
+    gap: 7px;
+  }
+
+  .tool-example-layout {
+    gap: 14px;
+  }
+
+  .page-title + .card {
+    margin-top: 26px;
+  }
+}
