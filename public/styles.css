@@ -1084,3 +1084,219 @@ th {
     transform: none;
   }
 }
+/* -------------------------------------------------------
+   Visual refinement pass
+   Adds tighter card spacing, cleaner desktop buttons,
+   stronger homepage hero polish, and better workflow blocks.
+------------------------------------------------------- */
+
+/* Give the homepage hero's main message the same polished surface as the rest of the site */
+.home-hero-content {
+  padding: clamp(26px, 5vw, 44px);
+  border: 1px solid rgba(220, 229, 239, 0.95);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(246, 251, 255, 0.94));
+  box-shadow: var(--shadow-md);
+}
+
+/* Make the dark homepage workflow card feel more intentional */
+.home-hero-card ul {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.home-hero-card li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.4;
+}
+
+.home-hero-card li::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  margin-top: 0.55em;
+  border-radius: 999px;
+  background: #7ee7f4;
+  box-shadow: 0 0 0 5px rgba(126, 231, 244, 0.14);
+}
+
+/* Improve spacing between major sections */
+.page-title + .card,
+.home-hero + .card,
+.tool-hero-card + .card {
+  margin-top: 34px;
+}
+
+.card + .card {
+  margin-top: 30px;
+}
+
+.tools-library {
+  margin-top: 30px;
+}
+
+.tool-category + .tool-category {
+  margin-top: 38px;
+}
+
+/* Add more breathing room between section text and card grids */
+.card > .guide-grid,
+.card > .tool-card-grid,
+.card > .quick-grid,
+.card > .tool-quick-grid,
+.tool-category .tool-card-grid,
+.tool-category .guide-grid {
+  margin-top: 22px;
+}
+
+/* Keep desktop card buttons from becoming overly wide */
+@media (min-width: 721px) {
+  .guide-card .button,
+  .tool-card .button,
+  .quick-card .button,
+  .tool-picker-card .button,
+  .tool-quick-item .button,
+  .offer-item .button {
+    width: fit-content;
+    align-self: flex-start;
+  }
+
+  .tool-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 6px;
+  }
+}
+
+/* Make guide/tool cards feel more even and less cramped */
+.guide-card,
+.tool-card,
+.quick-card,
+.tool-picker-card {
+  min-height: 100%;
+}
+
+.guide-card h3,
+.tool-card h3,
+.quick-card h3,
+.tool-picker-card h3 {
+  margin-bottom: 10px;
+}
+
+.guide-card p,
+.tool-card p,
+.quick-card p,
+.tool-picker-card p {
+  color: var(--color-ink-soft);
+}
+
+.guide-card-meta,
+.tool-card-meta {
+  margin-top: 18px;
+}
+
+/* Improve small cards with CTAs inside them */
+.tool-quick-item .button {
+  margin-top: 8px;
+}
+
+.tool-quick-item ul {
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+/* Support older step/trust blocks still used on some pages */
+.step-list,
+.trust-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.step-item,
+.trust-item,
+.tools-note-box {
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(180deg, #ffffff, #f8fbff);
+  box-shadow: 0 8px 22px rgba(16, 32, 51, 0.04);
+}
+
+.step-item h3,
+.trust-item h3 {
+  margin-bottom: 8px;
+}
+
+.step-item p:last-child,
+.trust-item p:last-child,
+.tools-note-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* Make page title areas feel less loose on content-heavy pages */
+.page-title {
+  max-width: 980px;
+}
+
+.page-title .promise {
+  max-width: 900px;
+}
+
+/* Slightly improve long list readability inside content cards */
+.card > ul,
+.card > ol {
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.card > ul li,
+.card > ol li {
+  padding-left: 2px;
+}
+
+/* Improve desktop density without making the site feel crowded */
+@media (min-width: 921px) {
+  .guide-grid,
+  .tool-card-grid {
+    gap: 22px;
+  }
+
+  .quick-grid,
+  .tool-quick-grid,
+  .offer-grid {
+    gap: 20px;
+  }
+}
+
+/* Keep mobile buttons comfortably full-width */
+@media (max-width: 720px) {
+  .home-hero-content {
+    padding: 24px;
+  }
+
+  .home-hero-card ul {
+    margin-bottom: 20px;
+  }
+
+  .guide-card,
+  .tool-card,
+  .quick-card,
+  .tool-picker-card,
+  .tool-quick-item {
+    padding: 20px;
+  }
+}
