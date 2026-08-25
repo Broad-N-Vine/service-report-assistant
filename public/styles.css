@@ -1300,3 +1300,253 @@ th {
     padding: 20px;
   }
 }
+/* -------------------------------------------------------
+   Generator page polish pass
+   Improves live AI tool pages, forms, result areas,
+   review warnings, and customer workflow sections.
+------------------------------------------------------- */
+
+/* Make tool pages feel more like dedicated software screens */
+.tool-primary-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.tool-primary-card::after {
+  content: "";
+  position: absolute;
+  top: -90px;
+  right: -90px;
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(23, 105, 224, 0.12), transparent 70%);
+  pointer-events: none;
+}
+
+.tool-primary-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Stronger generator form container */
+.tool-form {
+  padding: clamp(18px, 3vw, 24px);
+  border: 1px solid rgba(220, 229, 239, 0.95);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 251, 255, 0.96));
+  box-shadow: 0 12px 30px rgba(16, 32, 51, 0.06);
+}
+
+/* Give form fields more polish without changing structure */
+.form-group {
+  padding: 0;
+}
+
+.form-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.form-group label::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(23, 105, 224, 0.72);
+  box-shadow: 0 0 0 4px rgba(23, 105, 224, 0.08);
+}
+
+/* Do not show the decorative dot on hidden honeypot labels */
+.form-group[aria-hidden="true"] label::before {
+  display: none;
+}
+
+/* Make help text feel intentionally secondary */
+.field-help {
+  line-height: 1.45;
+}
+
+/* Improve textarea readability for real technician notes */
+textarea {
+  line-height: 1.55;
+  background:
+    linear-gradient(180deg, #ffffff, #fbfdff);
+}
+
+/* Make generator submit button feel like the main action */
+.tool-form > .button,
+.tool-form > button.button {
+  margin-top: 4px;
+  min-height: 50px;
+  font-size: 1rem;
+}
+
+/* Better loading/status area */
+#form-status-message {
+  padding-top: 2px;
+  color: var(--color-muted);
+}
+
+#form-status-message:not(:empty) {
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+}
+
+/* Make generated result section feel like a successful workflow output */
+#generated-result-section {
+  border-color: rgba(31, 138, 91, 0.22);
+  background:
+    linear-gradient(180deg, #ffffff, rgba(233, 248, 240, 0.55));
+}
+
+#generated-result-section .tool-section-label {
+  color: var(--color-green);
+  background: var(--color-green-soft);
+  border-color: rgba(31, 138, 91, 0.2);
+}
+
+.result-box {
+  background:
+    linear-gradient(180deg, #ffffff, #fbfdff);
+}
+
+/* Make generated output blocks easier to copy/review */
+.generated-output div[id$="-output"] {
+  min-height: 54px;
+  line-height: 1.6;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.96);
+}
+
+.generated-output div[id$="-output"] p:last-child {
+  margin-bottom: 0;
+}
+
+.generated-output h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.generated-output h3::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--color-green);
+  box-shadow: 0 0 0 5px rgba(31, 138, 91, 0.1);
+}
+
+/* Copy buttons should feel secondary but still usable */
+.copy-button {
+  box-shadow: none;
+}
+
+/* Improve review/warning strips on generator pages */
+.tool-review-strip {
+  display: block;
+  line-height: 1.55;
+}
+
+.tool-review-strip strong {
+  display: inline-block;
+  margin-right: 4px;
+}
+
+/* Make "after generation" workflow cards feel more like next steps */
+#generated-result-section + .card,
+#email-capture-section,
+#recommended-resources {
+  margin-top: 30px;
+}
+
+/* Give email capture more visual importance after results */
+.email-capture-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.email-capture-card::after {
+  content: "";
+  position: absolute;
+  right: -70px;
+  bottom: -90px;
+  width: 210px;
+  height: 210px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(15, 159, 179, 0.16), transparent 70%);
+  pointer-events: none;
+}
+
+.email-capture-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Tighten offer cards so affiliate sections look intentional */
+.offer-card .offer-grid {
+  margin-top: 22px;
+}
+
+.offer-item h3 {
+  margin-bottom: 10px;
+}
+
+.offer-item .button {
+  margin-top: auto;
+}
+
+/* Make related tools sections easier to scan */
+.card:has(.tool-section-label + h2 + ul) ul,
+.card:has(h2 + ul) ul {
+  columns: 2;
+  column-gap: 32px;
+}
+
+.card:has(.tool-section-label + h2 + ul) li,
+.card:has(h2 + ul) li {
+  break-inside: avoid;
+}
+
+/* Do not columnize lists inside workflow cards or review cards */
+.tool-quick-item ul,
+.offer-item ul,
+.tool-hero-aside ul,
+.generated-output ul,
+.home-hero-card ul {
+  columns: initial;
+}
+
+/* Improve generator page mobile readability */
+@media (max-width: 720px) {
+  .tool-form {
+    padding: 18px;
+  }
+
+  .tool-form > .button,
+  .tool-form > button.button {
+    width: 100%;
+  }
+
+  .copy-button {
+    width: 100%;
+  }
+
+  .card:has(.tool-section-label + h2 + ul) ul,
+  .card:has(h2 + ul) ul {
+    columns: 1;
+  }
+
+  .generated-output h3 {
+    align-items: flex-start;
+  }
+
+  .generated-output h3::before {
+    margin-top: 0.35em;
+  }
+}
