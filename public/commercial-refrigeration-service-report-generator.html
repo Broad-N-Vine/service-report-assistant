@@ -7,7 +7,7 @@
   <title>Commercial Refrigeration Service Report Generator | HVAC/R AI Tool</title>
   <meta
     name="description"
-    content="Create cleaner commercial refrigeration service reports from rough technician notes for walk-in coolers, freezers, reach-ins, prep tables, ice machines, and refrigeration service calls."
+    content="Create cleaner commercial refrigeration service reports, invoice descriptions, customer follow-up messages, and internal summaries from rough technician notes for walk-in coolers, freezers, reach-ins, prep tables, and ice machines."
   />
 
   <link rel="stylesheet" href="styles.css" />
@@ -49,8 +49,9 @@
         </p>
 
         <p class="note">
-          Paste technician notes for walk-in coolers, freezers, reach-ins, prep tables,
-          display cases, ice machines, and other commercial refrigeration calls.
+          Paste commercial refrigeration technician notes and create a service report,
+          invoice description, customer follow-up message, internal summary, and review notes
+          for walk-in coolers, freezers, reach-ins, prep tables, ice machines, and related service calls.
         </p>
 
         <div class="tool-hero-actions">
@@ -71,9 +72,9 @@
           <ul>
             <li>Walk-in cooler reports</li>
             <li>Walk-in freezer reports</li>
-            <li>Reach-in cooler service notes</li>
-            <li>Prep table and display case calls</li>
-            <li>Commercial refrigeration paperwork</li>
+            <li>Reach-in cooler notes</li>
+            <li>Refrigeration invoice wording</li>
+            <li>Commercial customer follow-ups</li>
           </ul>
         </div>
 
@@ -86,31 +87,85 @@
     <section class="card">
       <span class="tool-section-label">How it works</span>
 
-      <h2>Create cleaner refrigeration service reports in three steps</h2>
+      <h2>Create cleaner refrigeration paperwork in three steps</h2>
 
       <div class="tool-quick-grid">
         <div class="tool-quick-item">
           <h3>1. Paste service notes</h3>
           <p>
-            Add the equipment type, customer complaint, temperature concern, technician findings,
-            completed work, and recommended next steps.
+            Add the equipment type, customer complaint, technician findings, completed work,
+            recommendations, customer concerns, and any readings that are verified.
           </p>
         </div>
 
         <div class="tool-quick-item">
           <h3>2. Generate refrigeration paperwork</h3>
           <p>
-            The tool sends your notes to the backend and returns a service report,
-            invoice description, customer follow-up, internal summary, and review notes.
+            The tool returns a service report, invoice description, customer follow-up,
+            internal summary, and review notes.
           </p>
         </div>
 
         <div class="tool-quick-item">
           <h3>3. Review before sending</h3>
           <p>
-            Confirm temperatures, equipment details, food safety wording, warranty language,
-            parts, pricing, and customer-specific notes before using the result.
+            Confirm temperatures, pressures, refrigerant details, parts, pricing, warranty language,
+            food-safety wording, and final operating conditions before using the result.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="tool-section-label">Commercial Refrigeration Workflow</span>
+
+      <h2>Use this tool as part of the full refrigeration customer workflow</h2>
+
+      <p>
+        Commercial refrigeration paperwork often carries more customer sensitivity than a basic residential service note.
+        A restaurant, venue, market, kitchen, or facility may be worried about temperature, product condition,
+        downtime, repeat issues, and follow-up timing. The report should explain what happened clearly while avoiding
+        unsupported food-safety claims, invented readings, or promises about final operating condition.
+      </p>
+
+      <div class="tool-quick-grid">
+        <div class="tool-quick-item">
+          <h3>Before the report</h3>
+          <p>
+            Start with clear technician notes, verified readings, equipment type, and customer complaint.
+            Do not let the final report guess missing details.
+          </p>
+          <ul>
+            <li><a href="hvac-technician-notes-examples">Review HVAC/R technician note examples</a></li>
+            <li><a href="walk-in-cooler-service-report-example">Review a walk-in cooler service report example</a></li>
+            <li><a href="hvac-service-report-checklist">Use the service report checklist before sending</a></li>
+          </ul>
+        </div>
+
+        <div class="tool-quick-item">
+          <h3>During report review</h3>
+          <p>
+            Keep the wording factual and commercial-customer friendly. Separate confirmed work from review items,
+            recommendations, and follow-up tasks.
+          </p>
+          <ul>
+            <li><a href="hvac-service-report-generator">Use the general service report generator when appropriate</a></li>
+            <li><a href="hvac-invoice-description-generator">Turn confirmed work into invoice wording</a></li>
+            <li><a href="hvac-office-admin-paperwork-checklist">Use the office admin paperwork checklist</a></li>
+          </ul>
+        </div>
+
+        <div class="tool-quick-item">
+          <h3>After the report</h3>
+          <p>
+            Decide whether the customer needs a follow-up message, estimate, maintenance recommendation,
+            internal CRM reminder, or scheduled return visit.
+          </p>
+          <ul>
+            <li><a href="hvac-customer-follow-up-text-generator">Create a customer follow-up message</a></li>
+            <li><a href="hvac-estimate-description-generator">Create estimate wording for recommended work</a></li>
+            <li><a href="hvac-maintenance-plan-pitch-generator">Create a low-pressure maintenance message</a></li>
+          </ul>
         </div>
       </div>
     </section>
@@ -118,21 +173,28 @@
     <section id="tool-form-section" class="card tool-primary-card">
       <span class="tool-section-label">Generator</span>
 
-      <h2>Enter the refrigeration job details</h2>
+      <h2>Enter the refrigeration service details</h2>
 
       <p>
-        Use this tool when you need to turn rough commercial refrigeration notes into cleaner
-        service report wording for a customer, office record, invoice, or follow-up message.
+        Use this tool to clean up rough notes from walk-in cooler, walk-in freezer, reach-in cooler,
+        ice machine, prep table, display case, and other commercial refrigeration service calls.
       </p>
 
-      <form id="commercial-refrigeration-report-form" class="tool-form">
+      <div class="tool-review-strip">
+        <strong>Commercial refrigeration review rule:</strong>
+        Do not invent box temperatures, product condition, refrigerant amounts, pressure readings,
+        electrical readings, food-safety status, warranty coverage, compliance status, or final operating condition.
+        Those details must come from the technician notes or verified office records.
+      </div>
+
+      <form id="commercial-refrigeration-form" class="tool-form">
         <div class="form-group">
           <label for="company-name">Company name</label>
           <input
             type="text"
             id="company-name"
             name="companyName"
-            placeholder="Example: Smith Refrigeration & HVAC"
+            placeholder="Example: Smith Heating & Cooling"
           />
           <p class="field-help">Optional. This can be used for internal context.</p>
         </div>
@@ -141,29 +203,46 @@
           <label for="job-type">Job type</label>
           <select id="job-type" name="jobType" required>
             <option value="">Select one</option>
-            <option value="Walk-in cooler service">Walk-in cooler service</option>
-            <option value="Walk-in freezer service">Walk-in freezer service</option>
-            <option value="Reach-in cooler service">Reach-in cooler service</option>
-            <option value="Reach-in freezer service">Reach-in freezer service</option>
-            <option value="Prep table refrigeration service">Prep table refrigeration service</option>
-            <option value="Display case refrigeration service">Display case refrigeration service</option>
-            <option value="Ice machine service">Ice machine service</option>
+            <option value="Walk-in cooler service call">Walk-in cooler service call</option>
+            <option value="Walk-in freezer service call">Walk-in freezer service call</option>
+            <option value="Reach-in cooler service call">Reach-in cooler service call</option>
+            <option value="Reach-in freezer service call">Reach-in freezer service call</option>
             <option value="Commercial refrigeration maintenance">Commercial refrigeration maintenance</option>
-            <option value="Commercial refrigeration diagnostic">Commercial refrigeration diagnostic</option>
+            <option value="Condenser coil cleaning">Condenser coil cleaning</option>
+            <option value="Temperature issue diagnostic">Temperature issue diagnostic</option>
+            <option value="Ice machine service call">Ice machine service call</option>
+            <option value="Prep table service call">Prep table service call</option>
+            <option value="Display case service call">Display case service call</option>
             <option value="Other commercial refrigeration service">Other commercial refrigeration service</option>
           </select>
           <p class="field-help">Required. Choose the type of refrigeration service call.</p>
         </div>
 
         <div class="form-group">
-          <label for="customer-name">Customer name or location</label>
+          <label for="equipment-type">Equipment type</label>
+          <select id="equipment-type" name="equipmentType">
+            <option value="">Select one if known</option>
+            <option value="Walk-in cooler">Walk-in cooler</option>
+            <option value="Walk-in freezer">Walk-in freezer</option>
+            <option value="Reach-in cooler">Reach-in cooler</option>
+            <option value="Reach-in freezer">Reach-in freezer</option>
+            <option value="Ice machine">Ice machine</option>
+            <option value="Prep table">Prep table</option>
+            <option value="Display case">Display case</option>
+            <option value="Other commercial refrigeration equipment">Other commercial refrigeration equipment</option>
+          </select>
+          <p class="field-help">Optional. Helps the wording match the equipment being serviced.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="customer-name">Customer name</label>
           <input
             type="text"
             id="customer-name"
             name="customerName"
-            placeholder="Example: Main Kitchen, Store 2, or Sarah"
+            placeholder="Example: Sarah"
           />
-          <p class="field-help">Optional. Keep this general if you do not want to enter customer details.</p>
+          <p class="field-help">Optional. First name is enough.</p>
         </div>
 
         <div class="form-group">
@@ -173,7 +252,7 @@
             name="technicianNotes"
             rows="8"
             required
-            placeholder="Example: Walk-in cooler running warm. Customer reported product temperature concern. Found dirty condenser coil and restricted airflow. Cleaned coil, checked door gasket, verified fans operating, monitored box temperature. Recommended continued temperature monitoring and gasket replacement quote."
+            placeholder="Example: Customer reported walk-in cooler temperature was higher than normal. Technician found condenser coil dirty and restricted with debris. Cleaned condenser coil and advised customer to monitor box temperature after service."
           ></textarea>
           <p class="field-help">
             Required. Paste rough notes from the technician. Use at least 25 characters.
@@ -185,28 +264,16 @@
         </div>
 
         <div class="form-group">
-          <label for="temperature-notes">Temperature notes</label>
+          <label for="verified-readings">Verified readings or important review details</label>
           <textarea
-            id="temperature-notes"
-            name="temperatureNotes"
+            id="verified-readings"
+            name="verifiedReadings"
             rows="4"
-            placeholder="Optional: Add verified temperature readings, setpoints, box temperatures, ambient conditions, or monitoring notes."
+            placeholder="Optional: Add verified temperatures, pressures, refrigerant details, model numbers, customer approval notes, or office review notes. Leave blank if not confirmed."
           ></textarea>
           <p class="field-help">
-            Optional. Add only verified temperature details. Do not invent readings, setpoints, or food safety conclusions.
-          </p>
-        </div>
-
-        <div class="form-group">
-          <label for="food-safety-notes">Food safety or product notes</label>
-          <textarea
-            id="food-safety-notes"
-            name="foodSafetyNotes"
-            rows="4"
-            placeholder="Optional: Example: Customer advised to monitor product temperatures. Product safety decisions remain customer responsibility unless your company policy says otherwise."
-          ></textarea>
-          <p class="field-help">
-            Optional. Add only reviewed food safety or product notes. Do not state that product is safe unless verified and approved.
+            Optional. Add only verified details. Do not guess temperatures, pressures, refrigerant amounts,
+            product condition, or final operating conditions.
           </p>
         </div>
 
@@ -220,7 +287,7 @@
             <option value="Detailed">Detailed</option>
             <option value="Simple">Simple</option>
           </select>
-          <p class="field-help">Required. Choose how the report should sound.</p>
+          <p class="field-help">Required. Choose how the refrigeration report should sound.</p>
         </div>
 
         <div class="form-group" style="display: none;" aria-hidden="true">
@@ -260,18 +327,17 @@
     <section id="generated-result-section" class="card hidden">
       <span class="tool-section-label">Generated Result</span>
 
-      <h2>Your generated commercial refrigeration report</h2>
+      <h2>Your generated commercial refrigeration paperwork</h2>
 
       <p>
         Use this generated result as a starting point. Review every section before sending it to a customer,
-        adding it to an invoice, or storing it in a business system.
+        adding it to an invoice, saving it in a CRM, or storing it in a service record.
       </p>
 
       <div class="tool-review-strip">
         <strong>Review before sending:</strong>
-        Confirm equipment details, temperature readings, completed work, parts, pricing,
-        warranty language, food safety wording, product safety wording, customer-specific notes,
-        and final recommendations before using this text.
+        Confirm temperatures, pressures, refrigerant details, parts, pricing, warranty language,
+        food-safety wording, customer approval, customer-specific notes, and final operating conditions before using this text.
       </div>
 
       <div class="result-box">
@@ -309,12 +375,58 @@
       </div>
     </section>
 
+    <section class="card">
+      <span class="tool-section-label">After the Refrigeration Report</span>
+
+      <h2>What should happen after the refrigeration report is written?</h2>
+
+      <p>
+        A commercial refrigeration report should create a clean next step for the customer and the office.
+        After the report is reviewed, decide whether the customer needs invoice wording, a follow-up message,
+        an estimate for recommended work, a maintenance reminder, or an internal CRM task.
+      </p>
+
+      <div class="tool-quick-grid">
+        <div class="tool-quick-item">
+          <h3>Create invoice wording</h3>
+          <p>
+            Once completed work is confirmed, turn the refrigeration service notes into a shorter invoice description.
+          </p>
+          <a class="button" href="hvac-invoice-description-generator">
+            Open Invoice Generator
+          </a>
+        </div>
+
+        <div class="tool-quick-item">
+          <h3>Send a customer follow-up</h3>
+          <p>
+            If the customer needs to monitor temperature, approve work, or schedule a return visit,
+            create a clear follow-up message.
+          </p>
+          <a class="button" href="hvac-customer-follow-up-text-generator">
+            Open Follow-Up Generator
+          </a>
+        </div>
+
+        <div class="tool-quick-item">
+          <h3>Create an estimate or reminder</h3>
+          <p>
+            If the technician recommended repairs, cleaning, replacement, or future service,
+            create estimate wording or save a CRM reminder.
+          </p>
+          <a class="button" href="hvac-estimate-description-generator">
+            Open Estimate Generator
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section id="email-capture-section" class="card email-capture-card hidden">
       <h2>Get more HVAC/R refrigeration paperwork examples</h2>
 
       <p>
-        Enter your email below to receive more HVAC/R service report templates, refrigeration examples,
-        invoice wording examples, customer follow-up examples, and helpful paperwork tips.
+        Enter your email below to receive more HVAC/R service report templates, invoice wording examples,
+        follow-up message examples, and refrigeration paperwork tips.
       </p>
 
       <p class="field-help">
@@ -324,7 +436,7 @@
 
       <p class="field-help">
         We do not sell your email address. AI-generated text should be reviewed for accuracy before being sent to customers,
-        added to invoices, or stored in service records.
+        added to invoices, saved in CRM records, or stored in service records.
       </p>
 
       <div class="mailerlite-form-wrapper">
@@ -338,8 +450,8 @@
       <h2>Tools and templates that can help after the refrigeration report is written</h2>
 
       <p>
-        Once your refrigeration service report is cleaned up, the next step is usually adding the job details,
-        invoice wording, customer note, follow-up task, or service record to your business workflow.
+        Once your refrigeration report is cleaned up, the next step is usually adding job details,
+        invoice wording, customer notes, estimates, or follow-up tasks to your business workflow.
       </p>
 
       <p class="affiliate-disclosure">
@@ -359,7 +471,7 @@
 
           <p class="best-for">
             Best for: HVAC/R service businesses that want help managing refrigeration jobs,
-            scheduling, invoices, customer notes, and follow-up workflow.
+            customer communication, quotes, invoices, payments, and follow-up tasks.
           </p>
 
           <a
@@ -381,7 +493,7 @@
           </p>
 
           <p class="best-for">
-            Best for: HVAC/R owners and office managers who want refrigeration service and invoice records organized financially.
+            Best for: HVAC/R owners and office managers who want service and invoice records organized financially.
           </p>
 
           <a
@@ -399,7 +511,7 @@
 
           <p>
             A future template pack with service report examples, invoice wording,
-            follow-up messages, refrigeration examples, and technician note cleanup checklists.
+            refrigeration examples, follow-up messages, CRM note prompts, and technician note cleanup checklists.
           </p>
 
           <p class="best-for">
@@ -417,15 +529,15 @@
 
         <div class="decision-list">
           <div class="decision-item">
-            <h4>Use Jobber if you need help managing refrigeration service jobs.</h4>
+            <h4>Use Jobber if you need help managing refrigeration jobs.</h4>
             <p>
-              Jobber is the better fit if your main problem is organizing jobs, scheduling,
-              quotes, invoices, payments, customer communication, and follow-up tasks.
+              Jobber is the better fit if your main problem is organizing service jobs,
+              customer communication, quotes, invoices, payments, and follow-up tasks.
             </p>
           </div>
 
           <div class="decision-item">
-            <h4>Use QuickBooks if you need help managing invoices and books.</h4>
+            <h4>Use QuickBooks if the refrigeration visit connects to billing.</h4>
             <p>
               QuickBooks is the better fit if your main problem is tracking income, expenses,
               invoices, payments, bookkeeping, and small-business financial records.
@@ -436,7 +548,7 @@
             <h4>Use the HVAC Paperwork Starter Kit if you want ready-to-use templates.</h4>
             <p>
               The starter kit will be the better fit if you want copy-and-paste examples for
-              service reports, invoice descriptions, customer follow-up messages, refrigeration reports, and note cleanup.
+              service reports, invoice descriptions, refrigeration notes, customer follow-up messages, CRM notes, and note cleanup.
             </p>
           </div>
         </div>
@@ -457,82 +569,112 @@
           <h3>What to include</h3>
 
           <p>
-            Good commercial refrigeration reports work best when the notes include the equipment type,
-            customer complaint, confirmed readings, technician findings, completed work, and next steps.
+            Good refrigeration reports work best when the notes include the equipment type,
+            customer complaint, what was found, what was completed, what the customer should monitor,
+            and what still needs office review.
           </p>
 
           <p>
-            Do not invent temperature readings, food safety conclusions, product safety decisions,
-            warranty terms, refrigerant details, or repair guarantees.
+            Do not let the tool guess temperatures, pressures, refrigerant amounts, product condition,
+            food-safety status, warranty status, or final operating conditions. Those details should be verified before sending.
           </p>
         </div>
 
-        <pre class="example-box">Walk-in cooler running warm. Customer reported product temperature concern. Found dirty condenser coil and restricted airflow. Cleaned coil, checked door gasket, verified evaporator and condenser fans operating, monitored box temperature after service. Recommended continued temperature monitoring and gasket replacement quote.</pre>
+        <pre class="example-box">Customer reported walk-in cooler temperature was higher than normal. Technician found condenser coil dirty and restricted with debris. Cleaned condenser coil and advised customer to monitor box temperature after service. Final temperature readings should be confirmed before sending.</pre>
       </div>
     </section>
 
     <section class="card">
-      <h2>Related HVAC/R tools and templates</h2>
+      <span class="tool-section-label">CRM and Commercial Customer Review</span>
+
+      <h2>What should the office check before sending a refrigeration report?</h2>
+
+      <p>
+        Use this commercial customer review before sending a refrigeration report, saving a CRM note,
+        creating an invoice, or scheduling a follow-up task.
+      </p>
 
       <ul>
-        <li><a href="hvac-service-report-generator">HVAC Service Report Generator</a></li>
-        <li><a href="hvac-invoice-description-generator">HVAC Invoice Description Generator</a></li>
-        <li><a href="hvac-customer-follow-up-text-generator">HVAC Customer Follow-Up Text Generator</a></li>
-        <li><a href="hvac-maintenance-plan-pitch-generator">HVAC Maintenance Plan Pitch Generator</a></li>
-        <li><a href="hvac-estimate-description-generator">HVAC Estimate Description Generator</a></li>
-        <li><a href="commercial-refrigeration-service-report-generator">Commercial Refrigeration Service Report Generator</a></li>
-        <li><a href="walk-in-cooler-service-report-example">Walk-In Cooler Service Report Example</a></li>
-        <li><a href="hvac-tune-up-report-template">HVAC Tune-Up Report Template</a></li>
-        <li><a href="ac-repair-service-report-template">AC Repair Service Report Template</a></li>
-        <li><a href="furnace-repair-service-report-template">Furnace Repair Service Report Template</a></li>
-        <li><a href="hvac-technician-notes-examples">HVAC Technician Notes Examples</a></li>
+        <li><strong>Customer clarity:</strong> does the report explain the issue, finding, and completed work in plain English?</li>
+        <li><strong>Verified readings:</strong> are temperatures, pressures, amperage, refrigerant details, and final readings confirmed?</li>
+        <li><strong>Food-safety language:</strong> does the report avoid unsupported product safety, spoilage, or compliance claims?</li>
+        <li><strong>Completed work:</strong> does the report separate completed work from recommended work and future follow-up?</li>
+        <li><strong>Pricing review:</strong> are parts, labor, taxes, discounts, fees, and totals confirmed outside this tool?</li>
+        <li><strong>Customer next step:</strong> does the customer know whether to monitor temperature, approve an estimate, or schedule follow-up?</li>
+        <li><strong>CRM reminder:</strong> should the office save a task for temperature follow-up, declined work, cleaning, maintenance, or return service?</li>
       </ul>
     </section>
 
     <section class="card">
+      <span class="tool-section-label">Related Tools and Guides</span>
+
+      <h2>Related HVAC/R tools and templates</h2>
+
+      <ul>
+        <li><a href="walk-in-cooler-service-report-example">Walk-In Cooler Service Report Example</a></li>
+        <li><a href="hvac-service-report-generator">HVAC Service Report Generator</a></li>
+        <li><a href="hvac-invoice-description-generator">HVAC Invoice Description Generator</a></li>
+        <li><a href="hvac-customer-follow-up-text-generator">HVAC Customer Follow-Up Text Generator</a></li>
+        <li><a href="hvac-estimate-description-generator">HVAC Estimate Description Generator</a></li>
+        <li><a href="hvac-maintenance-plan-pitch-generator">HVAC Maintenance Plan Pitch Generator</a></li>
+        <li><a href="hvac-office-admin-paperwork-checklist">HVAC Office Admin Paperwork Checklist</a></li>
+        <li><a href="hvac-service-report-checklist">HVAC Service Report Checklist</a></li>
+        <li><a href="hvac-technician-notes-examples">HVAC Technician Notes Examples</a></li>
+        <li><a href="dirty-coil-cleaning-service-report-example">Dirty Coil Cleaning Service Report Example</a></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <span class="tool-section-label">FAQ</span>
+
       <h2>Frequently asked questions</h2>
 
       <h3>Who is this Commercial Refrigeration Service Report Generator for?</h3>
       <p>
-        It is for HVAC/R owners, office managers, technicians, and admin staff who need to turn rough
-        commercial refrigeration notes into cleaner service reports, invoice descriptions, customer follow-ups,
-        and internal job summaries.
+        It is for HVAC/R owners, office managers, technicians, dispatchers, and admin staff who need to turn rough
+        refrigeration service notes into cleaner service reports, invoice wording, customer messages, internal summaries, and CRM notes.
       </p>
 
       <h3>What kind of notes should I paste into the tool?</h3>
       <p>
-        Paste the equipment type, customer complaint, temperature concern, technician findings, completed work,
-        parts used, readings, customer notes, declined work, and recommended next steps.
+        Paste the job type, equipment type, customer complaint, technician findings, completed work,
+        verified readings, parts used, recommendations, declined work, customer concerns, and any office review notes.
+      </p>
+
+      <h3>Can this tool create temperature readings or pressure readings?</h3>
+      <p>
+        No. The tool should not create temperatures, pressures, refrigerant amounts, model numbers,
+        serial numbers, or final operating conditions. Those details must come from the technician or office records.
+      </p>
+
+      <h3>Can this tool make food safety claims?</h3>
+      <p>
+        No. Do not use generated wording to claim product is safe, food is safe, spoilage was prevented,
+        or temperature compliance has been confirmed unless those details are verified by your company and supported by the service record.
       </p>
 
       <h3>Can I send the generated report directly to a customer?</h3>
       <p>
-        Use the generated report as a starting point. Review it before sending and confirm equipment details,
-        temperature readings, completed work, pricing, warranty language, and customer-specific notes.
-      </p>
-
-      <h3>Can this tool make food safety decisions?</h3>
-      <p>
-        No. This tool should not be used to decide whether food, product, or stored goods are safe.
-        Product safety and food safety decisions should follow customer policy, company policy, and applicable rules.
-      </p>
-
-      <h3>Does this tool create temperature readings or refrigerant details?</h3>
-      <p>
-        No. Do not let the tool invent temperatures, pressure readings, refrigerant type, refrigerant amounts,
-        leak details, recovery amounts, or system performance claims. Those details should come from verified technician notes.
-      </p>
-
-      <h3>Can this tool create warranty or safety language?</h3>
-      <p>
-        No. Do not add warranty, safety, code-compliance, food safety, product safety, or performance claims unless they are verified
-        and supported by the technician notes and your company policy.
+        Use the generated wording as a starting point. Review it before sending and confirm temperatures, pressures,
+        refrigerant details, parts, pricing, warranty language, food-safety wording, customer-specific details, and final operating conditions.
       </p>
 
       <h3>Can I use the result in Jobber, QuickBooks, or another system?</h3>
       <p>
         Yes, you can use the result as a starting point for service reports, invoice descriptions, customer notes,
-        follow-up messages, or internal summaries. Review the wording before adding it to any business system.
+        internal job summaries, CRM records, or follow-up tasks. Review the wording before adding it to any business system.
+      </p>
+
+      <h3>What should happen after the refrigeration report is written?</h3>
+      <p>
+        Save the report in the customer record, confirm any invoice details, create a customer follow-up when needed,
+        schedule a reminder if the customer should monitor temperature, and create an estimate if additional work was recommended.
+      </p>
+
+      <h3>Does this replace a refrigeration technician’s diagnosis?</h3>
+      <p>
+        No. This tool only helps clean up wording from technician notes. It does not diagnose equipment, verify readings,
+        confirm food safety, determine compliance, or replace technician judgment.
       </p>
     </section>
   </main>
@@ -552,7 +694,7 @@
   </footer>
 
   <script>
-    const commercialRefrigerationForm = document.getElementById("commercial-refrigeration-report-form");
+    const commercialRefrigerationForm = document.getElementById("commercial-refrigeration-form");
     const generateButton = document.getElementById("generate-button");
     const formStatusMessage = document.getElementById("form-status-message");
     const technicianNotesCounter = document.getElementById("technician-notes-counter");
@@ -625,7 +767,7 @@
 
       if (isLoading) {
         generateButton.textContent = "Generating...";
-        formStatusMessage.textContent = "Generating your commercial refrigeration report. This may take a few seconds. Do not refresh the page.";
+        formStatusMessage.textContent = "Generating your refrigeration service paperwork. This may take a few seconds. Do not refresh the page.";
       } else {
         generateButton.textContent = "Generate Refrigeration Report";
       }
@@ -645,7 +787,7 @@
       generatedResultSection.classList.remove("hidden");
       emailCaptureSection.classList.remove("hidden");
 
-      formStatusMessage.textContent = "Your commercial refrigeration report was generated successfully. Review the result below before using it.";
+      formStatusMessage.textContent = "Your refrigeration paperwork was generated successfully. Review the result below before using it.";
 
       generatedResultSection.scrollIntoView({ behavior: "smooth" });
     }
@@ -683,10 +825,10 @@
 
       const companyName = document.getElementById("company-name").value.trim();
       const jobType = document.getElementById("job-type").value;
+      const equipmentType = document.getElementById("equipment-type").value;
       const customerName = document.getElementById("customer-name").value.trim();
       const technicianNotes = document.getElementById("technician-notes").value.trim();
-      const temperatureNotes = document.getElementById("temperature-notes").value.trim();
-      const foodSafetyNotes = document.getElementById("food-safety-notes").value.trim();
+      const verifiedReadings = document.getElementById("verified-readings").value.trim();
       const tone = document.getElementById("tone").value;
       const email = document.getElementById("email").value.trim();
       const website = document.getElementById("website").value.trim();
@@ -707,9 +849,9 @@
       }
 
       const enrichedTechnicianNotes = [
-        customerName ? "Customer or location: " + customerName : "",
-        temperatureNotes ? "Verified temperature notes: " + temperatureNotes : "Temperature details were not provided. Do not invent temperature readings, setpoints, or monitoring results.",
-        foodSafetyNotes ? "Food safety or product notes: " + foodSafetyNotes : "Food safety or product safety details were not provided. Do not make food safety or product safety claims.",
+        customerName ? "Customer first name: " + customerName : "",
+        equipmentType ? "Equipment type: " + equipmentType : "",
+        verifiedReadings ? "Verified readings or review details: " + verifiedReadings : "Verified readings were not provided. Do not invent temperatures, pressures, refrigerant amounts, product condition, food safety status, warranty status, or final operating conditions.",
         "",
         "Technician notes:",
         technicianNotes
@@ -742,7 +884,7 @@
 
         showGeneratedResult(data.result);
       } catch (error) {
-        showError("The commercial refrigeration generator is temporarily unavailable. Please try again later.");
+        showError("The refrigeration report generator is temporarily unavailable. Please try again later.");
       } finally {
         setLoadingState(false);
       }
