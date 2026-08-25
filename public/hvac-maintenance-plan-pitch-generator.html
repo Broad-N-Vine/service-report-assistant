@@ -7,7 +7,7 @@
   <title>HVAC Maintenance Plan Pitch Generator | HVAC/R AI Tool</title>
   <meta
     name="description"
-    content="Create helpful, low-pressure HVAC/R maintenance plan pitch messages from rough technician notes after service visits, tune-ups, and repair calls."
+    content="Create helpful, low-pressure HVAC/R maintenance plan pitch messages from rough technician notes after service visits, tune-ups, repair calls, and follow-up opportunities."
   />
 
   <link rel="stylesheet" href="styles.css" />
@@ -45,7 +45,7 @@
         <h1>HVAC Maintenance Plan Pitch Generator</h1>
 
         <p class="promise">
-          Turn service notes into a helpful maintenance plan follow-up.
+          Turn service notes into a helpful maintenance plan follow-up without sounding pushy.
         </p>
 
         <p class="note">
@@ -72,7 +72,7 @@
             <li>Maintenance plan follow-ups</li>
             <li>Post-service customer messages</li>
             <li>Tune-up recommendations</li>
-            <li>Office admin cleanup</li>
+            <li>CRM follow-up notes</li>
             <li>Low-pressure customer communication</li>
           </ul>
         </div>
@@ -93,24 +93,74 @@
           <h3>1. Paste service notes</h3>
           <p>
             Add the job type, what the technician found, completed work, recommendations,
-            and why maintenance might be relevant.
+            customer concerns, and why maintenance might be relevant.
           </p>
         </div>
 
         <div class="tool-quick-item">
           <h3>2. Generate pitch options</h3>
           <p>
-            The tool sends your notes to the backend and returns a maintenance plan pitch,
-            short text message, email version, and review notes.
+            The tool returns a maintenance plan pitch, short text message,
+            email version, and review notes.
           </p>
         </div>
 
         <div class="tool-quick-item">
           <h3>3. Review before sending</h3>
           <p>
-            Confirm plan details, pricing, terms, benefits, warranty language, and customer-specific
-            information before sending.
+            Confirm plan details, pricing, terms, benefits, warranty language,
+            customer approval, and company rules before sending.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="tool-section-label">Maintenance Follow-Up Workflow</span>
+
+      <h2>Use this tool as part of the full customer retention flow</h2>
+
+      <p>
+        A good maintenance plan message should feel like helpful guidance, not a pressure tactic.
+        The goal is to connect the service visit to a clear next step, explain why routine maintenance may help,
+        and give the office a clean follow-up record without inventing pricing, promises, or contract terms.
+      </p>
+
+      <div class="tool-quick-grid">
+        <div class="tool-quick-item">
+          <h3>Before the pitch</h3>
+          <p>
+            Make sure the maintenance recommendation is supported by the service notes and customer situation.
+          </p>
+          <ul>
+            <li><a href="hvac-service-report-generator">Create or review the service report</a></li>
+            <li><a href="hvac-technician-notes-examples">Review stronger technician note examples</a></li>
+            <li><a href="hvac-service-report-checklist">Check the report before follow-up</a></li>
+          </ul>
+        </div>
+
+        <div class="tool-quick-item">
+          <h3>During the pitch</h3>
+          <p>
+            Keep the message calm, factual, and customer-friendly. Avoid fear-based language or unsupported savings claims.
+          </p>
+          <ul>
+            <li><a href="hvac-maintenance-agreement-follow-up-template">Use a maintenance agreement follow-up template</a></li>
+            <li><a href="hvac-maintenance-visit-follow-up-email-template">Review a maintenance visit follow-up email</a></li>
+            <li><a href="hvac-customer-follow-up-text-generator">Create a general customer follow-up</a></li>
+          </ul>
+        </div>
+
+        <div class="tool-quick-item">
+          <h3>After the pitch</h3>
+          <p>
+            Decide whether the office needs to schedule a reminder, send an estimate, save a CRM note, or review agreement details.
+          </p>
+          <ul>
+            <li><a href="hvac-estimate-description-generator">Create estimate wording for recommended work</a></li>
+            <li><a href="hvac-office-admin-paperwork-checklist">Use the office admin paperwork checklist</a></li>
+            <li><a href="hvac-invoice-description-generator">Create invoice wording for completed work</a></li>
+          </ul>
         </div>
       </div>
     </section>
@@ -122,8 +172,15 @@
 
       <p>
         Use this tool when a service visit creates a natural opportunity to mention routine maintenance
-        without sounding pushy or making unsupported promises.
+        without sounding pushy, vague, or overly sales-focused.
       </p>
+
+      <div class="tool-review-strip">
+        <strong>Customer-first maintenance rule:</strong>
+        The message should help the customer understand why maintenance may be worth considering.
+        Do not promise fewer repairs, lower utility bills, longer equipment life, warranty coverage, safety,
+        or guaranteed performance unless those claims are verified and approved by your company.
+      </div>
 
       <form id="maintenance-plan-pitch-form" class="tool-form">
         <div class="form-group">
@@ -147,6 +204,7 @@
             <option value="Repair visit follow-up">Repair visit follow-up</option>
             <option value="Filter replacement follow-up">Filter replacement follow-up</option>
             <option value="Dirty coil recommendation">Dirty coil recommendation</option>
+            <option value="Condensate drain maintenance follow-up">Condensate drain maintenance follow-up</option>
             <option value="Commercial refrigeration maintenance follow-up">Commercial refrigeration maintenance follow-up</option>
             <option value="Other HVAC/R maintenance follow-up">Other HVAC/R maintenance follow-up</option>
           </select>
@@ -249,13 +307,13 @@
 
       <p>
         Use this generated result as a starting point. Review every section before sending it to a customer,
-        adding it to job notes, or using it in a maintenance agreement follow-up.
+        adding it to job notes, saving it in a CRM, or using it in a maintenance agreement follow-up.
       </p>
 
       <div class="tool-review-strip">
         <strong>Review before sending:</strong>
         Confirm plan details, pricing, terms, benefits, warranty language, customer approval,
-        company maintenance agreement rules, and any customer-specific details before using this text.
+        customer tone, scheduling instructions, company maintenance agreement rules, and any customer-specific details.
       </div>
 
       <div class="result-box">
@@ -287,6 +345,50 @@
       </div>
     </section>
 
+    <section class="card">
+      <span class="tool-section-label">After the Maintenance Pitch</span>
+
+      <h2>What should happen after the maintenance message is written?</h2>
+
+      <p>
+        A maintenance message should create a clear next step, not just a sales message.
+        After the pitch is reviewed, decide whether the office should send a general follow-up,
+        create an estimate, schedule a reminder, or save a CRM note for future service timing.
+      </p>
+
+      <div class="tool-quick-grid">
+        <div class="tool-quick-item">
+          <h3>Send a softer follow-up</h3>
+          <p>
+            If the customer is not ready for a maintenance plan, use a helpful follow-up that summarizes the visit and leaves the door open.
+          </p>
+          <a class="button" href="hvac-customer-follow-up-text-generator">
+            Open Follow-Up Generator
+          </a>
+        </div>
+
+        <div class="tool-quick-item">
+          <h3>Create an estimate</h3>
+          <p>
+            If the service notes include recommended work, create estimate wording separately from the maintenance message.
+          </p>
+          <a class="button" href="hvac-estimate-description-generator">
+            Open Estimate Generator
+          </a>
+        </div>
+
+        <div class="tool-quick-item">
+          <h3>Save a CRM reminder</h3>
+          <p>
+            Add a reminder for future seasonal service, customer questions, declined work, or agreement follow-up timing.
+          </p>
+          <a class="button" href="hvac-office-admin-paperwork-checklist">
+            Review Office Checklist
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section id="email-capture-section" class="card email-capture-card hidden">
       <h2>Get more HVAC/R maintenance follow-up examples</h2>
 
@@ -302,7 +404,7 @@
 
       <p class="field-help">
         We do not sell your email address. AI-generated text should be reviewed for accuracy before being sent to customers,
-        added to invoices, or stored in service records.
+        added to invoices, saved in CRM records, or stored in service records.
       </p>
 
       <div class="mailerlite-form-wrapper">
@@ -337,7 +439,7 @@
 
           <p class="best-for">
             Best for: HVAC/R service businesses that want help managing jobs, follow-ups,
-            customer communication, and service workflow.
+            customer communication, quotes, invoices, and service workflow.
           </p>
 
           <a
@@ -377,7 +479,7 @@
 
           <p>
             A future template pack with service report examples, invoice wording,
-            follow-up messages, and technician note cleanup checklists.
+            follow-up messages, CRM note prompts, and technician note cleanup checklists.
           </p>
 
           <p class="best-for">
@@ -398,12 +500,12 @@
             <h4>Use Jobber if you need help managing follow-up workflow.</h4>
             <p>
               Jobber is the better fit if your main problem is organizing service jobs,
-              customer communication, follow-up tasks, quotes, invoices, and day-to-day workflow.
+              customer communication, follow-up tasks, quotes, invoices, payments, and day-to-day workflow.
             </p>
           </div>
 
           <div class="decision-item">
-            <h4>Use QuickBooks if you need help managing invoices and books.</h4>
+            <h4>Use QuickBooks if the maintenance conversation connects to billing.</h4>
             <p>
               QuickBooks is the better fit if your main problem is tracking income, expenses,
               invoices, payments, bookkeeping, and small-business financial records.
@@ -414,7 +516,7 @@
             <h4>Use the HVAC Paperwork Starter Kit if you want ready-to-use templates.</h4>
             <p>
               The starter kit will be the better fit if you want copy-and-paste examples for
-              service reports, invoice descriptions, customer follow-up messages, and note cleanup.
+              service reports, invoice descriptions, customer follow-up messages, CRM notes, and note cleanup.
             </p>
           </div>
         </div>
@@ -450,65 +552,96 @@
     </section>
 
     <section class="card">
-      <h2>Related HVAC/R tools and templates</h2>
+      <span class="tool-section-label">CRM and Customer Retention Review</span>
+
+      <h2>What should the office check before sending a maintenance pitch?</h2>
+
+      <p>
+        Use this customer-retention review before sending a maintenance plan message, saving a CRM note,
+        or creating a follow-up task.
+      </p>
 
       <ul>
-        <li><a href="hvac-service-report-generator">HVAC Service Report Generator</a></li>
-        <li><a href="hvac-invoice-description-generator">HVAC Invoice Description Generator</a></li>
-        <li><a href="hvac-customer-follow-up-text-generator">HVAC Customer Follow-Up Text Generator</a></li>
-        <li><a href="hvac-maintenance-plan-pitch-generator">HVAC Maintenance Plan Pitch Generator</a></li>
-        <li><a href="hvac-estimate-description-generator">HVAC Estimate Description Generator</a></li>
-        <li><a href="hvac-tune-up-report-template">HVAC Tune-Up Report Template</a></li>
-        <li><a href="ac-repair-service-report-template">AC Repair Service Report Template</a></li>
-        <li><a href="furnace-repair-service-report-template">Furnace Repair Service Report Template</a></li>
-        <li><a href="commercial-refrigeration-service-report-generator">Commercial Refrigeration Service Report Generator</a></li>
-        <li><a href="hvac-technician-notes-examples">HVAC Technician Notes Examples</a></li>
+        <li><strong>Customer fit:</strong> does the maintenance message match the customer’s actual service situation?</li>
+        <li><strong>Customer tone:</strong> does the message sound helpful instead of pushy, urgent, or fear-based?</li>
+        <li><strong>Confirmed details:</strong> are plan benefits, pricing, timing, and terms verified before being mentioned?</li>
+        <li><strong>Service context:</strong> does the message connect naturally to what the technician found or recommended?</li>
+        <li><strong>Next step:</strong> does the customer know whether to reply, approve, schedule, ask questions, or wait?</li>
+        <li><strong>CRM reminder:</strong> should the office add a future follow-up task if the customer is not ready now?</li>
+        <li><strong>Risk language:</strong> does the wording avoid unsupported claims about savings, safety, warranties, and fewer breakdowns?</li>
       </ul>
     </section>
 
     <section class="card">
+      <span class="tool-section-label">Related Tools and Guides</span>
+
+      <h2>Related HVAC/R tools and templates</h2>
+
+      <ul>
+        <li><a href="hvac-service-report-generator">HVAC Service Report Generator</a></li>
+        <li><a href="hvac-customer-follow-up-text-generator">HVAC Customer Follow-Up Text Generator</a></li>
+        <li><a href="hvac-maintenance-agreement-follow-up-template">HVAC Maintenance Agreement Follow-Up Template</a></li>
+        <li><a href="hvac-maintenance-visit-follow-up-email-template">HVAC Maintenance Visit Follow-Up Email Template</a></li>
+        <li><a href="hvac-estimate-description-generator">HVAC Estimate Description Generator</a></li>
+        <li><a href="hvac-invoice-description-generator">HVAC Invoice Description Generator</a></li>
+        <li><a href="hvac-office-admin-paperwork-checklist">HVAC Office Admin Paperwork Checklist</a></li>
+        <li><a href="hvac-technician-notes-examples">HVAC Technician Notes Examples</a></li>
+        <li><a href="hvac-tune-up-report-template">HVAC Tune-Up Report Template</a></li>
+        <li><a href="commercial-refrigeration-service-report-generator">Commercial Refrigeration Service Report Generator</a></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <span class="tool-section-label">FAQ</span>
+
       <h2>Frequently asked questions</h2>
 
       <h3>Who is this HVAC Maintenance Plan Pitch Generator for?</h3>
       <p>
-        It is for HVAC/R owners, office managers, technicians, and admin staff who need a clearer way to
+        It is for HVAC/R owners, office managers, technicians, dispatchers, and admin staff who need a clearer way to
         follow up about maintenance options after a service visit.
       </p>
 
       <h3>What kind of notes should I paste into the tool?</h3>
       <p>
         Paste the job type, technician findings, completed work, system condition notes, customer concerns,
-        and any maintenance recommendation supported by the visit.
+        customer questions, and any maintenance recommendation supported by the visit.
       </p>
 
       <h3>Can I send the generated pitch directly to a customer?</h3>
       <p>
         Use the generated pitch as a starting point. Review it before sending and confirm plan details,
-        pricing, terms, benefits, warranty language, and company-specific maintenance agreement rules.
+        pricing, terms, benefits, warranty language, customer approval, scheduling steps, and company-specific maintenance agreement rules.
       </p>
 
       <h3>Does this tool create maintenance plan pricing?</h3>
       <p>
         No. This tool does not create prices, discounts, contract terms, membership benefits, taxes,
-        or final totals. Any financial or agreement details should be verified by your company before use.
+        renewal rules, cancellation rules, or final totals. Any financial or agreement details should be verified by your company before use.
       </p>
 
       <h3>Can this tool promise fewer repairs or lower utility bills?</h3>
       <p>
-        No. Avoid promising fewer repairs, lower utility bills, longer equipment life, safety, or guaranteed
-        performance unless those claims are verified and supported by your company policy.
+        No. Avoid promising fewer repairs, lower utility bills, longer equipment life, safety, warranty coverage,
+        or guaranteed performance unless those claims are verified and supported by your company policy.
       </p>
 
       <h3>Can I use the result in Jobber, QuickBooks, or another system?</h3>
       <p>
         Yes, you can use the result as a starting point for customer messages, job notes, follow-up records,
-        or maintenance agreement conversations. Review the wording before adding it to any business system.
+        maintenance agreement conversations, or CRM reminders. Review the wording before adding it to any business system.
+      </p>
+
+      <h3>What should happen after the maintenance pitch is sent?</h3>
+      <p>
+        Save the customer communication in the job record, add a follow-up reminder if needed, confirm any agreement details,
+        and create a separate estimate or invoice description when the service notes support it.
       </p>
 
       <h3>Does this replace a maintenance agreement?</h3>
       <p>
         No. This tool helps draft customer communication. It does not replace your actual maintenance agreement,
-        contract terms, pricing sheet, warranty policy, or customer approval process.
+        contract terms, pricing sheet, warranty policy, renewal process, or customer approval process.
       </p>
     </section>
   </main>
@@ -681,7 +814,7 @@
 
       const enrichedTechnicianNotes = [
         customerName ? "Customer first name: " + customerName : "",
-        planDetails ? "Verified maintenance plan details: " + planDetails : "Maintenance plan details were not provided. Do not invent specific pricing, contract terms, or benefits.",
+        planDetails ? "Verified maintenance plan details: " + planDetails : "Maintenance plan details were not provided. Do not invent specific pricing, contract terms, benefits, renewal rules, cancellation rules, warranty terms, or guaranteed outcomes.",
         "",
         "Technician notes:",
         technicianNotes
