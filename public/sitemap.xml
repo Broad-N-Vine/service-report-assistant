@@ -37,17 +37,10 @@
     <loc>https://service-report-assistant.pages.dev/hvac-customer-follow-up-text-generator</loc>
   </url>
 
-  <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-maintenance-plan-pitch-generator</loc>
-  </url>
-
-  <url>
-    <loc>https://service-report-assistant.pages.dev/hvac-estimate-description-generator</loc>
-  </url>
-
-  <url>
-    <loc>https://service-report-assistant.pages.dev/commercial-refrigeration-service-report-generator</loc>
-  </url>
+    <url><loc>https://service-report-assistant.pages.dev/hvac-maintenance-plan-pitch-generator</loc></url>
+  <url><loc>https://service-report-assistant.pages.dev/hvac-estimate-description-generator</loc></url>
+  <url><loc>https://service-report-assistant.pages.dev/hvac-estimate-wording-examples</loc></url>
+  <url><loc>https://service-report-assistant.pages.dev/commercial-refrigeration-service-report-generator</loc></url>
 
   <url>
     <loc>https://service-report-assistant.pages.dev/hvac-technician-notes-examples</loc>
