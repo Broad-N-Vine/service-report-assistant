@@ -128,10 +128,11 @@ test("real service dates remain and the prompt separates work from recommendatio
   assert.match(userPrompt, /Only statements under Confirmed completed work may be described as work that was performed/);
 });
 
-test("the health response identifies the fact-continuity build", async () => {
+test("the health response identifies the continuity model build", async () => {
   const response = await onRequestGet({ env: { AI: {} } });
   const payload = await response.json();
 
   assert.equal(response.status, 200);
-  assert.equal(payload.buildVersion, "service-report-fact-continuity-2026-09-21");
+  assert.equal(payload.buildVersion, "service-report-qwen-continuity-2026-09-21");
+  assert.equal(payload.model, "@cf/qwen/qwen3-30b-a3b-fp8");
 });

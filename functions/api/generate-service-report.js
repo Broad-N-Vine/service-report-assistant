@@ -1,5 +1,5 @@
-const BUILD_VERSION = "service-report-fact-continuity-2026-09-21";
-const DEFAULT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast";
+const BUILD_VERSION = "service-report-qwen-continuity-2026-09-21";
+const DEFAULT_MODEL = "@cf/qwen/qwen3-30b-a3b-fp8";
 
 const JSON_HEADERS = {
   "Content-Type": "application/json; charset=UTF-8",
