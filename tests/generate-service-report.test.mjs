@@ -128,11 +128,28 @@ test("real service dates remain and the prompt separates work from recommendatio
   assert.match(userPrompt, /Only statements under Confirmed completed work may be described as work that was performed/);
 });
 
-test("the health response identifies the continuity model build", async () => {
+test("unsupported performance and efficiency promises are removed", async () => {
+  const payload = await runGenerator({
+    ...baseResult,
+    serviceReport: "The capacitor was replaced. Filter replacement and coil cleaning were recommended for optimal performance.",
+    customerFollowUp: "We recommend replacing the filter and cleaning the coil to maintain system efficiency."
+  });
+
+  assert.equal(
+    payload.result.serviceReport,
+    "The capacitor was replaced. Filter replacement and coil cleaning were recommended."
+  );
+  assert.equal(
+    payload.result.customerFollowUp,
+    "We recommend replacing the filter and cleaning the coil."
+  );
+});
+
+test("the health response identifies the clean-continuity build", async () => {
   const response = await onRequestGet({ env: { AI: {} } });
   const payload = await response.json();
 
   assert.equal(response.status, 200);
-  assert.equal(payload.buildVersion, "service-report-qwen-continuity-2026-09-21");
+  assert.equal(payload.buildVersion, "service-report-clean-continuity-2026-09-21");
   assert.equal(payload.model, "@cf/qwen/qwen3-30b-a3b-fp8");
 });

@@ -1,4 +1,4 @@
-const BUILD_VERSION = "service-report-qwen-continuity-2026-09-21";
+const BUILD_VERSION = "service-report-clean-continuity-2026-09-21";
 const DEFAULT_MODEL = "@cf/qwen/qwen3-30b-a3b-fp8";
 
 const JSON_HEADERS = {
@@ -22,6 +22,7 @@ const SYSTEM_PROMPT = [
   "If a date, model number, serial number, price, or other detail was not provided, omit it from customer-facing sections and mention it only in reviewNotes when it is genuinely useful to review.",
   "Keep completed work, findings, recommendations, declined work, and future work separate in every section.",
   "Never describe recommended, pending, declined, or future work as completed work.",
+  "State recommendations without adding promised benefits such as optimal performance, improved efficiency, fewer repairs, or better comfort unless those benefits are explicitly documented in the technician notes.",
   "The user prompt includes a source-fact map copied from the technician notes. Treat its categories as strict continuity guardrails.",
   "Keep reviewNotes as a JSON array of short, complete sentences with normal punctuation.",
   "",
@@ -77,6 +78,14 @@ function stripPlaceholderOpening(text) {
     .replace(/\bOn[ \t]+\[\s*(?:date|service[ \t]+date)\s*\][ \t]*,?[ \t]*/gi, "");
 }
 
+function removeUnsupportedBenefitClaims(text) {
+  return text
+    .replace(/\s+for\s+(?:continued\s+|optimal\s+)?(?:system\s+)?(?:performance|efficiency|reliability|comfort)\b/gi, "")
+    .replace(/\s+to\s+(?:help\s+)?(?:ensure|maintain|improve|support|promote)\s+(?:continued\s+|optimal\s+)?(?:system\s+)?(?:performance|efficiency|reliability|comfort)\b/gi, "")
+    .replace(/\s+to keep\s+(?:the|your)\s+system\s+running\s+efficiently\b/gi, "")
+    .replace(/\s+to\s+(?:help\s+)?prevent\s+future\s+(?:repairs|breakdowns)\b/gi, "");
+}
+
 function cleanGeneratedText(value) {
   let text = textFromValue(value).replace(/\r\n?/g, "\n");
 
@@ -84,7 +93,7 @@ function cleanGeneratedText(value) {
     return "";
   }
 
-  text = stripPlaceholderOpening(text)
+  text = removeUnsupportedBenefitClaims(stripPlaceholderOpening(text))
     .replace(
       /(^|\n)[ \t]*(?:service[ \t]+date|date|customer(?:[ \t]+name)?|model(?:[ \t]+number)?|serial(?:[ \t]+number)?|price|cost)[ \t]*:[ \t]*(?:\[\s*[^\]\n]+\s*\]|TBD|N\/A)[ \t]*(?=\n|$)/gi,
       "$1"
@@ -386,6 +395,7 @@ function buildUserPrompt(data) {
     "Avoid unsupported claims such as 'ensure optimal performance,' 'prevent future repairs,' or similar guarantees.",
     "Do not assume how the customer feels or how the equipment performed after the documented visit.",
     "Do not say the customer is satisfied, happy, pleased, or enjoying improved comfort unless the technician notes explicitly say so.",
+    "State open recommendations plainly. Do not attach an expected performance, efficiency, comfort, reliability, or repair-prevention benefit unless the notes explicitly document it.",
     "",
     "internalSummary:",
     "Write a short internal office summary.",

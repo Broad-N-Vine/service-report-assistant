@@ -533,6 +533,10 @@
           (_match, firstLetter) => firstLetter.toUpperCase()
         )
         .replace(/\bOn[ \t]+\[\s*(?:date|service[ \t]+date)\s*\][ \t]*,?[ \t]*/gi, "")
+        .replace(/\s+for\s+(?:continued\s+|optimal\s+)?(?:system\s+)?(?:performance|efficiency|reliability|comfort)\b/gi, "")
+        .replace(/\s+to\s+(?:help\s+)?(?:ensure|maintain|improve|support|promote)\s+(?:continued\s+|optimal\s+)?(?:system\s+)?(?:performance|efficiency|reliability|comfort)\b/gi, "")
+        .replace(/\s+to keep\s+(?:the|your)\s+system\s+running\s+efficiently\b/gi, "")
+        .replace(/\s+to\s+(?:help\s+)?prevent\s+future\s+(?:repairs|breakdowns)\b/gi, "")
         .replace(
           /(^|\n)[ \t]*(?:service[ \t]+date|date|customer(?:[ \t]+name)?|model(?:[ \t]+number)?|serial(?:[ \t]+number)?|price|cost)[ \t]*:[ \t]*(?:\[\s*[^\]\n]+\s*\]|TBD|N\/A)[ \t]*(?=\n|$)/gi,
           "$1"
