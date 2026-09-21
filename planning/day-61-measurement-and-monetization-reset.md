@@ -238,3 +238,8 @@ The measurement layer should answer what visitors do, not who they are.
 5. Publish a simple Starter Kit sales page.
 6. Add the paid CTA to only 5-7 high-intent pages.
 7. Begin weekly measurement before expanding content volume again.
+
+## Cloudflare Binding Deployment Check
+
+- Production binding configured: `ANALYTICS_ENGINE` -> `hvac_ai_helper_events`
+- A documentation-only commit was made after the binding was added to force a fresh automatic Cloudflare Pages production deployment.
