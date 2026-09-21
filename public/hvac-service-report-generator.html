@@ -517,17 +517,59 @@
         .replace(/'/g, "&#039;");
     }
 
-    function renderTextBlock(label, value, copyLabel) {
+    function renderTextBlock(label, value, copyLabel, outputId) {
       const safeValue = escapeHtml(value || "Review needed before using this section.");
       const safeLabel = escapeHtml(label);
       const safeCopyLabel = escapeHtml(copyLabel || "Copy");
+      const safeOutputId = escapeHtml(outputId);
 
       return `
         <div class="generated-section">
           <h3>${safeLabel}</h3>
-          <pre class="example-box">${safeValue}</pre>
-          <button class="button secondary copy-result-button" type="button" data-copy="${safeValue}">
+          <pre id="${safeOutputId}" class="example-box">${safeValue}</pre>
+          <button class="button secondary copy-result-button" type="button" data-copy-target="${safeOutputId}">
             ${safeCopyLabel}
+          </button>
+        </div>
+      `;
+    }
+
+    function normalizeReviewNotesForDisplay(value) {
+      let notes = [];
+
+      if (Array.isArray(value)) {
+        notes = value;
+      } else if (typeof value === "string") {
+        notes = value
+          .split(/\n+|\s*\.\s*,\s*|\s*;\s*/)
+          .filter(Boolean);
+      }
+
+      return notes
+        .map((note) => String(note || "").replace(/^[-*•]\s*/, "").trim())
+        .filter(Boolean)
+        .map((note) => /[.!?]$/.test(note) ? note : note + ".");
+    }
+
+    function renderReviewNotes(value) {
+      const notes = normalizeReviewNotesForDisplay(value);
+
+      if (notes.length === 0) {
+        notes.push("Review the final wording before sending it to the customer.");
+      }
+
+      const listItems = notes
+        .map((note) => `<li>${escapeHtml(note)}</li>`)
+        .join("");
+
+      return `
+        <div class="generated-section">
+          <h3>5. Review Notes</h3>
+          <div id="review-notes-output" class="example-box">
+            <ul>${listItems}</ul>
+          </div>
+          <button class="button secondary copy-result-button" type="button" data-copy-target="review-notes-output">
+            Copy Review Notes
           </button>
         </div>
       `;
@@ -538,7 +580,9 @@
 
       copyButtons.forEach((button) => {
         button.addEventListener("click", async () => {
-          const textToCopy = button.getAttribute("data-copy") || "";
+          const targetId = button.getAttribute("data-copy-target") || "";
+          const target = document.getElementById(targetId);
+          const textToCopy = target ? target.innerText.trim() : "";
 
           try {
             await navigator.clipboard.writeText(textToCopy);
@@ -560,11 +604,11 @@
 
       resultBox.innerHTML = `
         <div class="generated-output">
-          ${renderTextBlock("1. Customer-Ready Service Report", output.serviceReport, "Copy Service Report")}
-          ${renderTextBlock("2. Invoice Description", output.invoiceDescription, "Copy Invoice Description")}
-          ${renderTextBlock("3. Customer Follow-Up Message", output.customerFollowUp, "Copy Follow-Up")}
-          ${renderTextBlock("4. Internal Job Summary", output.internalSummary, "Copy Internal Summary")}
-          ${renderTextBlock("5. Review Notes", output.reviewNotes, "Copy Review Notes")}
+          ${renderTextBlock("1. Customer-Ready Service Report", output.serviceReport, "Copy Service Report", "service-report-output")}
+          ${renderTextBlock("2. Invoice Description", output.invoiceDescription, "Copy Invoice Description", "invoice-description-output")}
+          ${renderTextBlock("3. Customer Follow-Up Message", output.customerFollowUp, "Copy Follow-Up", "customer-follow-up-output")}
+          ${renderTextBlock("4. Internal Job Summary", output.internalSummary, "Copy Internal Summary", "internal-summary-output")}
+          ${renderReviewNotes(output.reviewNotes)}
         </div>
       `;
 
@@ -620,6 +664,13 @@
         }
 
         renderGeneratedResult(data.result);
+
+        if (typeof window.hvacTrack === "function") {
+          window.hvacTrack("tool_completion", {
+            tool: "service-report",
+            source: window.location.pathname
+          });
+        }
 
         emailCaptureSection.classList.remove("hidden");
       } catch (error) {
