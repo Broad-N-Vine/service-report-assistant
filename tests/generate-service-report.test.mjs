@@ -15,7 +15,7 @@ const baseResult = {
   reviewNotes: ["Review the final wording before sending it to the customer."]
 };
 
-async function runGenerator(aiResult, onRun) {
+async function runGenerator(aiResult, onRun, bodyOverrides = {}) {
   const request = new Request("https://example.com/api/generate-service-report", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -25,7 +25,8 @@ async function runGenerator(aiResult, onRun) {
       technicianNotes: "Customer reported AC running but not cooling. Replaced weak capacitor after diagnosis.",
       tone: "Professional",
       email: "test@example.com",
-      website: ""
+      website: "",
+      ...bodyOverrides
     })
   });
 
@@ -109,6 +110,9 @@ test("real service dates remain and the prompt separates work from recommendatio
     },
     (_model, options) => {
       userPrompt = options.messages.find((message) => message.role === "user").content;
+    },
+    {
+      technicianNotes: "Customer said AC was running but not cooling. Found weak capacitor. Replaced capacitor. Filter clogged. Outdoor coil dirty. System cooling with 18-degree temperature split after repair. Recommended filter replacement and coil cleaning."
     }
   );
 
@@ -119,12 +123,15 @@ test("real service dates remain and the prompt separates work from recommendatio
   assert.match(userPrompt, /A recommendation is not completed work\./);
   assert.match(userPrompt, /only the capacitor replacement was completed\./);
   assert.match(userPrompt, /Do not add a report title or company heading\./);
+  assert.match(userPrompt, /Confirmed completed work:\n- Replaced capacitor\./);
+  assert.match(userPrompt, /Recommendations, declined items, or open work:\n- Recommended filter replacement and coil cleaning\./);
+  assert.match(userPrompt, /Only statements under Confirmed completed work may be described as work that was performed/);
 });
 
-test("the health response identifies the continuity-cleanup build", async () => {
+test("the health response identifies the fact-continuity build", async () => {
   const response = await onRequestGet({ env: { AI: {} } });
   const payload = await response.json();
 
   assert.equal(response.status, 200);
-  assert.equal(payload.buildVersion, "service-report-continuity-cleanup-2026-09-21");
+  assert.equal(payload.buildVersion, "service-report-fact-continuity-2026-09-21");
 });

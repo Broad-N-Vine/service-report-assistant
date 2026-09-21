@@ -1,4 +1,4 @@
-const BUILD_VERSION = "service-report-continuity-cleanup-2026-09-21";
+const BUILD_VERSION = "service-report-fact-continuity-2026-09-21";
 const DEFAULT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast";
 
 const JSON_HEADERS = {
@@ -22,6 +22,7 @@ const SYSTEM_PROMPT = [
   "If a date, model number, serial number, price, or other detail was not provided, omit it from customer-facing sections and mention it only in reviewNotes when it is genuinely useful to review.",
   "Keep completed work, findings, recommendations, declined work, and future work separate in every section.",
   "Never describe recommended, pending, declined, or future work as completed work.",
+  "The user prompt includes a source-fact map copied from the technician notes. Treat its categories as strict continuity guardrails.",
   "Keep reviewNotes as a JSON array of short, complete sentences with normal punctuation.",
   "",
   "Do not mention that you are an AI.",
@@ -255,6 +256,80 @@ function validateRequestBody(body) {
   };
 }
 
+function splitTechnicianNoteStatements(value) {
+  return cleanText(value)
+    .replace(/\r\n?/g, "\n")
+    .replace(
+      /\s+(?:and|but)\s+(?=(?:recommend(?:ed|s|ing)?|advise(?:d|s|ing)?|suggest(?:ed|s|ing)?|declin(?:ed|es|ing)?|defer(?:red|s|ring)?|pending)\b)/gi,
+      "\n"
+    )
+    .replace(/([.!?])[ \t]+(?=[A-Z0-9])/g, "$1\n")
+    .replace(/[;\n]+/g, "\n")
+    .split("\n")
+    .map(function (statement) {
+      return statement.trim();
+    })
+    .filter(Boolean);
+}
+
+function classifyTechnicianNotes(value) {
+  const facts = {
+    customerReported: [],
+    findings: [],
+    completedWork: [],
+    documentedResults: [],
+    recommendations: [],
+    other: []
+  };
+
+  splitTechnicianNoteStatements(value).forEach(function (statement) {
+    if (/\b(?:recommend(?:ed|s|ing)?|advise(?:d|s|ing)?|suggest(?:ed|s|ing)?|declin(?:ed|es|ing)?|defer(?:red|s|ring)?|pending|future|estimate|quote|return visit|follow[- ]?up(?: visit)?|should|needs? to)\b/i.test(statement)) {
+      facts.recommendations.push(statement);
+    } else if (/\b(?:customer|client|tenant|owner)\b.*\b(?:report(?:ed|s|ing)?|said|stated|complain(?:ed|s|ing)?|notic(?:ed|es|ing)?|request(?:ed|s|ing)?)\b/i.test(statement)) {
+      facts.customerReported.push(statement);
+    } else if (/\b(?:replac(?:ed|ing)|repair(?:ed|ing)|clean(?:ed|ing)|clear(?:ed|ing)|flush(?:ed|ing)|install(?:ed|ing)|adjust(?:ed|ing)|tighten(?:ed|ing)|seal(?:ed|ing)|reset|restor(?:ed|ing)|remov(?:ed|ing)|lubricat(?:ed|ing)|perform(?:ed|ing)|complet(?:ed|ing)|chang(?:ed|ing)|servic(?:ed|ing)|tested|checked)\b/i.test(statement)) {
+      facts.completedWork.push(statement);
+    } else if (/\b(?:after (?:the )?(?:repair|service)|temperature split|operat(?:ed|ing)|cooling|heating|draining|cycled|started|running|reading(?:s)?|measured|verified|confirmed)\b/i.test(statement)) {
+      facts.documentedResults.push(statement);
+    } else if (/\b(?:found|observed|noted|diagnosed|inspection|weak|failed|dirty|clogged|restricted|leak(?:ing|ed)?|damaged|low|high|not (?:cooling|heating|running|working))\b/i.test(statement)) {
+      facts.findings.push(statement);
+    } else {
+      facts.other.push(statement);
+    }
+  });
+
+  return facts;
+}
+
+function buildFactMapLines(technicianNotes) {
+  const facts = classifyTechnicianNotes(technicianNotes);
+  const groups = [
+    ["Customer-reported issue", facts.customerReported],
+    ["Confirmed findings", facts.findings],
+    ["Confirmed completed work", facts.completedWork],
+    ["Documented results or readings", facts.documentedResults],
+    ["Recommendations, declined items, or open work", facts.recommendations],
+    ["Other source statements", facts.other]
+  ];
+  const lines = [];
+
+  groups.forEach(function (group) {
+    lines.push(group[0] + ":");
+
+    if (group[1].length === 0) {
+      lines.push("- None explicitly stated.");
+    } else {
+      group[1].forEach(function (statement) {
+        lines.push("- " + statement);
+      });
+    }
+
+    lines.push("");
+  });
+
+  return lines;
+}
+
 function buildUserPrompt(data) {
   const companyName = data.companyName || "Not provided";
 
@@ -270,6 +345,14 @@ function buildUserPrompt(data) {
     "",
     "Technician notes:",
     data.technicianNotes,
+    "",
+    "Source-fact map copied from the technician notes:",
+    ...buildFactMapLines(data.technicianNotes),
+    "Continuity requirements:",
+    "- Only statements under Confirmed completed work may be described as work that was performed, completed, repaired, replaced, cleaned, installed, or billed.",
+    "- Confirmed findings must remain findings unless the same action also appears under Confirmed completed work.",
+    "- Recommendations, declined items, and open work must remain recommendations, declined items, or open work in every output section.",
+    "- Do not move an item from one source-fact category into another.",
     "",
     "Create a clean HVAC/R service paperwork package based only on the information provided.",
     "",
@@ -302,6 +385,7 @@ function buildUserPrompt(data) {
     "Write a short text-message or email-style follow-up.",
     "Avoid unsupported claims such as 'ensure optimal performance,' 'prevent future repairs,' or similar guarantees.",
     "Do not assume how the customer feels or how the equipment performed after the documented visit.",
+    "Do not say the customer is satisfied, happy, pleased, or enjoying improved comfort unless the technician notes explicitly say so.",
     "",
     "internalSummary:",
     "Write a short internal office summary.",
