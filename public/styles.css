@@ -791,6 +791,10 @@ pre.example-box {
   padding-left: 1.25rem;
 }
 
+#review-notes-output {
+  white-space: normal;
+}
+
 .generated-output .review-notes-list li {
   margin: 0;
 }
