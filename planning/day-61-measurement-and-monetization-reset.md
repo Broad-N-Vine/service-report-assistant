@@ -243,3 +243,9 @@ The measurement layer should answer what visitors do, not who they are.
 
 - Production binding configured: `ANALYTICS_ENGINE` -> `hvac_ai_helper_events`
 - A documentation-only commit was made after the binding was added to force a fresh automatic Cloudflare Pages production deployment.
+
+
+## Analytics Engine Enablement Check
+
+- Cloudflare account-level Analytics Engine was enabled on 2026-09-20.
+- This commit exists only to trigger a fresh automatic Production deployment so the existing `ANALYTICS_ENGINE` binding can attach successfully.
