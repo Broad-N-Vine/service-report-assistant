@@ -36,6 +36,21 @@
     return cleanPath(window.location.href);
   }
 
+  function getSessionId() {
+    const key = "hvac_ai_helper_session";
+    let sessionId = sessionStorage.getItem(key);
+
+    if (!sessionId) {
+      sessionId = (window.crypto && typeof window.crypto.randomUUID === "function")
+        ? window.crypto.randomUUID()
+        : Math.random().toString(36).slice(2) + Date.now().toString(36);
+
+      sessionStorage.setItem(key, sessionId);
+    }
+
+    return cleanValue(sessionId, 80);
+  }
+
   function sendToCloudflare(eventName, properties) {
     if (window.zaraz && typeof window.zaraz.track === "function") {
       try {
@@ -73,7 +88,8 @@
       tool: cleanValue(properties.tool),
       partner: cleanValue(properties.partner),
       target: cleanValue(properties.target, 160),
-      source: cleanValue(properties.source, 160)
+      source: cleanValue(properties.source, 160),
+      session: getSessionId()
     };
 
     sendToCloudflare(eventName, safeProperties);
@@ -81,6 +97,10 @@
   }
 
   window.hvacTrack = track;
+
+  track("page_view", {
+    source: document.referrer ? cleanPath(document.referrer) : ""
+  });
 
   function inferToolFromHref(href) {
     try {
