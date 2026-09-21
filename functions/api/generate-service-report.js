@@ -1,4 +1,4 @@
-const BUILD_VERSION = "workers-ai-honeypot-cleanup-2026-08-14";
+const BUILD_VERSION = "service-report-output-cleanup-2026-09-20";
 const DEFAULT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast";
 
 const JSON_HEADERS = {
@@ -18,6 +18,9 @@ const SYSTEM_PROMPT = [
   "Keep the tone professional and useful.",
   "",
   "Always flag missing or unclear information instead of guessing.",
+  "Never insert placeholders such as [date], [name], [model], TBD, N/A, or blank template fields into customer-facing output.",
+  "If a date, model number, serial number, price, or other detail was not provided, omit it from customer-facing sections and mention it only in reviewNotes when it is genuinely useful to review.",
+  "Keep reviewNotes as a JSON array of short, complete sentences with normal punctuation.",
   "",
   "Do not mention that you are an AI.",
   "",
@@ -57,6 +60,67 @@ function textFromValue(value) {
   }
 
   return "";
+}
+
+
+function cleanGeneratedText(value) {
+  let text = textFromValue(value);
+
+  if (!text) {
+    return "";
+  }
+
+  text = text
+    .replace(/^\s*On\s+\[(?:date|service date)\]\s*,?\s*/i, "")
+    .replace(/\[(?:date|service date|customer|customer name|model|model number|serial|serial number|price|cost)\]/gi, "")
+    .replace(/\b(?:TBD|N\/A)\b/gi, "")
+    .replace(/\s+([,.;:!?])/g, "$1")
+    .replace(/([,.;:!?])\s*([,.;:!?])+/g, "$1")
+    .replace(/\s{2,}/g, " ")
+    .replace(/^\s*[,.;:]\s*/g, "")
+    .trim();
+
+  return text;
+}
+
+function normalizeReviewNotes(value) {
+  let notes = [];
+
+  if (Array.isArray(value)) {
+    notes = value;
+  } else if (typeof value === "string") {
+    notes = value
+      .split(/\n+|\s*\.\s*,\s*|\s*;\s*/)
+      .filter(Boolean);
+  }
+
+  const cleaned = [];
+  const seen = new Set();
+
+  notes.forEach(function (note) {
+    let text = cleanGeneratedText(
+      typeof note === "string" ? note.replace(/^[-*•]\s*/, "") : ""
+    );
+
+    if (!text) {
+      return;
+    }
+
+    text = text.replace(/^[,.;:\s]+|[,;:\s]+$/g, "").trim();
+
+    if (!/[.!?]$/.test(text)) {
+      text += ".";
+    }
+
+    const key = text.toLowerCase();
+
+    if (!seen.has(key)) {
+      seen.add(key);
+      cleaned.push(text);
+    }
+  });
+
+  return cleaned;
 }
 
 function isValidEmail(email) {
@@ -178,18 +242,23 @@ function buildUserPrompt(data) {
     "",
     "serviceReport:",
     "Write a clear customer-ready service report. Include what was reported, what was found, what work was completed, and any supported recommendation.",
+    "Do not add a date line, opening date phrase, model number, serial number, price, or other field unless it was actually provided in the technician notes or form data.",
+    "Never use bracketed placeholders or template filler such as [date], [customer], TBD, or N/A.",
     "",
     "invoiceDescription:",
     "Write 1 to 3 short invoice lines based only on confirmed work.",
     "",
     "customerFollowUp:",
     "Write a short text-message or email-style follow-up.",
+    "Avoid unsupported claims such as 'ensure optimal performance,' 'prevent future repairs,' or similar guarantees.",
     "",
     "internalSummary:",
     "Write a short internal office summary.",
     "",
     "reviewNotes:",
-    "List missing details, unclear items, and human review reminders.",
+    "Return a JSON array of short, complete sentences. Each array item should contain one clear review point.",
+    "Do not combine multiple notes into one comma-separated string.",
+    "Only flag missing information that would materially help the office review or finalize the paperwork.",
     "",
     "Rules:",
     "- Do not invent facts.",
@@ -202,8 +271,9 @@ function buildUserPrompt(data) {
     "- Do not claim the system is fully fixed unless the notes clearly say that.",
     "- Do not claim the system is safe unless the notes clearly support that.",
     "- Do not guarantee fewer repairs, lower bills, or better comfort.",
-    "- If the notes are too vague, explain what information is missing.",
-    "- Always include a reminder to review before sending to customer."
+    "- If the notes are too vague, explain what information is missing in reviewNotes.",
+    "- Do not use placeholders in any customer-facing section.",
+    "- Always include a reminder to review before sending to the customer."
   ].join("\n");
 }
 
@@ -282,7 +352,7 @@ function normalizeAiResult(result) {
     return null;
   }
 
-  const serviceReport = textFromValue(
+  const serviceReport = cleanGeneratedText(
     result.serviceReport ||
     result.customerReadyServiceReport ||
     result.customer_ready_service_report ||
@@ -290,7 +360,7 @@ function normalizeAiResult(result) {
     result.service_report
   );
 
-  const invoiceDescription = textFromValue(
+  const invoiceDescription = cleanGeneratedText(
     result.invoiceDescription ||
     result.invoice_description ||
     result.invoice ||
@@ -298,7 +368,7 @@ function normalizeAiResult(result) {
     result.invoice_lines
   );
 
-  const customerFollowUp = textFromValue(
+  const customerFollowUp = cleanGeneratedText(
     result.customerFollowUp ||
     result.customer_follow_up ||
     result.followUp ||
@@ -307,7 +377,7 @@ function normalizeAiResult(result) {
     result.customer_message
   );
 
-  const internalSummary = textFromValue(
+  const internalSummary = cleanGeneratedText(
     result.internalSummary ||
     result.internal_summary ||
     result.summary ||
@@ -315,30 +385,12 @@ function normalizeAiResult(result) {
     result.office_summary
   );
 
-  let reviewNotes = [];
-
-  if (Array.isArray(result.reviewNotes)) {
-    reviewNotes = result.reviewNotes
-      .map(function (note) {
-        return typeof note === "string" ? note.trim() : "";
-      })
-      .filter(Boolean);
-  } else if (typeof result.reviewNotes === "string") {
-    reviewNotes = result.reviewNotes
-      .split("\n")
-      .map(function (note) {
-        return note.replace(/^[-*]\s*/, "").trim();
-      })
-      .filter(Boolean);
-  } else if (Array.isArray(result.missingInformation)) {
-    reviewNotes = result.missingInformation
-      .map(function (note) {
-        return typeof note === "string" ? note.trim() : "";
-      })
-      .filter(Boolean);
-  } else if (typeof result.missingInformation === "string") {
-    reviewNotes = [result.missingInformation.trim()];
-  }
+  let reviewNotes = normalizeReviewNotes(
+    result.reviewNotes ||
+    result.review_notes ||
+    result.missingInformation ||
+    result.missing_information
+  );
 
   const anyMainOutput =
     serviceReport ||
@@ -367,10 +419,15 @@ function normalizeAiResult(result) {
     "HVAC/R service visit notes were submitted. Office review is needed before sending customer-facing paperwork.";
 
   if (reviewNotes.length === 0) {
-    reviewNotes.push("Review final wording before sending to the customer.");
+    reviewNotes.push("Review the final wording before sending it to the customer.");
   }
 
-  reviewNotes.push("Confirm pricing, parts, readings, warranty language, customer approval, and company-specific details before sending.");
+  const standardReviewNote = "Confirm pricing, parts, readings, warranty language, customer approval, and company-specific details before sending.";
+  if (!reviewNotes.some(function (note) {
+    return note.toLowerCase() === standardReviewNote.toLowerCase();
+  })) {
+    reviewNotes.push(standardReviewNote);
+  }
 
   return {
     serviceReport: safeServiceReport,
