@@ -40,6 +40,7 @@ The site now has a lightweight first-party analytics layer:
 
 Tracked event names:
 
+- `page_view`
 - `tool_start`
 - `tool_completion`
 - `tool_cta_click`
@@ -79,11 +80,24 @@ The tracking function writes:
 - `blob3` = affiliate partner
 - `blob4` = target
 - `blob5` = source page
+- `blob6` = anonymous per-tab session ID
 - `double1` = 1
 
 ---
 
 ## Useful weekly SQL queries
+
+### Estimated visits — last 7 days
+
+```sql
+SELECT
+  COUNT(DISTINCT blob6) AS sessions,
+  SUM(_sample_interval) AS page_views
+FROM hvac_ai_helper_events
+WHERE
+  timestamp > NOW() - INTERVAL '7' DAY
+  AND index1 = 'page_view'
+```
 
 ### Event totals — last 7 days
 
