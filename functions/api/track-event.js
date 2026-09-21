@@ -1,4 +1,5 @@
 const ALLOWED_EVENTS = new Set([
+  "page_view",
   "tool_start",
   "tool_completion",
   "tool_cta_click",
@@ -76,11 +77,12 @@ export async function onRequestPost(context) {
   const partner = cleanText(properties.partner, 80);
   const target = cleanText(properties.target, 160);
   const source = cleanText(properties.source, 160);
+  const session = cleanText(properties.session, 80);
 
   if (env.ANALYTICS_ENGINE && typeof env.ANALYTICS_ENGINE.writeDataPoint === "function") {
     env.ANALYTICS_ENGINE.writeDataPoint({
       indexes: [eventName],
-      blobs: [page, tool, partner, target, source],
+      blobs: [page, tool, partner, target, source, session],
       doubles: [1]
     });
   }
