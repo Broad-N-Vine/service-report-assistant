@@ -1,4 +1,4 @@
-const BUILD_VERSION = "service-report-output-cleanup-2026-09-20";
+const BUILD_VERSION = "service-report-continuity-cleanup-2026-09-21";
 const DEFAULT_MODEL = "@cf/meta/llama-3.1-8b-instruct-fast";
 
 const JSON_HEADERS = {
@@ -20,6 +20,8 @@ const SYSTEM_PROMPT = [
   "Always flag missing or unclear information instead of guessing.",
   "Never insert placeholders such as [date], [name], [model], TBD, N/A, or blank template fields into customer-facing output.",
   "If a date, model number, serial number, price, or other detail was not provided, omit it from customer-facing sections and mention it only in reviewNotes when it is genuinely useful to review.",
+  "Keep completed work, findings, recommendations, declined work, and future work separate in every section.",
+  "Never describe recommended, pending, declined, or future work as completed work.",
   "Keep reviewNotes as a JSON array of short, complete sentences with normal punctuation.",
   "",
   "Do not mention that you are an AI.",
@@ -63,56 +65,102 @@ function textFromValue(value) {
 }
 
 
+function stripPlaceholderOpening(text) {
+  return text
+    .replace(
+      /\bOn[ \t]+\[\s*(?:date|service[ \t]+date)\s*\][ \t]*,?[ \t]*([a-z])/gi,
+      function (_match, firstLetter) {
+        return firstLetter.toUpperCase();
+      }
+    )
+    .replace(/\bOn[ \t]+\[\s*(?:date|service[ \t]+date)\s*\][ \t]*,?[ \t]*/gi, "");
+}
+
 function cleanGeneratedText(value) {
-  let text = textFromValue(value);
+  let text = textFromValue(value).replace(/\r\n?/g, "\n");
 
   if (!text) {
     return "";
   }
 
-  text = text
-    .replace(/^\s*On\s+\[(?:date|service date)\]\s*,?\s*/i, "")
-    .replace(/\[(?:date|service date|customer|customer name|model|model number|serial|serial number|price|cost)\]/gi, "")
+  text = stripPlaceholderOpening(text)
+    .replace(
+      /(^|\n)[ \t]*(?:service[ \t]+date|date|customer(?:[ \t]+name)?|model(?:[ \t]+number)?|serial(?:[ \t]+number)?|price|cost)[ \t]*:[ \t]*(?:\[\s*[^\]\n]+\s*\]|TBD|N\/A)[ \t]*(?=\n|$)/gi,
+      "$1"
+    )
+    .replace(/\[\s*(?:date|service[ \t]+date|customer|customer[ \t]+name|model|model[ \t]+number|serial|serial[ \t]+number|price|cost)\s*\]/gi, "")
     .replace(/\b(?:TBD|N\/A)\b/gi, "")
-    .replace(/\s+([,.;:!?])/g, "$1")
-    .replace(/([,.;:!?])\s*([,.;:!?])+/g, "$1")
-    .replace(/\s{2,}/g, " ")
-    .replace(/^\s*[,.;:]\s*/g, "")
+    .replace(/\bOn[ \t]*,[ \t]*([a-z])/gi, function (_match, firstLetter) {
+      return firstLetter.toUpperCase();
+    })
+    .replace(/[ \t]+([,.;:!?])/g, "$1")
+    .replace(/([.!?])[ \t]*[,;:]+/g, "$1")
+    .replace(/([,;:])[ \t]*([,;:])+/g, "$1")
+    .replace(/([.!?])[ \t]*([.!?])+/g, "$1")
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n[ \t]+/g, "\n")
+    .replace(/^\s*[,.;:]+[ \t]*/gm, "")
+    .replace(/\n{3,}/g, "\n\n")
     .trim();
 
   return text;
 }
 
+function splitReviewNoteEntries(value) {
+  const rawNotes = Array.isArray(value)
+    ? value
+    : (typeof value === "string" ? [value] : []);
+  const entries = [];
+  const reviewNoteStarter = "(?:Missing|Confirm|Review|Verify|Check|Clarify|Add|Include|Document|Record|Provide)";
+
+  rawNotes.forEach(function (note) {
+    if (typeof note !== "string") {
+      return;
+    }
+
+    let text = note.replace(/\r\n?/g, "\n");
+
+    text = text
+      .replace(new RegExp("([.!?])\\s*[,;:]+\\s*(?=" + reviewNoteStarter + "\\b)", "gi"), "$1\n")
+      .replace(new RegExp("([.!?])\\s*(?=" + reviewNoteStarter + "\\b)", "gi"), "$1\n")
+      .replace(new RegExp("[,;]+\\s*(?=" + reviewNoteStarter + "\\b)", "gi"), "\n")
+      .replace(/\s*;\s*(?=[A-Z])/g, "\n");
+
+    text.split(/\n+/).forEach(function (entry) {
+      if (entry.trim()) {
+        entries.push(entry);
+      }
+    });
+  });
+
+  return entries;
+}
+
 function normalizeReviewNotes(value) {
-  let notes = [];
-
-  if (Array.isArray(value)) {
-    notes = value;
-  } else if (typeof value === "string") {
-    notes = value
-      .split(/\n+|\s*\.\s*,\s*|\s*;\s*/)
-      .filter(Boolean);
-  }
-
   const cleaned = [];
   const seen = new Set();
 
-  notes.forEach(function (note) {
+  splitReviewNoteEntries(value).forEach(function (note) {
     let text = cleanGeneratedText(
-      typeof note === "string" ? note.replace(/^[-*•]\s*/, "") : ""
+      note.replace(/^(?:[-*•]|\d+[.)])[ \t]*/, "")
     );
 
     if (!text) {
       return;
     }
 
-    text = text.replace(/^[,.;:\s]+|[,;:\s]+$/g, "").trim();
+    text = text
+      .replace(/^[,.;:\s]+/, "")
+      .replace(/[,;:\s]+$/, "")
+      .replace(/([.!?])(?:[.,;:!?])+$/, "$1")
+      .trim();
 
     if (!/[.!?]$/.test(text)) {
       text += ".";
     }
 
-    const key = text.toLowerCase();
+    const key = text.toLowerCase().replace(/[.!?]+$/, "");
 
     if (!seen.has(key)) {
       seen.add(key);
@@ -243,22 +291,27 @@ function buildUserPrompt(data) {
     "serviceReport:",
     "Write a clear customer-ready service report. Include what was reported, what was found, what work was completed, and any supported recommendation.",
     "Do not add a date line, opening date phrase, model number, serial number, price, or other field unless it was actually provided in the technician notes or form data.",
+    "Do not add a report title or company heading. Start directly with the service narrative.",
     "Never use bracketed placeholders or template filler such as [date], [customer], TBD, or N/A.",
     "",
     "invoiceDescription:",
     "Write 1 to 3 short invoice lines based only on confirmed work.",
+    "Include only work the notes explicitly say was completed. Do not bill or take credit for a finding, recommendation, declined item, or future service.",
     "",
     "customerFollowUp:",
     "Write a short text-message or email-style follow-up.",
     "Avoid unsupported claims such as 'ensure optimal performance,' 'prevent future repairs,' or similar guarantees.",
+    "Do not assume how the customer feels or how the equipment performed after the documented visit.",
     "",
     "internalSummary:",
     "Write a short internal office summary.",
+    "Keep completed work separate from open recommendations and declined work.",
     "",
     "reviewNotes:",
     "Return a JSON array of short, complete sentences. Each array item should contain one clear review point.",
     "Do not combine multiple notes into one comma-separated string.",
     "Only flag missing information that would materially help the office review or finalize the paperwork.",
+    "Do not invent whether the customer was charged, approved work, declined work, or created a sales opportunity.",
     "",
     "Rules:",
     "- Do not invent facts.",
@@ -271,6 +324,8 @@ function buildUserPrompt(data) {
     "- Do not claim the system is fully fixed unless the notes clearly say that.",
     "- Do not claim the system is safe unless the notes clearly support that.",
     "- Do not guarantee fewer repairs, lower bills, or better comfort.",
+    "- A recommendation is not completed work. If the notes say an item was recommended, keep it out of completed-work and invoice wording.",
+    "- Example: 'Replaced capacitor. Recommended filter replacement and coil cleaning.' means only the capacitor replacement was completed.",
     "- If the notes are too vague, explain what information is missing in reviewNotes.",
     "- Do not use placeholders in any customer-facing section.",
     "- Always include a reminder to review before sending to the customer."

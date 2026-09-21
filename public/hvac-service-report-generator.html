@@ -517,8 +517,46 @@
         .replace(/'/g, "&#039;");
     }
 
+    function normalizeGeneratedTextForDisplay(value) {
+      let text = Array.isArray(value)
+        ? value.map((item) => typeof item === "string" ? item.trim() : "").filter(Boolean).join("\n")
+        : (typeof value === "string" ? value.trim() : "");
+
+      if (!text) {
+        return "";
+      }
+
+      text = text
+        .replace(/\r\n?/g, "\n")
+        .replace(
+          /\bOn[ \t]+\[\s*(?:date|service[ \t]+date)\s*\][ \t]*,?[ \t]*([a-z])/gi,
+          (_match, firstLetter) => firstLetter.toUpperCase()
+        )
+        .replace(/\bOn[ \t]+\[\s*(?:date|service[ \t]+date)\s*\][ \t]*,?[ \t]*/gi, "")
+        .replace(
+          /(^|\n)[ \t]*(?:service[ \t]+date|date|customer(?:[ \t]+name)?|model(?:[ \t]+number)?|serial(?:[ \t]+number)?|price|cost)[ \t]*:[ \t]*(?:\[\s*[^\]\n]+\s*\]|TBD|N\/A)[ \t]*(?=\n|$)/gi,
+          "$1"
+        )
+        .replace(/\[\s*(?:date|service[ \t]+date|customer|customer[ \t]+name|model|model[ \t]+number|serial|serial[ \t]+number|price|cost)\s*\]/gi, "")
+        .replace(/\b(?:TBD|N\/A)\b/gi, "")
+        .replace(/\bOn[ \t]*,[ \t]*([a-z])/gi, (_match, firstLetter) => firstLetter.toUpperCase())
+        .replace(/[ \t]+([,.;:!?])/g, "$1")
+        .replace(/([.!?])[ \t]*[,;:]+/g, "$1")
+        .replace(/([,;:])[ \t]*([,;:])+/g, "$1")
+        .replace(/([.!?])[ \t]*([.!?])+/g, "$1")
+        .replace(/[ \t]{2,}/g, " ")
+        .replace(/[ \t]+\n/g, "\n")
+        .replace(/\n[ \t]+/g, "\n")
+        .replace(/^\s*[,.;:]+[ \t]*/gm, "")
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+
+      return text;
+    }
+
     function renderTextBlock(label, value, copyLabel, outputId) {
-      const safeValue = escapeHtml(value || "Review needed before using this section.");
+      const cleanValue = normalizeGeneratedTextForDisplay(value);
+      const safeValue = escapeHtml(cleanValue || "Review needed before using this section.");
       const safeLabel = escapeHtml(label);
       const safeCopyLabel = escapeHtml(copyLabel || "Copy");
       const safeOutputId = escapeHtml(outputId);
@@ -534,21 +572,67 @@
       `;
     }
 
+    function splitReviewNoteEntriesForDisplay(value) {
+      const rawNotes = Array.isArray(value)
+        ? value
+        : (typeof value === "string" ? [value] : []);
+      const entries = [];
+      const reviewNoteStarter = "(?:Missing|Confirm|Review|Verify|Check|Clarify|Add|Include|Document|Record|Provide)";
+
+      rawNotes.forEach((note) => {
+        if (typeof note !== "string") {
+          return;
+        }
+
+        const text = note
+          .replace(/\r\n?/g, "\n")
+          .replace(new RegExp("([.!?])\\s*[,;:]+\\s*(?=" + reviewNoteStarter + "\\b)", "gi"), "$1\n")
+          .replace(new RegExp("([.!?])\\s*(?=" + reviewNoteStarter + "\\b)", "gi"), "$1\n")
+          .replace(new RegExp("[,;]+\\s*(?=" + reviewNoteStarter + "\\b)", "gi"), "\n")
+          .replace(/\s*;\s*(?=[A-Z])/g, "\n");
+
+        text.split(/\n+/).forEach((entry) => {
+          if (entry.trim()) {
+            entries.push(entry);
+          }
+        });
+      });
+
+      return entries;
+    }
+
     function normalizeReviewNotesForDisplay(value) {
-      let notes = [];
+      const notes = [];
+      const seen = new Set();
 
-      if (Array.isArray(value)) {
-        notes = value;
-      } else if (typeof value === "string") {
-        notes = value
-          .split(/\n+|\s*\.\s*,\s*|\s*;\s*/)
-          .filter(Boolean);
-      }
+      splitReviewNoteEntriesForDisplay(value).forEach((note) => {
+        let text = normalizeGeneratedTextForDisplay(
+          note.replace(/^(?:[-*•]|\d+[.)])[ \t]*/, "")
+        );
 
-      return notes
-        .map((note) => String(note || "").replace(/^[-*•]\s*/, "").trim())
-        .filter(Boolean)
-        .map((note) => /[.!?]$/.test(note) ? note : note + ".");
+        text = text
+          .replace(/^[,.;:\s]+/, "")
+          .replace(/[,;:\s]+$/, "")
+          .replace(/([.!?])(?:[.,;:!?])+$/, "$1")
+          .trim();
+
+        if (!text) {
+          return;
+        }
+
+        if (!/[.!?]$/.test(text)) {
+          text += ".";
+        }
+
+        const key = text.toLowerCase().replace(/[.!?]+$/, "");
+
+        if (!seen.has(key)) {
+          seen.add(key);
+          notes.push(text);
+        }
+      });
+
+      return notes;
     }
 
     function renderReviewNotes(value) {
@@ -566,7 +650,7 @@
         <div class="generated-section">
           <h3>5. Review Notes</h3>
           <div id="review-notes-output" class="example-box">
-            <ul>${listItems}</ul>
+            <ul class="review-notes-list">${listItems}</ul>
           </div>
           <button class="button secondary copy-result-button" type="button" data-copy-target="review-notes-output">
             Copy Review Notes

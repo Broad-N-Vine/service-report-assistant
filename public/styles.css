@@ -784,6 +784,17 @@ pre.example-box {
   background: #ffffff;
 }
 
+.generated-output .review-notes-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.generated-output .review-notes-list li {
+  margin: 0;
+}
+
 .copy-button {
   margin-bottom: 8px;
 }
