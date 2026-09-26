@@ -1755,3 +1755,40 @@ main.container + .site-footer {
     margin-top: 26px;
   }
 }
+
+
+/* Quick Pack landing page */
+.quick-pack-hero {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: start;
+}
+
+.quick-pack-hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+}
+
+.quick-pack-signup {
+  position: relative;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  scroll-margin-top: 100px;
+}
+
+.quick-pack-signup > .field-help {
+  margin: 14px 4px 0;
+  font-size: 0.875rem;
+}
+
+.quick-pack-format,
+.email-capture-card > .field-help {
+  margin-top: 16px;
+}
+
+@media (max-width: 920px) {
+  .quick-pack-hero {
+    grid-template-columns: 1fr;
+  }
+}
