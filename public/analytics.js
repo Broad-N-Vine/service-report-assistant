@@ -161,7 +161,8 @@
         });
       }
 
-      if (normalizedPath === "/hvac-service-paperwork-quick-pack") {
+      if (normalizedPath === "/hvac-service-paperwork-quick-pack" &&
+          normalizedPath !== getPagePath().replace(/\.html$/, "")) {
         track("lead_magnet_click", {
           target: normalizedPath,
           source: getPagePath()
